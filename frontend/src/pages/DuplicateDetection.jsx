@@ -1,28 +1,46 @@
 import { useState, useEffect } from 'react';
 import { api } from '../api';
-import { Copy, AlertTriangle } from 'lucide-react';
+import { Copy, AlertTriangle, X, Check, XCircle } from 'lucide-react';
 
 export default function DuplicateDetection() {
   const [duplicates, setDuplicates] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedComparison, setSelectedComparison] = useState(null);
 
   useEffect(() => {
     api.getDuplicates().then(data => {
       setDuplicates(data);
       setLoading(false);
     }).catch(err => {
-      setDuplicates([{
-        work_a: 'MPL-2026-0321', work_b: 'MPL-2026-0322',
-        name_a: 'Construction of Community Hall', name_b: 'Community Hall Construction',
-        district: 'Rampur', category: 'Infrastructure',
-        cost_a: 2000000, cost_b: 1980000, similarity: 87, status: 'Requires Verification'
-      }]);
+      // Mock Data if endpoint fails
+      setDuplicates([
+        {
+          work_a: 'MPL-2026-1002', work_b: 'MPL-2026-1027',
+          name_a: 'Health Project 2', name_b: 'Health Project 27',
+          district: 'Nainital', category: 'Health',
+          cost_a: 5000000, cost_b: 5000000, similarity: 90, status: 'Requires Verification'
+        },
+        {
+          work_a: 'MPL-2026-1010', work_b: 'MPL-2026-1040',
+          name_a: 'Infrastructure Project 10', name_b: 'Infrastructure Project 40',
+          district: 'Dehradun', category: 'Infrastructure',
+          cost_a: 3500000, cost_b: 3500000, similarity: 90, status: 'Requires Verification'
+        },
+        {
+          work_a: 'MPL-2026-0321', work_b: 'MPL-2026-0322',
+          name_a: 'Community Hall Construction', name_b: 'Construction of Community Hall',
+          district: 'Dehradun', category: 'Infrastructure',
+          cost_a: 2000000, cost_b: 1980000, similarity: 90, status: 'Requires Verification'
+        }
+      ]);
       setLoading(false);
     });
   }, []);
 
+  const formatCurrency = (val) => `₹${(val / 100000).toFixed(1)} Lakh`;
+
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 relative">
       <div className="flex justify-between items-end">
         <div>
           <h1 className="text-2xl font-bold text-slate-800 flex items-center gap-2"><Copy className="text-accent" /> Duplicate Work Detection</h1>
@@ -30,6 +48,113 @@ export default function DuplicateDetection() {
         </div>
       </div>
       
+      {/* Comparison Modal */}
+      {selectedComparison && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm">
+          <div className="bg-white rounded-xl shadow-2xl w-full max-w-4xl overflow-hidden border border-slate-200 flex flex-col max-h-[90vh]">
+            {/* Modal Header */}
+            <div className="flex justify-between items-center p-6 border-b border-slate-100 bg-slate-50">
+              <div>
+                <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
+                  <Copy className="text-accent" size={20} /> AI Similarity Comparison
+                </h2>
+                <p className="text-slate-500 text-sm mt-1">
+                  Confidence Score: <span className="font-bold text-orange-600">{selectedComparison.similarity}%</span>
+                </p>
+              </div>
+              <button onClick={() => setSelectedComparison(null)} className="text-slate-400 hover:text-slate-600 transition-colors">
+                <X size={24} />
+              </button>
+            </div>
+            
+            {/* Modal Body - Side by Side */}
+            <div className="flex-1 overflow-y-auto p-6 bg-slate-50">
+              <div className="grid md:grid-cols-2 gap-8">
+                {/* Work A */}
+                <div className="bg-white p-6 rounded-lg border border-slate-200 shadow-sm">
+                  <div className="text-xs font-bold tracking-wider text-slate-400 uppercase mb-4 border-b pb-2">Record A (Original)</div>
+                  <div className="space-y-4">
+                    <div>
+                      <p className="text-xs text-slate-500">Project ID</p>
+                      <p className="font-semibold text-slate-800">{selectedComparison.work_a}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-slate-500">Project Name</p>
+                      <p className="font-medium text-slate-800">{selectedComparison.name_a}</p>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <p className="text-xs text-slate-500">Location</p>
+                        <p className="text-sm font-medium text-slate-800">{selectedComparison.district}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-slate-500">Category</p>
+                        <p className="text-sm font-medium text-slate-800">{selectedComparison.category}</p>
+                      </div>
+                    </div>
+                    <div>
+                      <p className="text-xs text-slate-500">Sanctioned Cost</p>
+                      <p className="font-semibold text-slate-800">{formatCurrency(selectedComparison.cost_a)}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Work B */}
+                <div className="bg-orange-50 p-6 rounded-lg border border-orange-200 shadow-sm relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-16 h-16 bg-orange-100 rounded-bl-full flex items-center justify-center border-l border-b border-orange-200">
+                    <AlertTriangle className="text-orange-500 mb-2 ml-2" size={20} />
+                  </div>
+                  <div className="text-xs font-bold tracking-wider text-orange-600 uppercase mb-4 border-b border-orange-200 pb-2">Record B (Suspect)</div>
+                  <div className="space-y-4">
+                    <div>
+                      <p className="text-xs text-slate-500">Project ID</p>
+                      <p className="font-semibold text-slate-800">{selectedComparison.work_b}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-slate-500">Project Name</p>
+                      <p className="font-medium text-slate-800">{selectedComparison.name_b}</p>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <p className="text-xs text-slate-500">Location</p>
+                        <p className="text-sm font-medium text-slate-800">{selectedComparison.district}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-slate-500">Category</p>
+                        <p className="text-sm font-medium text-slate-800">{selectedComparison.category}</p>
+                      </div>
+                    </div>
+                    <div>
+                      <p className="text-xs text-slate-500">Sanctioned Cost</p>
+                      <p className="font-semibold text-slate-800">{formatCurrency(selectedComparison.cost_b)}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Highlight Note */}
+              <div className="mt-6 p-4 bg-blue-50 border border-blue-100 rounded-lg flex gap-3 text-blue-800 text-sm">
+                <AlertTriangle size={18} className="shrink-0 text-blue-500" />
+                <p><strong>AI Note:</strong> These records share a <strong>{selectedComparison.similarity}% semantic similarity</strong> in the project description, matching location, and a highly similar sanctioned budget. This strongly indicates a potential duplicate sanction request.</p>
+              </div>
+            </div>
+            
+            {/* Modal Footer */}
+            <div className="p-4 border-t border-slate-200 bg-white flex justify-end gap-3">
+              <button onClick={() => setSelectedComparison(null)} className="px-5 py-2 text-slate-600 font-medium hover:bg-slate-100 rounded-lg transition-colors flex items-center gap-2">
+                 Cancel
+              </button>
+              <button onClick={() => setSelectedComparison(null)} className="px-5 py-2 bg-slate-800 text-white font-medium hover:bg-slate-700 rounded-lg transition-colors flex items-center gap-2 shadow-sm">
+                <XCircle size={16} /> Mark as False Positive
+              </button>
+              <button onClick={() => setSelectedComparison(null)} className="px-5 py-2 bg-red-600 text-white font-medium hover:bg-red-700 rounded-lg transition-colors flex items-center gap-2 shadow-sm">
+                <Check size={16} /> Flag as Duplicate
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="glass-panel overflow-hidden">
         {loading ? <div className="p-8 text-center">Running similarity analysis...</div> : (
           <table className="w-full text-left text-sm whitespace-nowrap">
@@ -45,7 +170,7 @@ export default function DuplicateDetection() {
             </thead>
             <tbody className="divide-y divide-slate-100">
               {duplicates.map((d, i) => (
-                <tr key={i} className="hover:bg-slate-50">
+                <tr key={i} className="hover:bg-slate-50 transition-colors">
                   <td className="px-6 py-4">
                     <p className="font-semibold text-slate-800">{d.work_a}</p>
                     <p className="text-slate-500 text-xs w-48 truncate">{d.name_a}</p>
@@ -61,8 +186,15 @@ export default function DuplicateDetection() {
                       <div className="w-16 h-1.5 bg-slate-200 rounded-full"><div className="bg-orange-500 h-full" style={{width: `${d.similarity}%`}}></div></div>
                     </div>
                   </td>
-                  <td className="px-6 py-4"><span className="status-badge status-verification flex items-center gap-1 w-max"><AlertTriangle size={12}/> {d.status}</span></td>
-                  <td className="px-6 py-4"><button className="text-accent font-medium text-sm">Compare Projects</button></td>
+                  <td className="px-6 py-4"><span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-700 w-max"><AlertTriangle size={12}/> {d.status}</span></td>
+                  <td className="px-6 py-4">
+                    <button 
+                      onClick={() => setSelectedComparison(d)}
+                      className="text-accent font-medium text-sm hover:text-accent-light transition-colors"
+                    >
+                      Compare Projects
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>

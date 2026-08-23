@@ -7,6 +7,12 @@ export default function AIAnomalyDetection() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Filter States
+  const [searchTerm, setSearchTerm] = useState('');
+  const [riskFilter, setRiskFilter] = useState('All Risk Levels');
+  const [districtFilter, setDistrictFilter] = useState('All Districts');
+  const [stateFilter, setStateFilter] = useState('All States');
+
   useEffect(() => {
     // For demo, if backend fails, provide deterministic mock data
     api.getHighRiskProjects().then(data => {
@@ -48,6 +54,24 @@ export default function AIAnomalyDetection() {
 
   const formatCurrency = (val) => `₹${(val / 100000).toFixed(1)} Lakh`;
 
+  // Dynamic filter options based on actual data
+  const uniqueDistricts = [...new Set(projects.map(p => p.district))].filter(Boolean);
+  const uniqueStates = [...new Set(projects.map(p => p.state))].filter(Boolean);
+  const uniqueRiskLevels = [...new Set(projects.map(p => p.risk_level))].filter(Boolean);
+
+  // Apply Filters
+  const filteredProjects = projects.filter(p => {
+    const matchesSearch = 
+      (p.name && p.name.toLowerCase().includes(searchTerm.toLowerCase())) || 
+      (p.project_id && p.project_id.toLowerCase().includes(searchTerm.toLowerCase()));
+    
+    const matchesRisk = riskFilter === 'All Risk Levels' || p.risk_level === riskFilter;
+    const matchesDistrict = districtFilter === 'All Districts' || p.district === districtFilter;
+    const matchesState = stateFilter === 'All States' || p.state === stateFilter;
+    
+    return matchesSearch && matchesRisk && matchesDistrict && matchesState;
+  });
+
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-end">
@@ -64,21 +88,55 @@ export default function AIAnomalyDetection() {
         <div className="flex gap-4 flex-1">
           <div className="relative max-w-md w-full">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-            <input type="text" placeholder="Search project ID or name..." className="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg text-sm focus:ring-accent focus:border-accent" />
+            <input 
+              type="text" 
+              placeholder="Search project ID or name..." 
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg text-sm focus:ring-accent focus:border-accent outline-none" 
+            />
           </div>
-          <select className="border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-700 bg-white">
+          <select 
+            value={riskFilter}
+            onChange={(e) => setRiskFilter(e.target.value)}
+            className="border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-700 bg-white outline-none cursor-pointer"
+          >
             <option>All Risk Levels</option>
-            <option>Critical</option>
-            <option>High</option>
+            {uniqueRiskLevels.map(risk => (
+              <option key={risk} value={risk}>{risk}</option>
+            ))}
           </select>
-          <select className="border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-700 bg-white">
+          <select 
+            value={stateFilter}
+            onChange={(e) => setStateFilter(e.target.value)}
+            className="border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-700 bg-white outline-none cursor-pointer"
+          >
+            <option>All States</option>
+            {uniqueStates.map(st => (
+              <option key={st} value={st}>{st}</option>
+            ))}
+          </select>
+          <select 
+            value={districtFilter}
+            onChange={(e) => setDistrictFilter(e.target.value)}
+            className="border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-700 bg-white outline-none cursor-pointer"
+          >
             <option>All Districts</option>
-            <option>Dehradun</option>
-            <option>Haridwar</option>
+            {uniqueDistricts.map(dist => (
+              <option key={dist} value={dist}>{dist}</option>
+            ))}
           </select>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-medium hover:bg-slate-200">
-          <Filter size={16} /> More Filters
+        <button 
+          onClick={() => {
+            setSearchTerm('');
+            setRiskFilter('All Risk Levels');
+            setDistrictFilter('All Districts');
+            setStateFilter('All States');
+          }}
+          className="flex items-center gap-2 px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-medium hover:bg-slate-200 transition-colors"
+        >
+          <Filter size={16} /> Reset Filters
         </button>
       </div>
 
@@ -86,6 +144,12 @@ export default function AIAnomalyDetection() {
       <div className="glass-panel overflow-hidden">
         {loading ? (
           <div className="p-8 text-center text-slate-500">Running AI models on project data...</div>
+        ) : filteredProjects.length === 0 ? (
+          <div className="p-12 text-center">
+            <Search size={48} className="mx-auto text-slate-300 mb-4" />
+            <p className="text-slate-500 font-medium text-lg">No anomalies found</p>
+            <p className="text-slate-400 text-sm mt-1">Try adjusting your filters or search term.</p>
+          </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm whitespace-nowrap">
@@ -100,7 +164,7 @@ export default function AIAnomalyDetection() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
-                {projects.map((p) => (
+                {filteredProjects.map((p) => (
                   <tr key={p.project_id} className="hover:bg-slate-50 transition-colors">
                     <td className="px-6 py-4">
                       <p className="font-semibold text-slate-800">{p.project_id}</p>

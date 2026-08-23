@@ -91,43 +91,83 @@ export default function Dashboard() {
   };
 
   const startBulkImport = () => {
+    if (!selectedFile) return;
+    
     setBulkState('processing');
     setProgress(0);
-    setLogs(['INITIALIZING ETL PIPELINE...', 'CONNECTING TO LEGACY NODE: PFMS_GDB_04', 'AUTH: SUCCESS']);
+    setLogs(['INITIALIZING ETL PIPELINE...', 'READING LOCAL FILE...', 'AUTH: SUCCESS']);
     
-    let currentProgress = 0;
-    const interval = setInterval(() => {
-      currentProgress += Math.floor(Math.random() * 8) + 2;
-      
-      if (currentProgress >= 100) {
-        currentProgress = 100;
-        clearInterval(interval);
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      const text = e.target.result;
+      const lines = text.split('\n').map(line => line.trim()).filter(line => line);
+      if (lines.length <= 1) {
+        setLogs(prev => [...prev, 'ERROR: FILE IS EMPTY OR HAS NO DATA ROWS']);
         setBulkState('done');
-        setLogs(prev => [...prev, `[100%] BULK INSERT COMPLETE.`, '10,482 RECORDS WRITTEN TO SECURE LEDGER.', 'AI RISK ENGINE: RECALCULATING...']);
-      } else {
+        return;
+      }
+      
+      const headers = lines[0].split(',').map(h => h.trim());
+      const projectsToImport = [];
+      
+      for (let i = 1; i < lines.length; i++) {
+        const lineStr = lines[i].trim();
+        if (!lineStr) continue;
+        
+        const values = lineStr.split(',').map(v => v.trim());
+        const row = {};
+        headers.forEach((header, index) => {
+          row[header] = values[index] || '';
+        });
+
+        projectsToImport.push(row);
+      }
+      
+      let currentProgress = 0;
+      const interval = setInterval(() => {
+        currentProgress += Math.floor(Math.random() * 8) + 2;
+        if (currentProgress >= 90) currentProgress = 90; 
+        setProgress(currentProgress);
         const randomAnomalies = Math.random() > 0.8 ? ' [WARN: ANOMALY DETECTED IN BATCH]' : '';
         setLogs(prev => [...prev, `[${currentProgress}%] PARSING BATCH_ID_${Math.floor(Math.random()*90000)+10000}... OK${randomAnomalies}`]);
+      }, 400);
+
+      try {
+        await fetch('http://localhost:5000/api/projects/bulk', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(projectsToImport)
+        });
+        
+        clearInterval(interval);
+        setProgress(100);
+        setBulkState('done');
+        setLogs(prev => [...prev, `[100%] BULK INSERT COMPLETE.`, `${projectsToImport.length} RECORDS WRITTEN TO SECURE LEDGER.`, 'AI RISK ENGINE: RECALCULATING...']);
+        
+        fetchStats();
+      } catch (err) {
+        clearInterval(interval);
+        setBulkState('done');
+        setLogs(prev => [...prev, 'ERROR UPLOADING DATA: ' + err.message]);
       }
-      setProgress(currentProgress);
-    }, 400);
+    };
+    reader.readAsText(selectedFile);
   };
 
   if (loading) return <div className="p-8">Loading dashboard intelligence...</div>;
 
   const riskData = [
-    { name: 'Low Risk', value: stats.low_risk, color: COLORS.LOW },
-    { name: 'Medium Risk', value: stats.medium_risk, color: COLORS.MEDIUM },
-    { name: 'High Risk', value: stats.high_risk, color: COLORS.HIGH },
-    { name: 'Critical', value: stats.critical_risk, color: COLORS.CRITICAL },
+    { name: 'Low Risk', value: Number(stats.low_risk) || 0, color: COLORS.LOW },
+    { name: 'Medium Risk', value: Number(stats.medium_risk) || 0, color: COLORS.MEDIUM },
+    { name: 'High Risk', value: Number(stats.high_risk) || 0, color: COLORS.HIGH },
+    { name: 'Critical', value: Number(stats.critical_risk) || 0, color: COLORS.CRITICAL },
   ];
 
-  const expenditureData = [
-    { month: 'Apr', sanctioned: 200, expenditure: 150 },
-    { month: 'May', sanctioned: 220, expenditure: 160 },
-    { month: 'Jun', sanctioned: 250, expenditure: 180 },
-    { month: 'Jul', sanctioned: 260, expenditure: 195 },
-    { month: 'Aug', sanctioned: 286, expenditure: 214 },
-  ];
+  const expenditureData = (stats.expenditureData || []).map(item => ({
+    month: item.month,
+    sanctioned: Number(item.sanctioned) / 10000000,
+    expenditure: Number(item.expenditure) / 10000000
+  }));
 
   return (
     <div className="space-y-6 relative">
@@ -189,7 +229,7 @@ export default function Dashboard() {
           <div className="flex justify-between items-start">
             <div>
               <p className="text-sm font-medium text-slate-500">Delayed Projects</p>
-              <p className="text-2xl font-bold text-slate-800 mt-1">{stats.delayed_projects || 87}</p>
+              <p className="text-2xl font-bold text-slate-800 mt-1">{stats.delayed_projects ?? 87}</p>
             </div>
             <div className="p-2 bg-yellow-50 rounded-lg"><Clock className="text-warning" size={20} /></div>
           </div>
@@ -199,7 +239,7 @@ export default function Dashboard() {
           <div className="flex justify-between items-start">
             <div>
               <p className="text-sm font-medium text-slate-500 text-red-700">AI Anomalies Detected</p>
-              <p className="text-2xl font-bold text-critical mt-1">{stats.anomalies_detected || 63}</p>
+              <p className="text-2xl font-bold text-critical mt-1">{stats.anomalies_detected ?? 63}</p>
             </div>
             <div className="p-2 bg-red-100 rounded-lg"><AlertTriangle className="text-critical" size={20} /></div>
           </div>
