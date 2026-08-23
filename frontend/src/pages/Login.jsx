@@ -146,7 +146,10 @@ const RadarPanel = () => {
         </div>
 
         {/* Telemetry Text */}
-        <div className="relative z-10 space-y-4 font-mono w-full text-center mt-6">
+        <div 
+          className="relative z-10 space-y-4 font-mono w-full text-center mt-6"
+          style={{ animation: 'textTyping 6s steps(40, end) infinite' }}
+        >
           <div>
             <h2 className="text-[#00D4FF] tracking-[0.3em] font-bold text-sm">GLOBAL MONITORING</h2>
             <p className="text-[#00D4FF]/70 text-[10px] tracking-widest mt-1">1,842 ACTIVE PROJECTS • 247 NODES</p>
@@ -176,7 +179,10 @@ const RadarPanel = () => {
       {/* New Live Anomaly Feed Card to fill the gap */}
       <div className="hidden xl:flex flex-col gap-6 w-80 z-20 font-mono mt-[-20px]">
         {/* Feed Card */}
-        <div className="border border-[#00D4FF]/30 bg-[#020b14]/80 p-5 backdrop-blur-md shadow-[0_0_20px_rgba(0,212,255,0.05)] relative overflow-hidden">
+        <div 
+          className="border border-[#00D4FF]/30 bg-[#020b14]/80 p-5 backdrop-blur-md shadow-[0_0_20px_rgba(0,212,255,0.05)] relative overflow-hidden"
+          style={{ animation: 'textTyping 8s steps(40, end) infinite' }}
+        >
           <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#00D4FF] to-transparent"></div>
           
           <h3 className="text-[10px] font-bold text-[#00D4FF] mb-5 tracking-[0.2em] flex items-center gap-2 border-b border-[#00D4FF]/20 pb-3">
@@ -212,7 +218,10 @@ const RadarPanel = () => {
         </div>
 
         {/* System Stats Card */}
-        <div className="border border-[#00D4FF]/30 bg-[#020b14]/80 p-5 backdrop-blur-md shadow-[0_0_20px_rgba(0,212,255,0.05)]">
+        <div 
+          className="border border-[#00D4FF]/30 bg-[#020b14]/80 p-5 backdrop-blur-md shadow-[0_0_20px_rgba(0,212,255,0.05)]"
+          style={{ animation: 'textTyping 10s steps(40, end) infinite' }}
+        >
           <h3 className="text-[10px] font-bold text-[#00D4FF] mb-4 tracking-[0.2em] border-b border-[#00D4FF]/20 pb-3">AI RISK ENGINE</h3>
           <div className="space-y-4">
             <div className="flex justify-between text-[10px] text-[#00D4FF]">
@@ -251,6 +260,75 @@ const BottomStatusBar = () => (
   </div>
 );
 
+const playAccessGrantedSound = () => {
+  try {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) return;
+    const ctx = new AudioContext();
+    
+    // First high beep
+    const osc1 = ctx.createOscillator();
+    const gain1 = ctx.createGain();
+    osc1.type = 'sine';
+    osc1.frequency.setValueAtTime(880, ctx.currentTime);
+    osc1.frequency.exponentialRampToValueAtTime(1200, ctx.currentTime + 0.1);
+    
+    gain1.gain.setValueAtTime(0, ctx.currentTime);
+    gain1.gain.linearRampToValueAtTime(0.3, ctx.currentTime + 0.05);
+    gain1.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.15);
+    
+    osc1.connect(gain1);
+    gain1.connect(ctx.destination);
+    
+    osc1.start(ctx.currentTime);
+    osc1.stop(ctx.currentTime + 0.15);
+
+    // Second lower beep
+    setTimeout(() => {
+      const osc2 = ctx.createOscillator();
+      const gain2 = ctx.createGain();
+      osc2.type = 'square';
+      osc2.frequency.setValueAtTime(440, ctx.currentTime);
+      
+      gain2.gain.setValueAtTime(0, ctx.currentTime);
+      gain2.gain.linearRampToValueAtTime(0.2, ctx.currentTime + 0.02);
+      gain2.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.3);
+      
+      osc2.connect(gain2);
+      gain2.connect(ctx.destination);
+      
+      osc2.start(ctx.currentTime);
+      osc2.stop(ctx.currentTime + 0.3);
+    }, 150);
+
+  } catch (e) {
+    console.error("Audio API not supported", e);
+  }
+};
+
+const playErrorSound = () => {
+  try {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) return;
+    const ctx = new AudioContext();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(150, ctx.currentTime);
+    osc.frequency.linearRampToValueAtTime(100, ctx.currentTime + 0.3);
+    
+    gain.gain.setValueAtTime(0.3, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+    
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 0.3);
+  } catch (e) {}
+};
+
 const LoginCard = ({ onLogin }) => {
   const [role, setRole] = useState('District Authority');
   const [username, setUsername] = useState('district.demo');
@@ -277,27 +355,28 @@ const LoginCard = ({ onLogin }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setError('');
-    
     if (!username || !password) {
-      setError('ERR: CREDENTIALS REQUIRED');
+      setError("ENTER CREDENTIALS");
+      playErrorSound();
       return;
     }
 
+    if (password !== 'demo123') {
+      setError('ERR: INVALID SECURE CODE');
+      playErrorSound();
+      return;
+    }
+
+    setError('');
     setIsLoading(true);
+    playAccessGrantedSound();
 
     setTimeout(() => {
-      if (password !== 'demo123') {
-        setError('ERR: ACCESS DENIED');
-        setIsLoading(false);
-        return;
-      }
-
+      setIsLoading(false);
       let formattedRole = 'district_authority';
       if (role === 'Member of Parliament') formattedRole = 'mp';
       if (role === 'Ministry') formattedRole = 'ministry';
       if (role === 'State Nodal Authority') formattedRole = 'state';
-
       onLogin({ username, role: formattedRole, name: role });
     }, 1500);
   };
@@ -314,20 +393,48 @@ const LoginCard = ({ onLogin }) => {
       <div className="bg-[#020b14]/80 backdrop-blur-md border border-[#00D4FF]/20 p-8 pt-10 shadow-[0_0_30px_rgba(0,212,255,0.05)]">
         
         {/* Branding */}
+        <style>{`
+          @keyframes flipDiamond {
+            0% { transform: rotate(45deg) rotateY(0deg); box-shadow: 0 0 15px rgba(0,212,255,0.2); border-color: rgba(0,212,255,0.4); }
+            50% { transform: rotate(45deg) rotateY(180deg); box-shadow: 0 0 40px rgba(0,212,255,0.8); border-color: rgba(0,212,255,1); }
+            100% { transform: rotate(45deg) rotateY(360deg); box-shadow: 0 0 15px rgba(0,212,255,0.2); border-color: rgba(0,212,255,0.4); }
+          }
+          @keyframes textTyping {
+            0% { clip-path: inset(0 100% 0 0); }
+            15%, 85% { clip-path: inset(0 0 0 0); }
+            100% { clip-path: inset(0 100% 0 0); }
+          }
+          @keyframes textPulse {
+            0%, 100% { opacity: 1; text-shadow: 0 0 10px rgba(0, 212, 255, 0.2); }
+            50% { opacity: 0.8; text-shadow: 0 0 25px rgba(0, 212, 255, 0.8); }
+          }
+        `}</style>
         <div className="flex flex-col items-center mb-8">
-          <div className="relative mb-6">
-            <div className="w-16 h-16 border border-[#00D4FF]/40 transform rotate-45 flex items-center justify-center bg-[#00D4FF]/5 shadow-[0_0_15px_rgba(0,212,255,0.2)]">
-              <div className="transform -rotate-45">
+          <div className="relative mb-6" style={{ perspective: '1000px' }}>
+            <div 
+              className="w-16 h-16 border bg-[#00D4FF]/5 flex items-center justify-center"
+              style={{ animation: 'flipDiamond 4s ease-in-out infinite', transformStyle: 'preserve-3d' }}
+            >
+              <div style={{ transform: 'rotate(-45deg)' }}>
                 <Shield size={24} className="text-[#00D4FF]" />
               </div>
             </div>
           </div>
-          <h2 className="text-xl font-bold text-[#F8FAFC] tracking-[0.3em] uppercase">CIVICSHIELD</h2>
-          <p className="text-[9px] text-[#00D4FF]/70 mt-2 tracking-[0.2em] uppercase">MPLADS FRAUD DETECTION</p>
+          <h2 
+            className="text-xl font-bold text-[#F8FAFC] tracking-[0.3em] uppercase"
+            style={{ animation: 'textTyping 6s steps(30, end) infinite, textPulse 3s infinite 1.5s' }}
+          >CIVICSHIELD</h2>
+          <p 
+            className="text-[9px] text-[#00D4FF]/70 mt-2 tracking-[0.2em] uppercase"
+            style={{ animation: 'textTyping 8s steps(40, end) infinite' }}
+          >MPLADS FRAUD DETECTION</p>
         </div>
 
         {/* Warning Badge */}
-        <div className="border border-[#F59E0B]/50 bg-[#F59E0B]/10 p-2 mb-8 flex items-center justify-center gap-2">
+        <div 
+          className="border border-[#F59E0B]/50 bg-[#F59E0B]/10 p-2 mb-8 flex items-center justify-center gap-2"
+          style={{ animation: 'textTyping 4s steps(20, end) infinite' }}
+        >
           <AlertTriangle size={12} className="text-[#F59E0B]" />
           <span className="text-[9px] text-[#F59E0B] tracking-[0.1em] uppercase font-bold">AUTHORIZED PERSONNEL ONLY</span>
         </div>
@@ -421,9 +528,55 @@ const LoginCard = ({ onLogin }) => {
 
 // --- Main Page Component ---
 
+const startAmbientRadarSound = () => {
+  if (window.radarSoundPlaying) return; 
+  window.radarSoundPlaying = true;
+  
+  try {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) return;
+    const ctx = new AudioContext();
+
+    const playPing = () => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(800, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(200, ctx.currentTime + 0.5);
+      
+      gain.gain.setValueAtTime(0, ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.05, ctx.currentTime + 0.05);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1);
+      
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 1);
+    };
+
+    playPing();
+    window.radarInterval = setInterval(playPing, 3000);
+
+  } catch (e) {}
+};
+
 export default function Login({ onLogin }) {
+  useEffect(() => {
+    return () => {
+      // Cleanup when navigating away
+      if (window.radarInterval) {
+        clearInterval(window.radarInterval);
+      }
+      window.radarSoundPlaying = false;
+    };
+  }, []);
   return (
-    <div className="h-screen w-full bg-[#020b14] font-mono text-[#00D4FF] relative overflow-hidden flex flex-col selection:bg-[#00D4FF]/30">
+    <div 
+      onClick={startAmbientRadarSound} 
+      className="h-screen w-full bg-[#020b14] font-mono text-[#00D4FF] relative overflow-hidden flex flex-col selection:bg-[#00D4FF]/30"
+    >
       {/* Background Grid Pattern */}
       <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'linear-gradient(rgba(0, 212, 255, 0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 212, 255, 0.2) 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
       

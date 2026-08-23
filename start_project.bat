@@ -1,0 +1,13 @@
+@echo off
+echo Starting MPLADS AI Monitoring Platform...
+
+echo Starting Backend...
+start cmd /k "cd backend && npm run dev"
+
+echo Starting ML Service...
+start cmd /k "cd ml-service && python app.py"
+
+echo Starting Frontend...
+start cmd /k "cd frontend && npm run dev"
+
+echo All services are starting up! You can close this window.
