@@ -13,10 +13,16 @@ app.use(express.json());
 const projectsRoutes = require('./routes/projects');
 const analyticsRoutes = require('./routes/analytics');
 const alertsRoutes = require('./routes/alerts');
+const financialRoutes = require('./routes/financialRoutes');
+const verificationRoutes = require('./routes/verificationRoutes');
+const geographicRoutes = require('./routes/geographicRoutes');
 
 app.use('/api/projects', projectsRoutes);
 app.use('/api/analytics', analyticsRoutes);
 app.use('/api/alerts', alertsRoutes);
+app.use('/api/financial', financialRoutes);
+app.use('/api/verification-queue', verificationRoutes);
+app.use('/api/geographic', geographicRoutes);
 // ML integration is mocked/forwarded if ML service is running
 
 app.get('/api/health', (req, res) => {

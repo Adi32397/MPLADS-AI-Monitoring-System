@@ -135,8 +135,8 @@ router.post('/', async (req, res) => {
     await pool.query(`
       INSERT INTO projects 
       (project_id, name, state, district, constituency, category, sanctioned_amount, estimated_cost, actual_expenditure, physical_progress, financial_progress, start_date, expected_completion, implementing_agency, status) 
-      VALUES (?, ?, 'Uttarakhand', ?, 'Central', ?, ?, ?, 0, 0, 0, CURDATE(), ?, 'Local Agency', 'Pending')
-    `, [projectId, project_name, location, sector, amount, amount, expected_completion_date]);
+      VALUES (?, ?, 'Uttarakhand', ?, 'Example Constituency', ?, ?, ?, 0, 0, 0, CURDATE(), ?, 'Local Agency', 'Pending')
+    `, [projectId, project_name, location || 'Dehradun', sector, amount, amount, expected_completion_date]);
 
     // Initialize risk scores
     await pool.query(`
@@ -168,23 +168,36 @@ router.post('/bulk', async (req, res) => {
       const phyProg = Number(p.Physical_Progress) || 0;
       const finProg = Number(p.Financial_Progress) || 0;
       
-      let validStatus = 'In Progress';
       const rawStatus = (p.Status || '').trim();
-      if (['Completed', 'In Progress', 'Delayed', 'Pending', 'Under Verification'].includes(rawStatus)) {
-        validStatus = rawStatus;
-      } else if (rawStatus) {
-        validStatus = 'Under Verification';
+      let validStatus = rawStatus || 'In Progress';
+      
+      let riskLevel = 'LOW';
+      let totalScore = Math.floor(Math.random() * 20) + 10;
+      
+      if (rawStatus === 'Cost Overrun' || rawStatus === 'Payment-Progress Mismatch') {
+        riskLevel = 'HIGH';
+        totalScore = 80 + Math.floor(Math.random() * 10);
+      } else if (rawStatus === 'High Risk') {
+        riskLevel = 'CRITICAL';
+        totalScore = 90 + Math.floor(Math.random() * 10);
+      } else if (rawStatus === 'Delayed') {
+        riskLevel = 'MEDIUM';
+        totalScore = 50 + Math.floor(Math.random() * 15);
+      } else if (actExp > amount && amount > 0) {
+        riskLevel = 'CRITICAL';
+        totalScore = 95;
       }
 
       await pool.query(`
-        INSERT IGNORE INTO projects 
-        (project_id, name, state, district, category, sanctioned_amount, estimated_cost, actual_expenditure, physical_progress, financial_progress, start_date, expected_completion, implementing_agency, status) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        REPLACE INTO projects 
+        (project_id, name, state, district, constituency, category, sanctioned_amount, estimated_cost, actual_expenditure, physical_progress, financial_progress, start_date, expected_completion, implementing_agency, status) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `, [
         projectId, 
         p.Project_Name || 'Bulk Imported Project', 
-        p.State || 'Unknown', 
-        p.District || 'Unknown', 
+        p.State || 'Uttarakhand', 
+        p.District || 'Dehradun',
+        p.Constituency || 'Example Constituency',
         p.Category || 'Other', 
         amount, 
         amount, 
@@ -198,9 +211,9 @@ router.post('/bulk', async (req, res) => {
       ]);
 
       await pool.query(`
-        INSERT IGNORE INTO risk_scores (project_id, cost_overrun_score, delay_score, progress_mismatch_score, payment_anomaly_score, historical_deviation_score, duplicate_score, total_score, risk_level) 
-        VALUES (?, 0, 0, 0, 0, 0, 0, 0, 'LOW')
-      `, [projectId]);
+        REPLACE INTO risk_scores (project_id, cost_overrun_score, delay_score, progress_mismatch_score, payment_anomaly_score, historical_deviation_score, duplicate_score, total_score, risk_level) 
+        VALUES (?, 0, 0, 0, 0, 0, 0, ?, ?)
+      `, [projectId, totalScore, riskLevel]);
       
       successCount++;
     }

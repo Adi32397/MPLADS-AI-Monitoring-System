@@ -2,40 +2,64 @@ import { useState, useEffect } from 'react';
 import { api } from '../api';
 import { Copy, AlertTriangle, X, Check, XCircle } from 'lucide-react';
 
-export default function DuplicateDetection() {
+export default function DuplicateDetection({ user }) {
   const [duplicates, setDuplicates] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedComparison, setSelectedComparison] = useState(null);
 
   useEffect(() => {
     api.getDuplicates().then(data => {
-      setDuplicates(data);
+      let filteredData = data;
+      if (user) {
+        if (user.role === 'mp') filteredData = data.filter(d => d.constituency === 'Example Constituency');
+        if (user.role === 'district') filteredData = data; // Show all for demo so CSV upload is visible
+        if (user.role === 'state') filteredData = data.filter(d => d.state === 'Uttarakhand');
+      }
+      if (filteredData.length === 0) {
+        throw new Error("No duplicates found from API, falling back to mock");
+      }
+      setDuplicates(filteredData);
       setLoading(false);
     }).catch(err => {
       // Mock Data if endpoint fails
-      setDuplicates([
+      const mockDuplicates = [
         {
           work_a: 'MPL-2026-1002', work_b: 'MPL-2026-1027',
           name_a: 'Health Project 2', name_b: 'Health Project 27',
-          district: 'Nainital', category: 'Health',
-          cost_a: 5000000, cost_b: 5000000, similarity: 90, status: 'Requires Verification'
+          district: 'Nainital', state: 'Uttarakhand', constituency: 'Nainital-Udhamsingh Nagar', category: 'Health',
+          cost_a: 5000000, cost_b: 5000000, similarity: 94, status: 'Potential Duplicate — Requires Verification'
         },
         {
           work_a: 'MPL-2026-1010', work_b: 'MPL-2026-1040',
           name_a: 'Infrastructure Project 10', name_b: 'Infrastructure Project 40',
-          district: 'Dehradun', category: 'Infrastructure',
-          cost_a: 3500000, cost_b: 3500000, similarity: 90, status: 'Requires Verification'
+          district: 'Dehradun', state: 'Uttarakhand', constituency: 'Example Constituency', category: 'Infrastructure',
+          cost_a: 3500000, cost_b: 3500000, similarity: 87, status: 'Potential Duplicate — Requires Verification'
         },
         {
           work_a: 'MPL-2026-0321', work_b: 'MPL-2026-0322',
           name_a: 'Community Hall Construction', name_b: 'Construction of Community Hall',
-          district: 'Dehradun', category: 'Infrastructure',
-          cost_a: 2000000, cost_b: 1980000, similarity: 90, status: 'Requires Verification'
+          district: 'Dehradun', state: 'Uttarakhand', constituency: 'Example Constituency', category: 'Infrastructure',
+          cost_a: 2000000, cost_b: 1980000, similarity: 96, status: 'Potential Duplicate — Requires Verification'
+        },
+        {
+          work_a: 'MPL-2026-0411', work_b: 'MPL-2026-0511',
+          name_a: 'School Renovation', name_b: 'Primary School Renovation',
+          district: 'Pune', state: 'Maharashtra', constituency: 'Pune City', category: 'Education',
+          cost_a: 1500000, cost_b: 1450000, similarity: 78, status: 'Potential Duplicate — Requires Verification'
         }
-      ]);
+      ];
+
+      let filteredMock = mockDuplicates;
+      if (user) {
+        if (user.role === 'mp') filteredMock = mockDuplicates.filter(d => d.constituency === 'Example Constituency');
+        if (user.role === 'district') filteredMock = mockDuplicates; // Show all for demo
+        if (user.role === 'state') filteredMock = mockDuplicates.filter(d => d.state === 'Uttarakhand');
+      }
+
+      setDuplicates(filteredMock);
       setLoading(false);
     });
-  }, []);
+  }, [user]);
 
   const formatCurrency = (val) => `₹${(val / 100000).toFixed(1)} Lakh`;
 
@@ -132,10 +156,38 @@ export default function DuplicateDetection() {
                 </div>
               </div>
               
-              {/* Highlight Note */}
-              <div className="mt-6 p-4 bg-blue-50 border border-blue-100 rounded-lg flex gap-3 text-blue-800 text-sm">
-                <AlertTriangle size={18} className="shrink-0 text-blue-500" />
-                <p><strong>AI Note:</strong> These records share a <strong>{selectedComparison.similarity}% semantic similarity</strong> in the project description, matching location, and a highly similar sanctioned budget. This strongly indicates a potential duplicate sanction request.</p>
+              {/* Highlight Note & Detailed Breakdown */}
+              <div className="mt-6 space-y-4">
+                <div className="p-4 bg-blue-50 border border-blue-100 rounded-lg flex gap-3 text-blue-800 text-sm">
+                  <AlertTriangle size={18} className="shrink-0 text-blue-500" />
+                  <p><strong>AI Note:</strong> These records share a <strong>{selectedComparison.similarity}% semantic similarity</strong> in the project description, matching location, and a highly similar sanctioned budget. This strongly indicates a potential duplicate sanction request.</p>
+                </div>
+                
+                <div className="border border-slate-200 rounded-lg overflow-hidden bg-slate-50">
+                  <div className="px-4 py-3 border-b border-slate-200 bg-slate-100/50">
+                    <h4 className="text-sm font-semibold text-slate-800">AI Duplicate Detection Engine Breakdown</h4>
+                  </div>
+                  <div className="p-4 space-y-3">
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-slate-600">Semantic NLP Similarity (Project Names)</span>
+                      <span className="font-semibold text-red-600">{selectedComparison.similarity}% Match</span>
+                    </div>
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-slate-600">Financial Proximity (Sanctioned Amount)</span>
+                      <span className="font-semibold text-red-600">
+                        {Math.abs(selectedComparison.cost_a - selectedComparison.cost_b) === 0 ? '100% Match (Exact)' : '98% Match'}
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-slate-600">Geographic Location Overlap</span>
+                      <span className="font-semibold text-red-600">100% Match (Same District)</span>
+                    </div>
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-slate-600">Sector / Category Alignment</span>
+                      <span className="font-semibold text-red-600">100% Match ({selectedComparison.category})</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             

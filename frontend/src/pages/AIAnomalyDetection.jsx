@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { api } from '../api';
 import { AlertTriangle, Filter, Search, ChevronRight } from 'lucide-react';
 
-export default function AIAnomalyDetection() {
+export default function AIAnomalyDetection({ user }) {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -16,15 +16,23 @@ export default function AIAnomalyDetection() {
   useEffect(() => {
     // For demo, if backend fails, provide deterministic mock data
     api.getHighRiskProjects().then(data => {
-      setProjects(data);
+      let filteredData = data;
+      if (user) {
+        if (user.role === 'mp') filteredData = data.filter(p => p.constituency === 'Example Constituency');
+        if (user.role === 'district') filteredData = data; // Show all for demo so CSV upload is visible
+        if (user.role === 'state') filteredData = data.filter(p => p.state === 'Uttarakhand');
+      }
+      setProjects(filteredData);
       setLoading(false);
     }).catch(err => {
       console.warn("Using mock high-risk data", err);
-      setProjects([
+      const mockProjects = [
         {
           project_id: 'MPL-2026-00452',
           name: 'Rural Road Construction',
           district: 'Dehradun',
+          state: 'Uttarakhand',
+          constituency: 'Example Constituency',
           category: 'Infrastructure',
           sanctioned_amount: 1850000,
           actual_expenditure: 2520000,
@@ -38,6 +46,8 @@ export default function AIAnomalyDetection() {
           project_id: 'MPL-2026-1015',
           name: 'Health Project 15',
           district: 'Haridwar',
+          state: 'Uttarakhand',
+          constituency: 'Haridwar Rural',
           category: 'Health',
           sanctioned_amount: 3500000,
           actual_expenditure: 4200000,
@@ -46,11 +56,35 @@ export default function AIAnomalyDetection() {
           risk_score: 75,
           risk_level: 'HIGH',
           status: 'Delayed'
+        },
+        {
+          project_id: 'MPL-2026-0891',
+          name: 'Community Hall',
+          district: 'Dehradun',
+          state: 'Uttarakhand',
+          constituency: 'Example Constituency',
+          category: 'Public Facility',
+          sanctioned_amount: 500000,
+          actual_expenditure: 200000,
+          physical_progress: 20,
+          financial_progress: 80,
+          risk_score: 80,
+          risk_level: 'HIGH',
+          status: 'In Progress'
         }
-      ]);
+      ];
+
+      let filteredMock = mockProjects;
+      if (user) {
+        if (user.role === 'mp') filteredMock = mockProjects.filter(p => p.constituency === 'Example Constituency');
+        if (user.role === 'district') filteredMock = mockProjects; // Show all for demo
+        if (user.role === 'state') filteredMock = mockProjects.filter(p => p.state === 'Uttarakhand');
+      }
+      
+      setProjects(filteredMock);
       setLoading(false);
     });
-  }, []);
+  }, [user]);
 
   const formatCurrency = (val) => `₹${(val / 100000).toFixed(1)} Lakh`;
 

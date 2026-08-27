@@ -1,0 +1,151 @@
+Project_ID,Project_Name,State,District,Category,Sanctioned_Amount,Actual_Expenditure,Physical_Progress,Financial_Progress,Start_Date,Expected_Completion,Implementing_Agency,Status
+MPL-2026-1000,Construction of Health Sub Centre,Uttar Pradesh,Lucknow,Healthcare,10000000,12400000,46,124,2025-01-11,2025-05-19,Jal Nigam,Cost Overrun
+MPL-2026-1001,Construction of Public Library,Rajasthan,Kota,Community,5000000,3550000,64,71,2025-10-07,2026-06-22,Panchayati Raj Department,In Progress
+MPL-2026-1002,Renovation of Primary Health Centre,Uttarakhand,Haridwar,Healthcare,500000,340000,59,68,2025-11-23,2026-07-27,PWD Dehradun,In Progress
+MPL-2026-1003,Construction of Rural Road,Rajasthan,Ajmer,Roads,800000,424000,46,53,2025-09-01,2026-05-18,Panchayati Raj Department,Delayed
+MPL-2026-1004,Construction of Public Library,Bihar,Patna,Community,1000000,730000,69,73,2025-01-18,2025-09-03,Public Health Engineering Department,In Progress
+MPL-2026-1005,Medical Equipment Facility,Uttarakhand,Haridwar,Healthcare,3000000,2610000,44,87,2025-11-23,2026-09-06,District Rural Development Agency,Payment-Progress Mismatch
+MPL-2026-1006,Construction of Community Hall,Bihar,Patna,Community,2000000,1580000,79,79,2025-12-07,2026-11-30,District Rural Development Agency,In Progress
+MPL-2026-1007,Renovation of Primary Health Centre,Uttar Pradesh,Varanasi,Healthcare,800000,704000,83,88,2025-04-08,2025-11-05,Nagar Nigam,In Progress
+MPL-2026-1008,Construction of Primary School,Maharashtra,Nashik,Education,2500000,1550000,44,62,2025-11-25,2026-08-22,Municipal Corporation,Delayed
+MPL-2026-1009,Construction of Rural Road,Bihar,Gaya,Roads,10000000,6600000,67,66,2025-03-28,2025-10-09,District Rural Development Agency,In Progress
+MPL-2026-1010,Construction of Public Library,Uttarakhand,Nainital,Community,1000000,600000,59,60,2025-01-08,2025-11-23,District Rural Development Agency,In Progress
+MPL-2026-1011,Construction of Public Toilets,Uttarakhand,Dehradun,Sanitation,500000,760000,23,152,2025-02-09,2025-10-04,Municipal Corporation,High Risk
+MPL-2026-1012,Drainage and Sanitation Improvement,Uttarakhand,Haridwar,Sanitation,1500000,750000,56,50,2025-09-04,2026-07-26,Municipal Corporation,In Progress
+MPL-2026-1013,Construction of Public Toilets,Maharashtra,Aurangabad,Sanitation,1000000,700000,76,70,2025-07-19,2026-06-20,Zilla Parishad,In Progress
+MPL-2026-1014,Community Sanitation Facility,Uttarakhand,Haridwar,Sanitation,1000000,480000,37,48,2025-06-11,2026-01-23,Municipal Corporation,Delayed
+MPL-2026-1015,Construction of Drinking Water Facility,Uttarakhand,Nainital,Water,3000000,3000000,97,100,2025-10-15,2026-05-30,Municipal Corporation,Completed
+MPL-2026-1016,Construction of Classroom Block,Maharashtra,Nagpur,Education,1000000,790000,74,79,2026-01-02,2026-08-19,PWD Maharashtra,In Progress
+MPL-2026-1017,Medical Equipment Facility,Bihar,Nalanda,Healthcare,1500000,810000,56,54,2025-03-08,2025-10-01,Municipal Corporation,In Progress
+MPL-2026-1018,Drainage and Sanitation Improvement,Maharashtra,Aurangabad,Sanitation,7500000,7500000,94,100,2026-03-12,2026-09-11,Municipal Corporation,In Progress
+MPL-2026-1019,Construction of Community Water Supply,Uttar Pradesh,Lucknow,Water,10000000,10900000,62,109,2025-07-02,2026-04-03,District Panchayat,Cost Overrun
+MPL-2026-1020,Construction of Multipurpose Community Centre,Bihar,Nalanda,Community,3000000,1740000,56,58,2026-05-13,2027-02-01,District Rural Development Agency,In Progress
+MPL-2026-1021,Construction of Classroom Block,Bihar,Bhagalpur,Education,4000000,2760000,72,69,2025-03-09,2025-11-19,Municipal Corporation,In Progress
+MPL-2026-1022,Medical Equipment Facility,Maharashtra,Aurangabad,Healthcare,1000000,1300000,58,130,2026-01-07,2026-05-10,Municipal Corporation,Cost Overrun
+MPL-2026-1023,Construction of Public Toilets,Maharashtra,Nashik,Sanitation,10000000,10000000,100,100,2025-10-30,2026-06-07,Zilla Parishad,Completed
+MPL-2026-1024,Construction of Primary School,Bihar,Muzaffarpur,Education,2500000,1550000,42,62,2025-02-23,2025-09-26,Municipal Corporation,Delayed
+MPL-2026-1025,Construction of Rural Road,Maharashtra,Thane,Roads,7500000,5400000,69,72,2026-03-17,2026-12-06,Municipal Corporation,In Progress
+MPL-2026-1026,Construction of Health Sub Centre,Rajasthan,Kota,Healthcare,4000000,6120000,21,153,2025-06-20,2026-02-11,Urban Improvement Trust,High Risk
+MPL-2026-1027,Community Sanitation Facility,Uttarakhand,Pauri Garhwal,Sanitation,1000000,1270000,77,127,2025-03-06,2025-07-05,PWD Dehradun,Cost Overrun
+MPL-2026-1028,Construction of Community Library,Uttar Pradesh,Meerut,Education,7500000,9525000,79,127,2026-05-01,2026-10-16,PWD Uttar Pradesh,Cost Overrun
+MPL-2026-1029,Renovation of Government School,Uttarakhand,Haridwar,Education,800000,488000,65,61,2025-12-06,2026-09-18,Municipal Corporation,In Progress
+MPL-2026-1030,Medical Equipment Facility,Uttar Pradesh,Prayagraj,Healthcare,2000000,3240000,20,162,2026-01-20,2026-09-28,Rural Development Department,High Risk
+MPL-2026-1031,Construction of Drinking Water Facility,Bihar,Nalanda,Water,5000000,3050000,64,61,2025-11-21,2026-07-16,PWD Bihar,In Progress
+MPL-2026-1032,Renovation of Primary Health Centre,Uttar Pradesh,Agra,Healthcare,5000000,4900000,97,98,2025-05-11,2026-01-20,Nagar Nigam,Completed
+MPL-2026-1033,Construction of Public Library,Maharashtra,Nagpur,Community,4000000,5160000,46,129,2026-01-30,2026-12-04,Maharashtra Jeevan Pradhikaran,Cost Overrun
+MPL-2026-1034,Construction of Community Health Facility,Uttarakhand,Haridwar,Healthcare,1000000,480000,56,48,2025-08-06,2026-03-24,Rural Works Department,In Progress
+MPL-2026-1035,Road and Drainage Improvement,Uttarakhand,Nainital,Roads,5000000,3000000,58,60,2026-04-09,2026-11-14,Municipal Corporation,In Progress
+MPL-2026-1036,Construction of Rural Road,Rajasthan,Ajmer,Roads,3000000,2250000,79,75,2026-04-15,2026-10-31,Panchayati Raj Department,In Progress
+MPL-2026-1037,Installation of Water Tank,Maharashtra,Nagpur,Water,5000000,3100000,57,62,2025-06-11,2025-12-31,Municipal Corporation,In Progress
+MPL-2026-1038,Road and Drainage Improvement,Maharashtra,Nagpur,Roads,5000000,2400000,56,48,2025-09-13,2026-06-14,Municipal Corporation,In Progress
+MPL-2026-1039,Construction of Public Library,Uttar Pradesh,Prayagraj,Community,10000000,6300000,55,63,2025-06-19,2026-02-01,Rural Development Department,In Progress
+MPL-2026-1040,Solid Waste Management Facility,Bihar,Muzaffarpur,Sanitation,2000000,1700000,89,85,2026-01-15,2026-12-12,Rural Works Department,In Progress
+MPL-2026-1041,Community Sanitation Facility,Rajasthan,Kota,Sanitation,2000000,1400000,78,70,2026-02-24,2026-09-26,PWD Rajasthan,In Progress
+MPL-2026-1042,Construction of Rural Road,Uttar Pradesh,Meerut,Roads,4000000,4000000,93,100,2026-04-21,2026-10-31,Rural Development Department,In Progress
+MPL-2026-1043,Drainage and Sanitation Improvement,Uttarakhand,Pauri Garhwal,Sanitation,5000000,3500000,68,70,2025-08-11,2026-05-09,Rural Works Department,In Progress
+MPL-2026-1044,Solid Waste Management Facility,Uttarakhand,Haridwar,Sanitation,500000,580000,56,116,2026-02-05,2027-01-23,Rural Works Department,Cost Overrun
+MPL-2026-1045,Community Sanitation Facility,Maharashtra,Nagpur,Sanitation,2000000,1200000,68,60,2025-03-29,2026-02-20,Maharashtra Jeevan Pradhikaran,In Progress
+MPL-2026-1046,Construction of Public Toilets,Uttarakhand,Pauri Garhwal,Sanitation,2500000,2500000,96,100,2026-01-15,2026-11-06,PWD Dehradun,Completed
+MPL-2026-1047,Construction of Public Library,Uttarakhand,Udham Singh Nagar,Community,500000,405000,81,81,2025-02-15,2026-01-04,PWD Dehradun,In Progress
+MPL-2026-1048,Construction of Community Library,Bihar,Gaya,Education,1500000,1500000,96,100,2025-02-02,2025-12-15,Municipal Corporation,Completed
+MPL-2026-1049,Road and Drainage Improvement,Uttar Pradesh,Meerut,Roads,4000000,4480000,46,112,2025-12-07,2026-09-09,District Panchayat,Payment-Progress Mismatch
+MPL-2026-1050,Construction of Drinking Water Facility,Bihar,Nalanda,Water,800000,880000,84,110,2025-10-14,2026-06-03,District Rural Development Agency,Cost Overrun
+MPL-2026-1051,Construction of Interlocking Road,Rajasthan,Kota,Roads,2000000,2860000,54,143,2025-02-27,2025-06-29,Panchayati Raj Department,Cost Overrun
+MPL-2026-1052,Road Improvement Work,Uttarakhand,Haridwar,Roads,1500000,1185000,79,79,2025-02-10,2025-08-27,Municipal Corporation,In Progress
+MPL-2026-1053,Construction of Public Toilets,Bihar,Patna,Sanitation,7500000,7125000,25,95,2025-05-05,2026-04-08,District Rural Development Agency,Payment-Progress Mismatch
+MPL-2026-1054,Construction of Health Sub Centre,Rajasthan,Ajmer,Healthcare,4000000,3280000,88,82,2025-06-01,2025-12-31,PHED Rajasthan,In Progress
+MPL-2026-1055,Installation of Water Tank,Bihar,Gaya,Water,4000000,2960000,80,74,2026-03-19,2027-01-10,PWD Bihar,In Progress
+MPL-2026-1056,Construction of Multipurpose Community Centre,Rajasthan,Kota,Community,2500000,1975000,78,79,2026-04-13,2027-01-18,Panchayati Raj Department,In Progress
+MPL-2026-1057,Construction of Primary School,Maharashtra,Aurangabad,Education,4000000,2480000,57,62,2026-03-08,2026-10-13,Municipal Corporation,In Progress
+MPL-2026-1058,Installation of Hand Pump System,Maharashtra,Pune,Water,10000000,8300000,79,83,2026-05-13,2027-02-16,Rural Development Department,In Progress
+MPL-2026-1059,Construction of Drinking Water Facility,Maharashtra,Thane,Water,2000000,1380000,74,69,2025-09-27,2026-09-13,Rural Development Department,In Progress
+MPL-2026-1060,Construction of Multipurpose Community Centre,Uttar Pradesh,Meerut,Community,2000000,1800000,87,90,2026-01-24,2026-10-15,District Panchayat,In Progress
+MPL-2026-1061,Community Sanitation Facility,Uttar Pradesh,Meerut,Sanitation,10000000,8400000,75,84,2025-09-11,2026-06-05,Rural Development Department,In Progress
+MPL-2026-1062,Development of Community Park,Bihar,Patna,Community,4000000,3160000,84,79,2025-10-02,2026-06-24,Public Health Engineering Department,In Progress
+MPL-2026-1063,Construction of Health Sub Centre,Maharashtra,Pune,Healthcare,1500000,975000,56,65,2025-02-26,2025-11-13,PWD Maharashtra,In Progress
+MPL-2026-1064,Renovation of Primary Health Centre,Uttarakhand,Udham Singh Nagar,Healthcare,5000000,3100000,55,62,2025-11-23,2026-11-01,Jal Sansthan,In Progress
+MPL-2026-1065,Construction of Primary School,Bihar,Nalanda,Education,5000000,4150000,79,83,2025-08-15,2026-05-06,District Rural Development Agency,In Progress
+MPL-2026-1066,Construction of Community Water Supply,Uttar Pradesh,Meerut,Water,10000000,9500000,100,95,2025-11-07,2026-10-25,PWD Uttar Pradesh,Completed
+MPL-2026-1067,Construction of Community Hall,Uttar Pradesh,Prayagraj,Community,800000,536000,57,67,2025-11-16,2026-05-29,Nagar Nigam,In Progress
+MPL-2026-1068,Construction of Classroom Block,Uttar Pradesh,Prayagraj,Education,2000000,2000000,91,100,2025-02-16,2025-11-20,PWD Uttar Pradesh,In Progress
+MPL-2026-1069,Construction of Public Library,Rajasthan,Ajmer,Community,500000,445000,92,89,2025-11-30,2026-08-20,Municipal Corporation,In Progress
+MPL-2026-1070,Construction of Community Hall,Bihar,Gaya,Community,2000000,1520000,81,76,2025-11-24,2026-11-13,Rural Works Department,In Progress
+MPL-2026-1071,Construction of Community Water Supply,Maharashtra,Nagpur,Water,3000000,4020000,62,134,2025-03-10,2025-11-18,Municipal Corporation,Cost Overrun
+MPL-2026-1072,Construction of Multipurpose Community Centre,Uttar Pradesh,Prayagraj,Community,800000,624000,82,78,2025-02-22,2026-01-13,District Panchayat,In Progress
+MPL-2026-1073,Solid Waste Management Facility,Rajasthan,Jaipur,Sanitation,5000000,3700000,78,74,2025-08-05,2026-08-03,Municipal Corporation,In Progress
+MPL-2026-1074,Construction of Interlocking Road,Rajasthan,Ajmer,Roads,800000,592000,74,74,2025-11-21,2026-07-15,PHED Rajasthan,In Progress
+MPL-2026-1075,Solid Waste Management Facility,Uttar Pradesh,Agra,Sanitation,800000,536000,75,67,2025-05-17,2026-02-23,PWD Uttar Pradesh,In Progress
+MPL-2026-1076,Construction of Multipurpose Community Centre,Bihar,Gaya,Community,3000000,1710000,55,57,2025-09-22,2026-05-15,Public Health Engineering Department,In Progress
+MPL-2026-1077,Construction of Classroom Block,Uttarakhand,Dehradun,Education,10000000,9800000,97,98,2025-06-21,2026-01-09,District Rural Development Agency,Completed
+MPL-2026-1078,Construction of Health Sub Centre,Maharashtra,Nashik,Healthcare,4000000,3480000,84,87,2025-12-19,2026-07-27,Maharashtra Jeevan Pradhikaran,In Progress
+MPL-2026-1079,Medical Equipment Facility,Uttar Pradesh,Agra,Healthcare,10000000,13200000,81,132,2025-11-28,2026-09-07,Jal Nigam,Cost Overrun
+MPL-2026-1080,Construction of Community Water Supply,Bihar,Patna,Water,1000000,1450000,46,145,2025-03-23,2025-10-17,Rural Works Department,Cost Overrun
+MPL-2026-1081,Construction of Community Hall,Rajasthan,Kota,Community,4000000,3120000,86,78,2025-02-26,2025-12-12,Urban Improvement Trust,In Progress
+MPL-2026-1082,Construction of Multipurpose Community Centre,Maharashtra,Nagpur,Community,7500000,6900000,97,92,2025-01-05,2025-07-29,Zilla Parishad,Completed
+MPL-2026-1083,Renovation of Primary Health Centre,Uttarakhand,Nainital,Healthcare,500000,665000,48,133,2025-11-05,2026-09-10,District Rural Development Agency,Cost Overrun
+MPL-2026-1084,Construction of Public Toilets,Uttarakhand,Nainital,Sanitation,2000000,1160000,46,58,2026-02-23,2026-09-03,PWD Dehradun,Delayed
+MPL-2026-1085,Construction of Classroom Block,Maharashtra,Nagpur,Education,3000000,4890000,28,163,2026-03-02,2026-08-01,PWD Maharashtra,High Risk
+MPL-2026-1086,Development of Community Park,Bihar,Gaya,Community,2000000,1660000,85,83,2025-07-13,2026-03-09,Municipal Corporation,In Progress
+MPL-2026-1087,Road and Drainage Improvement,Uttar Pradesh,Lucknow,Roads,3000000,2580000,94,86,2026-01-07,2026-08-08,Rural Development Department,In Progress
+MPL-2026-1088,Construction of Community Health Facility,Uttarakhand,Nainital,Healthcare,4000000,1160000,44,29,2025-03-01,2025-07-13,PWD Dehradun,Delayed
+MPL-2026-1089,Medical Equipment Facility,Maharashtra,Nagpur,Healthcare,7500000,5475000,63,73,2025-04-25,2026-02-15,Zilla Parishad,In Progress
+MPL-2026-1090,Construction of Multipurpose Community Centre,Uttar Pradesh,Meerut,Community,5000000,5800000,70,116,2025-05-22,2025-12-18,Rural Development Department,Cost Overrun
+MPL-2026-1091,Construction of Health Sub Centre,Uttar Pradesh,Meerut,Healthcare,7500000,7500000,99,100,2025-07-25,2026-05-24,District Panchayat,Completed
+MPL-2026-1092,Construction of Interlocking Road,Uttar Pradesh,Varanasi,Roads,3000000,1620000,56,54,2026-05-06,2027-05-03,District Panchayat,In Progress
+MPL-2026-1093,Construction of Classroom Block,Maharashtra,Nagpur,Education,2000000,1160000,55,58,2025-05-13,2025-11-18,Maharashtra Jeevan Pradhikaran,In Progress
+MPL-2026-1094,Development of Community Park,Uttar Pradesh,Lucknow,Community,1000000,760000,77,76,2026-04-19,2027-02-02,Rural Development Department,In Progress
+MPL-2026-1095,Solid Waste Management Facility,Bihar,Gaya,Sanitation,5000000,6800000,62,136,2025-08-29,2026-03-31,District Rural Development Agency,Cost Overrun
+MPL-2026-1096,Construction of Rural Road,Rajasthan,Jodhpur,Roads,5000000,4900000,88,98,2025-11-05,2026-09-12,Panchayati Raj Department,In Progress
+MPL-2026-1097,Construction of Community Hall,Uttarakhand,Pauri Garhwal,Community,2000000,1560000,75,78,2025-04-04,2025-12-29,Municipal Corporation,In Progress
+MPL-2026-1098,Construction of Public Library,Rajasthan,Jaipur,Community,2500000,1425000,55,57,2025-04-29,2025-12-17,PHED Rajasthan,In Progress
+MPL-2026-1099,Installation of Water Tank,Uttar Pradesh,Lucknow,Water,500000,685000,65,137,2025-09-22,2026-04-16,Jal Nigam,Cost Overrun
+MPL-2026-1100,Construction of Drinking Water Facility,Rajasthan,Kota,Water,5000000,3800000,69,76,2026-02-24,2027-01-23,Urban Improvement Trust,In Progress
+MPL-2026-1101,Construction of Classroom Block,Uttarakhand,Pauri Garhwal,Education,10000000,5000000,55,50,2025-10-23,2026-09-26,PWD Dehradun,In Progress
+MPL-2026-1102,Medical Equipment Facility,Bihar,Muzaffarpur,Healthcare,4000000,2080000,58,52,2025-06-06,2026-01-09,District Rural Development Agency,In Progress
+MPL-2026-1103,Community Sanitation Facility,Uttarakhand,Udham Singh Nagar,Sanitation,3000000,2940000,95,98,2025-06-09,2026-06-07,Jal Sansthan,Completed
+MPL-2026-1104,Construction of Drinking Water Facility,Bihar,Patna,Water,1000000,910000,96,91,2025-07-23,2026-06-30,Municipal Corporation,Completed
+MPL-2026-1105,Construction of Drinking Water Facility,Rajasthan,Ajmer,Water,1000000,1270000,84,127,2025-05-06,2026-01-10,Panchayati Raj Department,Cost Overrun
+MPL-2026-1106,Construction of Classroom Block,Uttar Pradesh,Agra,Education,7500000,4875000,68,65,2025-03-11,2025-12-30,PWD Uttar Pradesh,In Progress
+MPL-2026-1107,Construction of Health Sub Centre,Bihar,Muzaffarpur,Healthcare,500000,260000,55,52,2026-01-02,2026-11-10,PWD Bihar,In Progress
+MPL-2026-1108,Renovation of Government School,Uttarakhand,Udham Singh Nagar,Education,2000000,1940000,87,97,2026-04-13,2027-03-19,Jal Sansthan,In Progress
+MPL-2026-1109,Renovation of Primary Health Centre,Uttar Pradesh,Lucknow,Healthcare,500000,310000,58,62,2025-07-06,2026-05-25,Jal Nigam,In Progress
+MPL-2026-1110,Medical Equipment Facility,Rajasthan,Kota,Healthcare,1500000,1665000,50,111,2026-01-23,2026-12-02,PHED Rajasthan,Payment-Progress Mismatch
+MPL-2026-1111,Construction of Health Sub Centre,Bihar,Muzaffarpur,Healthcare,3000000,3510000,37,117,2026-04-15,2027-01-11,Public Health Engineering Department,High Risk
+MPL-2026-1112,Community Sanitation Facility,Uttar Pradesh,Prayagraj,Sanitation,2000000,1100000,61,55,2025-02-23,2026-02-08,Rural Development Department,In Progress
+MPL-2026-1113,Installation of Water Tank,Rajasthan,Jaipur,Water,10000000,8700000,81,87,2025-12-05,2026-06-13,Panchayati Raj Department,In Progress
+MPL-2026-1114,Construction of Rural Road,Uttarakhand,Haridwar,Roads,3000000,2760000,92,92,2025-03-02,2025-09-19,District Rural Development Agency,In Progress
+MPL-2026-1115,Development of Community Park,Uttar Pradesh,Varanasi,Community,10000000,7900000,70,79,2025-12-08,2026-07-29,District Panchayat,In Progress
+MPL-2026-1116,Construction of Classroom Block,Maharashtra,Nagpur,Education,2000000,1940000,99,97,2025-11-04,2026-10-28,Rural Development Department,Completed
+MPL-2026-1117,Construction of Community Library,Rajasthan,Udaipur,Education,2000000,1560000,81,78,2025-03-08,2025-10-23,Panchayati Raj Department,In Progress
+MPL-2026-1118,Community Sanitation Facility,Rajasthan,Jaipur,Sanitation,2500000,1525000,64,61,2025-12-22,2026-07-02,Panchayati Raj Department,In Progress
+MPL-2026-1119,Construction of Multipurpose Community Centre,Rajasthan,Kota,Community,5000000,5000000,100,100,2025-01-10,2025-11-17,PHED Rajasthan,Completed
+MPL-2026-1120,Construction of Primary School,Rajasthan,Jodhpur,Education,7500000,7200000,88,96,2025-12-25,2026-07-16,Municipal Corporation,In Progress
+MPL-2026-1121,Community Sanitation Facility,Bihar,Gaya,Sanitation,1000000,780000,78,78,2025-03-29,2025-11-25,Public Health Engineering Department,In Progress
+MPL-2026-1122,Construction of Interlocking Road,Uttar Pradesh,Agra,Roads,2000000,1920000,99,96,2026-03-04,2026-10-26,District Panchayat,Completed
+MPL-2026-1123,Construction of Community Library,Uttar Pradesh,Lucknow,Education,2500000,2175000,94,87,2025-06-06,2026-03-10,District Panchayat,In Progress
+MPL-2026-1124,Installation of Water Tank,Bihar,Muzaffarpur,Water,2000000,1620000,71,81,2025-10-10,2026-07-08,Municipal Corporation,In Progress
+MPL-2026-1125,Construction of Community Water Supply,Uttarakhand,Nainital,Water,3000000,2190000,74,73,2025-12-22,2026-07-05,Jal Sansthan,In Progress
+MPL-2026-1126,Road Improvement Work,Rajasthan,Jodhpur,Roads,1000000,780000,83,78,2026-02-09,2026-11-26,PHED Rajasthan,In Progress
+MPL-2026-1127,Renovation of Government School,Bihar,Gaya,Education,4000000,2560000,68,64,2026-05-02,2027-03-11,District Rural Development Agency,In Progress
+MPL-2026-1128,Drainage and Sanitation Improvement,Rajasthan,Jodhpur,Sanitation,500000,420000,39,84,2025-08-21,2026-05-07,PWD Rajasthan,Payment-Progress Mismatch
+MPL-2026-1129,Renovation of Primary Health Centre,Uttar Pradesh,Prayagraj,Healthcare,2500000,2250000,43,90,2025-12-23,2026-04-24,District Panchayat,Payment-Progress Mismatch
+MPL-2026-1130,Community Sanitation Facility,Bihar,Nalanda,Sanitation,500000,575000,70,115,2025-11-07,2026-08-19,Rural Works Department,Cost Overrun
+MPL-2026-1131,Medical Equipment Facility,Maharashtra,Nagpur,Healthcare,7500000,6300000,91,84,2025-01-08,2025-07-09,Maharashtra Jeevan Pradhikaran,In Progress
+MPL-2026-1132,Installation of Water Tank,Uttarakhand,Nainital,Water,800000,696000,79,87,2025-03-14,2026-02-26,Jal Sansthan,In Progress
+MPL-2026-1133,Renovation of Primary Health Centre,Uttarakhand,Udham Singh Nagar,Healthcare,4000000,2160000,56,54,2025-09-12,2026-08-18,Jal Sansthan,In Progress
+MPL-2026-1134,Construction of Community Water Supply,Uttar Pradesh,Varanasi,Water,3000000,3000000,97,100,2025-06-11,2026-05-11,Jal Nigam,Completed
+MPL-2026-1135,Construction of Interlocking Road,Uttar Pradesh,Prayagraj,Roads,2000000,1060000,60,53,2026-03-24,2026-09-26,Jal Nigam,In Progress
+MPL-2026-1136,Construction of Health Sub Centre,Bihar,Muzaffarpur,Healthcare,10000000,10000000,92,100,2025-05-05,2026-04-26,Municipal Corporation,In Progress
+MPL-2026-1137,Construction of Primary School,Uttar Pradesh,Varanasi,Education,5000000,5000000,98,100,2025-02-03,2025-11-02,District Panchayat,Completed
+MPL-2026-1138,Construction of Health Sub Centre,Rajasthan,Udaipur,Healthcare,4000000,2360000,65,59,2025-04-04,2025-11-04,PHED Rajasthan,In Progress
+MPL-2026-1139,Installation of Water Tank,Uttar Pradesh,Prayagraj,Water,800000,728000,89,91,2025-06-10,2026-04-30,PWD Uttar Pradesh,In Progress
+MPL-2026-1140,Installation of Water Tank,Bihar,Gaya,Water,7500000,6075000,72,81,2026-03-25,2026-11-29,Public Health Engineering Department,In Progress
+MPL-2026-1141,Construction of Primary School,Uttar Pradesh,Agra,Education,7500000,11775000,40,157,2025-08-20,2026-05-10,PWD Uttar Pradesh,High Risk
+MPL-2026-1142,Road Improvement Work,Maharashtra,Nagpur,Roads,1000000,630000,59,63,2026-03-03,2026-12-21,Maharashtra Jeevan Pradhikaran,In Progress
+MPL-2026-1143,Construction of Community Library,Uttar Pradesh,Prayagraj,Education,2000000,1660000,42,83,2025-03-12,2025-12-31,PWD Uttar Pradesh,Payment-Progress Mismatch
+MPL-2026-1144,Construction of Public Toilets,Rajasthan,Ajmer,Sanitation,2500000,1650000,67,66,2025-09-01,2026-08-02,PHED Rajasthan,In Progress
+MPL-2026-1145,Construction of Drinking Water Facility,Bihar,Patna,Water,10000000,8800000,31,88,2026-02-28,2026-12-04,District Rural Development Agency,Payment-Progress Mismatch
+MPL-2026-1146,Construction of Community Health Facility,Uttarakhand,Dehradun,Healthcare,3000000,2460000,72,82,2025-12-15,2026-11-12,Rural Works Department,In Progress
+MPL-2026-1147,Construction of Multipurpose Community Centre,Uttar Pradesh,Lucknow,Community,3000000,2040000,71,68,2025-05-11,2026-01-09,Jal Nigam,In Progress
+MPL-2026-1148,Construction of Primary School,Uttar Pradesh,Varanasi,Education,800000,552000,74,69,2026-04-15,2026-11-29,Jal Nigam,In Progress
+MPL-2026-1149,Construction of Health Sub Centre,Maharashtra,Nagpur,Healthcare,2500000,1525000,53,61,2025-03-03,2025-11-27,PWD Maharashtra,Delayed

@@ -43,5 +43,8 @@ Use these accounts to test the application:
 - **Ministry Official**: `ministry.demo` (Password: `demo123`)
 - **Member of Parliament**: `mp.demo` (Password: `demo123`)
 
-## Fallback Mode
+## Fallback Mode & Prototype Data Filtering
 If the backend or ML service is temporarily down, the frontend is built with a fallback behavior to load deterministic mock data, ensuring that your hackathon presentation flow is never interrupted.
+
+**Note on Role-Based Filtering:**
+For this prototype/demo, data filtering based on the user's role (MP, District Authority, State Nodal Authority, Ministry) is handled on the **frontend**. The UI will filter the mock dataset so that each role only sees their permitted geographic scope (e.g., MP only sees their constituency). At the same time, all API calls pass the authenticated user's role and context to demonstrate how the backend would enforce the same scope in a production implementation. In a production deployment, role-based data access would be enforced securely at the backend/database/API level.

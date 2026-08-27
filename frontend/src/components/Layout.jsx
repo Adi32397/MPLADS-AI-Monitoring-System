@@ -7,17 +7,84 @@ import {
 export default function Layout({ user, onLogout }) {
   const location = useLocation();
 
-  const navItems = [
-    { name: 'Dashboard', path: '/', icon: LayoutDashboard },
-    { name: 'AI Anomaly Detection', path: '/anomalies', icon: AlertTriangle },
-    { name: 'Duplicate Detection', path: '/duplicates', icon: Copy },
-    { name: 'All Projects', path: '/projects', icon: Search },
-    { name: 'Alerts Center', path: '/alerts', icon: ShieldAlert },
-    { name: 'Geographic Risk', path: '#', icon: Map },
-    { name: 'Analytics', path: '#', icon: BarChart3 },
-    { name: 'Reports', path: '#', icon: FileText },
-    { name: 'Settings', path: '#', icon: Settings },
-  ];
+  const getNavItems = (role) => {
+    switch (role) {
+      case 'mp':
+        return [
+          { name: 'Dashboard', path: '/', icon: LayoutDashboard },
+          { name: 'My Projects', path: '/projects', icon: Search },
+          { name: 'AI Insights', path: '/anomalies', icon: AlertTriangle },
+          { name: 'Fund Utilization', path: '/utilization', icon: BarChart3 },
+          { name: 'Delayed Projects', path: '/delayed', icon: Activity },
+          { name: 'High-Risk Projects', path: '/high-risk', icon: AlertTriangle },
+          { name: 'Alerts', path: '/alerts', icon: ShieldAlert },
+          { name: 'Reports', path: '#', icon: FileText },
+          { name: 'Settings', path: '#', icon: Settings },
+        ];
+      case 'district':
+        return [
+          { name: 'Dashboard', path: '/', icon: LayoutDashboard },
+          { name: 'AI Anomaly Detection', path: '/anomalies', icon: AlertTriangle },
+          { name: 'Duplicate Detection', path: '/duplicates', icon: Copy },
+          { name: 'All Projects', path: '/projects', icon: Search },
+          { name: 'Financial Monitoring', path: '/utilization', icon: BarChart3 },
+          { name: 'Verification Queue', path: '/verification', icon: Activity },
+          { name: 'Alerts Center', path: '/alerts', icon: ShieldAlert },
+          { name: 'Geographic Risk', path: '/geographic', icon: Map },
+          { name: 'Settings', path: '#', icon: Settings },
+        ];
+      case 'state':
+        return [
+          { name: 'Dashboard', path: '/', icon: LayoutDashboard },
+          { name: 'District Performance', path: '#', icon: Activity },
+          { name: 'Project Monitoring', path: '/projects', icon: Search },
+          { name: 'AI Risk Intelligence', path: '/anomalies', icon: AlertTriangle },
+          { name: 'Duplicate Detection', path: '/duplicates', icon: Copy },
+          { name: 'Geographic Risk', path: '#', icon: Map },
+          { name: 'Fund Utilization', path: '/utilization', icon: BarChart3 },
+          { name: 'Alerts & Escalations', path: '/alerts', icon: ShieldAlert },
+          { name: 'Reports', path: '#', icon: FileText },
+          { name: 'Settings', path: '#', icon: Settings },
+        ];
+      case 'ministry':
+        return [
+          { name: 'Dashboard', path: '/', icon: LayoutDashboard },
+          { name: 'National Overview', path: '#', icon: Activity },
+          { name: 'State Performance', path: '#', icon: BarChart3 },
+          { name: 'AI Risk Intelligence', path: '/anomalies', icon: AlertTriangle },
+          { name: 'Geographic Risk', path: '#', icon: Map },
+          { name: 'Financial Analytics', path: '#', icon: BarChart3 },
+          { name: 'Trend Analysis', path: '#', icon: Activity },
+          { name: 'Alerts & Escalations', path: '/alerts', icon: ShieldAlert },
+          { name: 'Reports', path: '#', icon: FileText },
+          { name: 'Settings', path: '#', icon: Settings },
+        ];
+      default:
+        return [];
+    }
+  };
+
+  const navItems = getNavItems(user?.role);
+
+  const getHeaderContext = (role) => {
+    switch (role) {
+      case 'mp': return 'Constituency: Example Constituency';
+      case 'district': return 'District: Dehradun';
+      case 'state': return 'State: Uttarakhand';
+      case 'ministry': return 'Scope: National';
+      default: return '';
+    }
+  };
+
+  const getRoleTitle = (role) => {
+    switch (role) {
+      case 'mp': return 'Member of Parliament';
+      case 'district': return 'District Authority';
+      case 'state': return 'State Nodal Authority';
+      case 'ministry': return 'Ministry';
+      default: return 'User';
+    }
+  };
 
   return (
     <div className="flex h-screen bg-slate-50">
@@ -37,12 +104,12 @@ export default function Layout({ user, onLogout }) {
               key={item.name}
               to={item.path}
               className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
-                location.pathname === item.path 
+                (item.path === '/' ? location.pathname === `/${user?.role}/dashboard` : location.pathname === item.path) 
                   ? 'bg-accent/20 text-white font-medium' 
                   : 'hover:bg-primary-light hover:text-white'
               }`}
             >
-              <item.icon size={18} className={location.pathname === item.path ? 'text-accent-light' : ''} />
+              <item.icon size={18} className={(item.path === '/' ? location.pathname === `/${user?.role}/dashboard` : location.pathname === item.path) ? 'text-accent-light' : ''} />
               {item.name}
             </Link>
           ))}
@@ -51,11 +118,11 @@ export default function Layout({ user, onLogout }) {
         <div className="p-4 border-t border-primary-light">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-accent-light font-bold">
-              {user.name.charAt(0)}
+              {user.name ? user.name.charAt(0) : 'U'}
             </div>
             <div>
-              <p className="text-sm text-white font-medium">{user.name}</p>
-              <p className="text-xs text-slate-400 capitalize">{user.role.replace('_', ' ')}</p>
+              <p className="text-sm text-white font-medium">{getRoleTitle(user.role)}</p>
+              <p className="text-xs text-slate-400 capitalize">{getRoleTitle(user.role)}</p>
             </div>
           </div>
           <button 
@@ -71,12 +138,18 @@ export default function Layout({ user, onLogout }) {
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Top Navbar */}
         <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8 z-10">
-          <div className="flex items-center text-sm text-slate-500">
-            <span className="font-medium text-slate-700">Financial Year:</span> 
-            <select className="ml-2 bg-transparent border-none focus:ring-0 cursor-pointer">
-              <option>2025-2026</option>
-              <option>2024-2025</option>
-            </select>
+          <div className="flex items-center text-sm text-slate-500 gap-4">
+            <div>
+              <span className="font-medium text-slate-700">Financial Year:</span> 
+              <select className="ml-2 bg-transparent border-none focus:ring-0 cursor-pointer text-slate-600">
+                <option>2025-2026</option>
+                <option>2024-2025</option>
+              </select>
+            </div>
+            <div className="h-4 w-px bg-slate-300"></div>
+            <div className="font-medium text-slate-700 bg-slate-100 px-3 py-1 rounded-full text-xs border border-slate-200">
+              {getHeaderContext(user?.role)}
+            </div>
           </div>
           <div className="flex items-center gap-4">
             <button className="relative p-2 text-slate-400 hover:text-slate-600">

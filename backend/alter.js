@@ -1,0 +1,1 @@
+const { pool } = require('./config/db'); async function alter() { try { await pool.query('ALTER TABLE projects MODIFY COLUMN status VARCHAR(100) DEFAULT \'In Progress\''); console.log('ALTERED'); } catch(e){ console.error(e); } process.exit(0); } alter();
