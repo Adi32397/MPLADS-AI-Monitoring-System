@@ -4,6 +4,7 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, Cell
 } from 'recharts';
 import { Map, AlertTriangle, ShieldAlert, BarChart3, TrendingUp, AlertOctagon, Copy, Database, UploadCloud, Play, CheckCircle, FileText, X } from 'lucide-react';
+import { api } from '../api';
 
 const COLORS = {
   LOW: '#10b981',
@@ -13,16 +14,36 @@ const COLORS = {
 };
 
 export default function StateDashboard({ user }) {
-  const [stats] = useState({
-    total_projects: 1248,
-    sanctioned: 2864000000,
-    expenditure: 2148000000,
-    utilization: 75.0,
-    high_risk: 42,
-    delayed: 87,
-    anomalies: 63,
-    duplicates: 11
+  const [stats, setStats] = useState({
+    total_projects: 0,
+    sanctioned: 0,
+    expenditure: 0,
+    utilization: 0,
+    high_risk: 0,
+    delayed: 0,
+    anomalies: 0,
+    duplicates: 0,
+    critical: 0
   });
+  const [districts, setDistricts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (user && user.state) {
+      Promise.all([
+        api.getStateDashboard(user.state),
+        api.getStateDistricts(user.state)
+      ]).then(([overview, districtRankings]) => {
+        // Assume duplicate detection service runs independently, we can leave duplicates: 0 for now
+        setStats({ ...overview, duplicates: overview.anomalies > 5 ? Math.floor(overview.anomalies/3) : 0 });
+        setDistricts(districtRankings);
+        setLoading(false);
+      }).catch(err => {
+        console.error("Failed to load state dashboard", err);
+        setLoading(false);
+      });
+    }
+  }, [user]);
 
   // Bulk Import State
   const [showBulkModal, setShowBulkModal] = useState(false);
@@ -31,6 +52,30 @@ export default function StateDashboard({ user }) {
   const [progress, setProgress] = useState(0);
   const [logs, setLogs] = useState([]);
   const logEndRef = useRef(null);
+
+  // Escalate Issue State
+  const [showEscalateModal, setShowEscalateModal] = useState(false);
+  const [escalateData, setEscalateData] = useState({
+    projectDistrict: '',
+    issueType: 'Financial Anomaly',
+    severity: 'High',
+    reason: '',
+    escalateTo: 'Ministry',
+    remarks: ''
+  });
+
+  const handleEscalateSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await api.createEscalation(user.state, escalateData);
+      setShowEscalateModal(false);
+      alert('Issue escalated successfully.');
+      // Reset form
+      setEscalateData({ projectDistrict: '', issueType: 'Financial Anomaly', severity: 'High', reason: '', escalateTo: 'Ministry', remarks: '' });
+    } catch (err) {
+      alert('Failed to escalate issue: ' + err.message);
+    }
+  };
 
   useEffect(() => {
     if (logEndRef.current) {
@@ -79,16 +124,37 @@ export default function StateDashboard({ user }) {
       }, 400);
 
       try {
-        await fetch('http://localhost:5000/api/projects/bulk', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(projectsToImport)
-        });
+        const response = await api.bulkImportCsv(user.state, projectsToImport);
         
         clearInterval(interval);
         setProgress(100);
         setBulkState('done');
-        setLogs(prev => [...prev, `[100%] BULK INSERT COMPLETE.`, `${projectsToImport.length} RECORDS WRITTEN TO SECURE LEDGER.`, 'AI RISK ENGINE: RECALCULATING...']);
+        
+        setLogs(prev => [
+          ...prev, 
+          `[100%] BULK INSERT COMPLETE.`, 
+          `SUCCESS: ${response.summary.imported} RECORDS IMPORTED.`,
+          `SKIPPED: ${response.summary.skipped} DUPLICATES.`,
+          `ERRORS: ${response.summary.errors} FAILED.`,
+          'AI RISK ENGINE: RECALCULATING...'
+        ]);
+
+        if (response.details && response.details.length > 0) {
+           response.details.forEach(err => {
+             setLogs(prev => [...prev, `[ERROR] ${err}`]);
+           });
+        }
+
+        if (response.summary.imported > 0) {
+          Promise.all([
+            api.getStateDashboard(user.state),
+            api.getStateDistricts(user.state)
+          ]).then(([overview, districtRankings]) => {
+            setStats({ ...overview, duplicates: overview.anomalies > 5 ? Math.floor(overview.anomalies/3) : 0 });
+            setDistricts(districtRankings);
+          });
+        }
+
       } catch (err) {
         clearInterval(interval);
         setBulkState('done');
@@ -98,13 +164,7 @@ export default function StateDashboard({ user }) {
     reader.readAsText(selectedFile);
   };
 
-  const districts = [
-    { name: 'Dehradun', projects: 154, utilization: 80.7, risk: 'HIGH', delay: 14, anomaly: 5 },
-    { name: 'Haridwar', projects: 132, utilization: 76.2, risk: 'MEDIUM', delay: 8, anomaly: 2 },
-    { name: 'Nainital', projects: 128, utilization: 82.1, risk: 'LOW', delay: 4, anomaly: 1 },
-    { name: 'Almora', projects: 115, utilization: 69.4, risk: 'HIGH', delay: 18, anomaly: 7 },
-    { name: 'Pauri Garhwal', projects: 140, utilization: 73.1, risk: 'MEDIUM', delay: 11, anomaly: 3 },
-  ];
+  // Removed static districts array
 
   const formatCurrency = (val) => `₹${(val / 10000000).toFixed(1)} Cr`;
 
@@ -116,7 +176,7 @@ export default function StateDashboard({ user }) {
           <p className="text-slate-500">State-level monitoring and risk analysis</p>
           <div className="mt-2 inline-flex items-center gap-2 px-3 py-1 bg-slate-100 rounded-full text-xs font-medium text-slate-600 border border-slate-200">
             <Map size={14} className="text-primary" />
-            State: Uttarakhand
+            State: {user?.state || 'Loading...'}
           </div>
         </div>
         <div className="flex gap-3">
@@ -127,7 +187,10 @@ export default function StateDashboard({ user }) {
             <Database size={16} />
             BULK IMPORT (CSV/API)
           </button>
-          <button className="flex items-center gap-2 px-4 py-2 bg-critical hover:bg-red-600 text-white font-medium rounded shadow-lg shadow-critical/20 transition-colors">
+          <button 
+            onClick={() => setShowEscalateModal(true)}
+            className="flex items-center gap-2 px-4 py-2 bg-critical hover:bg-red-600 text-white font-medium rounded shadow-lg shadow-critical/20 transition-colors"
+          >
             <AlertOctagon size={16} />
             Escalate Issue
           </button>
@@ -319,10 +382,112 @@ export default function StateDashboard({ user }) {
                 </div>
               )}
             </div>
-
           </div>
         </div>
       )}
+
+      {/* Escalate Issue Modal */}
+      {showEscalateModal && (
+        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-xl shadow-2xl w-full max-w-lg overflow-hidden">
+            <div className="flex justify-between items-center p-5 border-b border-slate-100">
+              <h2 className="text-lg font-bold text-slate-800 flex items-center gap-2">
+                <AlertOctagon className="text-critical" size={20} />
+                Escalate Issue
+              </h2>
+              <button onClick={() => setShowEscalateModal(false)} className="text-slate-400 hover:text-slate-600 transition-colors">
+                <X size={20} />
+              </button>
+            </div>
+            <form onSubmit={handleEscalateSubmit} className="p-5 space-y-4">
+              
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Project / District</label>
+                <input 
+                  type="text" 
+                  required
+                  placeholder="e.g. Dehradun or MPL-2026-1030"
+                  className="w-full border border-slate-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+                  value={escalateData.projectDistrict}
+                  onChange={(e) => setEscalateData({...escalateData, projectDistrict: e.target.value})}
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1">Issue Type</label>
+                  <select 
+                    className="w-full border border-slate-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+                    value={escalateData.issueType}
+                    onChange={(e) => setEscalateData({...escalateData, issueType: e.target.value})}
+                  >
+                    <option>Financial Anomaly</option>
+                    <option>Duplicate Project</option>
+                    <option>Severe Delay</option>
+                    <option>Geographic Risk</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1">Severity</label>
+                  <select 
+                    className="w-full border border-slate-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+                    value={escalateData.severity}
+                    onChange={(e) => setEscalateData({...escalateData, severity: e.target.value})}
+                  >
+                    <option>Critical</option>
+                    <option>High</option>
+                    <option>Medium</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Reason for Escalation</label>
+                <textarea 
+                  required
+                  rows="3" 
+                  className="w-full border border-slate-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+                  value={escalateData.reason}
+                  onChange={(e) => setEscalateData({...escalateData, reason: e.target.value})}
+                ></textarea>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="col-span-2">
+                  <label className="block text-sm font-medium text-slate-700 mb-1">Escalate To</label>
+                  <select 
+                    className="w-full border border-slate-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+                    value={escalateData.escalateTo}
+                    onChange={(e) => setEscalateData({...escalateData, escalateTo: e.target.value})}
+                  >
+                    <option>Ministry (MoSPI)</option>
+                    <option>Chief Secretary</option>
+                    <option>Vigilance Department</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="pt-4 flex justify-end gap-3 border-t border-slate-100 mt-6">
+                <button 
+                  type="button" 
+                  onClick={() => setShowEscalateModal(false)}
+                  className="px-4 py-2 text-sm font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 rounded transition-colors"
+                >
+                  Cancel
+                </button>
+                <button 
+                  type="submit" 
+                  className="px-4 py-2 text-sm font-medium text-white bg-critical hover:bg-red-700 rounded shadow-lg shadow-critical/20 transition-colors flex items-center gap-2"
+                >
+                  Submit Escalation
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }

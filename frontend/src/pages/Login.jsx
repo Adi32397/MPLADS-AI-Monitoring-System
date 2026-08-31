@@ -278,9 +278,7 @@ const LoginCard = ({ onLogin }) => {
 
   const roles = [
     { name: 'Member of Parliament', mockUser: 'mp.demo' },
-    { name: 'District Authority', mockUser: 'district.demo' },
-    { name: 'State Nodal Authority', mockUser: 'state.demo' },
-    { name: 'Ministry', mockUser: 'ministry.demo' }
+    { name: 'District Authority', mockUser: 'district.demo' }
   ];
 
   const handleRoleChange = (e) => {
@@ -314,8 +312,6 @@ const LoginCard = ({ onLogin }) => {
       setIsLoading(false);
       let formattedRole = 'district';
       if (role === 'Member of Parliament') formattedRole = 'mp';
-      if (role === 'Ministry') formattedRole = 'ministry';
-      if (role === 'State Nodal Authority') formattedRole = 'state';
       onLogin({ username, role: formattedRole, name: role });
     }, 1500);
   };

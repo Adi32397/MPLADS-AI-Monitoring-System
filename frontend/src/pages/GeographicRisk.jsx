@@ -46,8 +46,20 @@ export default function GeographicRisk({ user }) {
     ]).then(([geoJson, overview, districts]) => {
       setGeoJsonData(geoJson);
       setOverviewData(overview);
-      setAllDistricts(districts);
-      setLoading(false);
+
+      if (user && user.role === 'state') {
+        const stateName = user.state;
+        api.getStateOverview(stateName).then(data => {
+          setStateData(data);
+          setLevel('STATE');
+          setSelectedState(stateName);
+          setAllDistricts(districts.filter(d => d.State === stateName));
+          setLoading(false);
+        });
+      } else {
+        setAllDistricts(districts);
+        setLoading(false);
+      }
     }).catch(err => {
       console.error(err);
       setLoading(false);
@@ -375,11 +387,33 @@ export default function GeographicRisk({ user }) {
       {/* TOP HIGH-RISK PROJECTS TABLE (Only visible when District is selected) */}
       {level === 'DISTRICT' && (
         <div className="glass-panel overflow-hidden mt-8">
-          <div className="px-5 py-4 border-b border-slate-200 bg-slate-50">
+          <div className="flex justify-between items-center px-4 py-3 border-b border-slate-200 bg-slate-50 rounded-t-lg">
             <h3 className="font-bold text-slate-800 flex items-center gap-2">
               <ShieldAlert size={18} className="text-red-500"/>
               Top Flagged Projects in {selectedDistrict}
             </h3>
+            {level !== 'INDIA' && user?.role !== 'state' && (
+              <button 
+                onClick={handleBackToIndia}
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-slate-200 rounded text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors shadow-sm"
+              >
+                <ArrowLeft size={16} />
+                Back to India
+              </button>
+            )}
+            {level === 'DISTRICT' && user?.role === 'state' && (
+              <button 
+                onClick={() => {
+                  setLevel('STATE');
+                  setSelectedDistrict(null);
+                  setProjectsData([]);
+                }}
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-slate-200 rounded text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors shadow-sm"
+              >
+                <ArrowLeft size={16} />
+                Back to State
+              </button>
+            )}
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm whitespace-nowrap">

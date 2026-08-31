@@ -189,6 +189,9 @@ const getProjectById = (id) => {
 // Initial load
 loadData();
 
+// Getter so other modules always read the live array (avoids stale reference from destructuring)
+const getProjectsData = () => projectsData;
+
 module.exports = {
   getFilteredProjects,
   calculateRiskScore,
@@ -196,6 +199,7 @@ module.exports = {
   getFinancialAlerts,
   getFinancialAnalytics,
   getProjectById,
+  getProjectsData,
   projectsData,
   loadData
 };

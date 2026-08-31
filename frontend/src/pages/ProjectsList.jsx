@@ -21,13 +21,19 @@ export default function ProjectsList({ user }) {
   }, [location.search]);
 
   useEffect(() => {
-    api.getProjects().then(data => {
-      // In production, backend handles filtering. For prototype, filter frontend:
+    let fetchPromise;
+    if (user && user.role === 'state') {
+      fetchPromise = api.getStateProjects(user.state);
+    } else {
+      fetchPromise = api.getProjects();
+    }
+
+    fetchPromise.then(data => {
+      // For state role, data is already filtered by backend
       let filteredData = data;
-      if (user) {
+      if (user && user.role !== 'state') {
         if (user.role === 'mp') filteredData = data.filter(p => p.constituency === 'Example Constituency');
-        if (user.role === 'district') filteredData = data; // Show all for demo so CSV upload is visible
-        if (user.role === 'state') filteredData = data.filter(p => p.state === 'Uttarakhand');
+        if (user.role === 'district') filteredData = data; 
       }
       setProjects(filteredData);
       setLoading(false);
@@ -44,7 +50,7 @@ export default function ProjectsList({ user }) {
       if (user) {
         if (user.role === 'mp') filteredMock = mockProjects.filter(p => p.constituency === 'Example Constituency');
         if (user.role === 'district') filteredMock = mockProjects; // Show all for demo
-        if (user.role === 'state') filteredMock = mockProjects.filter(p => p.state === 'Uttarakhand');
+        if (user.role === 'state') filteredMock = mockProjects.filter(p => p.state === user.state);
       }
       
       setProjects(filteredMock);

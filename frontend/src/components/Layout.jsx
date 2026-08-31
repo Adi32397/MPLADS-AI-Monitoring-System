@@ -3,6 +3,7 @@ import {
   LayoutDashboard, AlertTriangle, Search, Activity, 
   Map, FileText, Settings, LogOut, ShieldAlert, BarChart3, Copy
 } from 'lucide-react';
+import CivicShieldChat from './CivicShieldChat';
 
 export default function Layout({ user, onLogout }) {
   const location = useLocation();
@@ -163,6 +164,9 @@ export default function Layout({ user, onLogout }) {
         <main className="flex-1 overflow-y-auto p-8 bg-slate-50/50">
           <Outlet />
         </main>
+        
+        {/* Global Chatbot Widget */}
+        <CivicShieldChat user={user} />
       </div>
     </div>
   );

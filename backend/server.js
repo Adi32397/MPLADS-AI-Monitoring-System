@@ -16,6 +16,9 @@ const alertsRoutes = require('./routes/alerts');
 const financialRoutes = require('./routes/financialRoutes');
 const verificationRoutes = require('./routes/verificationRoutes');
 const geographicRoutes = require('./routes/geographicRoutes');
+const stateRoutes = require('./routes/stateRoutes');
+const importRoutes = require('./routes/importRoutes');
+const chatRoutes = require('./routes/chatRoutes');
 
 app.use('/api/projects', projectsRoutes);
 app.use('/api/analytics', analyticsRoutes);
@@ -23,6 +26,9 @@ app.use('/api/alerts', alertsRoutes);
 app.use('/api/financial', financialRoutes);
 app.use('/api/verification-queue', verificationRoutes);
 app.use('/api/geographic', geographicRoutes);
+app.use('/api/state', stateRoutes);
+app.use('/api/import', importRoutes);
+app.use('/api/chat', chatRoutes);
 // ML integration is mocked/forwarded if ML service is running
 
 app.get('/api/health', (req, res) => {

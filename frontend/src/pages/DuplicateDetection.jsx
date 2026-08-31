@@ -13,7 +13,7 @@ export default function DuplicateDetection({ user }) {
       if (user) {
         if (user.role === 'mp') filteredData = data.filter(d => d.constituency === 'Example Constituency');
         if (user.role === 'district') filteredData = data; // Show all for demo so CSV upload is visible
-        if (user.role === 'state') filteredData = data.filter(d => d.state === 'Uttarakhand');
+        if (user.role === 'state') filteredData = data.filter(d => d.state === user.state);
       }
       if (filteredData.length === 0) {
         throw new Error("No duplicates found from API, falling back to mock");
@@ -53,7 +53,7 @@ export default function DuplicateDetection({ user }) {
       if (user) {
         if (user.role === 'mp') filteredMock = mockDuplicates.filter(d => d.constituency === 'Example Constituency');
         if (user.role === 'district') filteredMock = mockDuplicates; // Show all for demo
-        if (user.role === 'state') filteredMock = mockDuplicates.filter(d => d.state === 'Uttarakhand');
+        if (user.role === 'state') filteredMock = mockDuplicates.filter(d => d.state === user.state);
       }
 
       setDuplicates(filteredMock);

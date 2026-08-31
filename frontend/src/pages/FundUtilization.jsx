@@ -12,7 +12,7 @@ export default function FundUtilization({ user }) {
   // State for Filters
   const [states, setStates] = useState([]);
   const [districts, setDistricts] = useState([]);
-  const [selectedState, setSelectedState] = useState('All States');
+  const [selectedState, setSelectedState] = useState(user?.role === 'state' ? user.state : 'All States');
   const [selectedDistrict, setSelectedDistrict] = useState('All Districts');
 
   // State for Data
@@ -80,10 +80,17 @@ export default function FundUtilization({ user }) {
           <select 
             value={selectedState} 
             onChange={(e) => { setSelectedState(e.target.value); setSelectedDistrict('All Districts'); }}
-            className="border-none bg-transparent text-sm font-medium text-slate-700 outline-none cursor-pointer"
+            disabled={user?.role === 'state'}
+            className="border-none bg-transparent text-sm font-medium text-slate-700 outline-none cursor-pointer disabled:opacity-70"
           >
-            <option>All States</option>
-            {states.map(s => <option key={s} value={s}>{s}</option>)}
+            {user?.role === 'state' ? (
+              <option value={user.state}>{user.state}</option>
+            ) : (
+              <>
+                <option>All States</option>
+                {states.map(s => <option key={s} value={s}>{s}</option>)}
+              </>
+            )}
           </select>
           <div className="w-px h-6 bg-slate-200"></div>
           <select 

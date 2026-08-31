@@ -37,6 +37,25 @@ export const api = {
   getStateOverview: (state) => axios.get(`${API_URL}/geographic/state/${state}`).then(res => res.data),
   getDistrictProjects: (district) => axios.get(`${API_URL}/geographic/district/${district}`).then(res => res.data),
   getGeographicRiskRanking: () => axios.get(`${API_URL}/geographic/risk-ranking`).then(res => res.data),
+  
+  // State Nodal Authority APIs
+  getStateDashboard: (state) => axios.get(`${API_URL}/state/dashboard?state=${state}`).then(res => res.data),
+  getStateDistricts: (state) => axios.get(`${API_URL}/state/districts?state=${state}`).then(res => res.data),
+  askCivicShieldAi: async (message, user) => {
+    const response = await fetch(`${API_URL}/chat`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message, role: user?.role, state: user?.state })
+    });
+    if (!response.ok) throw new Error('Chat failed');
+    return await response.json();
+  },
+  getStateProjects: (state) => axios.get(`${API_URL}/state/projects?state=${state}`).then(res => res.data),
+  getStateRiskDistribution: (state) => axios.get(`${API_URL}/state/risk-distribution?state=${state}`).then(res => res.data),
+  getStateEscalations: (state) => axios.get(`${API_URL}/state/escalations?state=${state}`).then(res => res.data),
+  createEscalation: (state, payload) => axios.post(`${API_URL}/state/escalations?state=${state}`, payload).then(res => res.data),
+  bulkImportCsv: (state, data) => axios.post(`${API_URL}/import/csv`, { state, data }).then(res => res.data),
+
   getCategoryRisk: () => axios.get(`${API_URL}/geographic/category-risk`).then(res => res.data),
   getAgencyRisk: () => axios.get(`${API_URL}/geographic/agency-risk`).then(res => res.data),
   getFinancialRisk: () => axios.get(`${API_URL}/geographic/financial-risk`).then(res => res.data),

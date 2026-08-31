@@ -5,8 +5,6 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import MPDashboard from './pages/MPDashboard';
 import DistrictDashboard from './pages/DistrictDashboard';
-import StateDashboard from './pages/StateDashboard';
-import MinistryDashboard from './pages/MinistryDashboard';
 import AIAnomalyDetection from './pages/AIAnomalyDetection';
 import ProjectDetails from './pages/ProjectDetails';
 import ProjectsList from './pages/ProjectsList';
@@ -81,8 +79,6 @@ function App() {
           {/* Role-Specific Dashboards */}
           <Route path="mp/dashboard" element={<RoleRoute user={user} allowedRole="mp"><MPDashboard user={user} /></RoleRoute>} />
           <Route path="district/dashboard" element={<RoleRoute user={user} allowedRole="district"><DistrictDashboard user={user} /></RoleRoute>} />
-          <Route path="state/dashboard" element={<RoleRoute user={user} allowedRole="state"><StateDashboard user={user} /></RoleRoute>} />
-          <Route path="ministry/dashboard" element={<RoleRoute user={user} allowedRole="ministry"><MinistryDashboard user={user} /></RoleRoute>} />
 
           {/* Shared Pages */}
           <Route path="anomalies" element={<AIAnomalyDetection user={user} />} />
