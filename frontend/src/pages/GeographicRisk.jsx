@@ -4,11 +4,25 @@ import { useNavigate } from 'react-router-dom';
 import { MapContainer, TileLayer, GeoJSON, useMap, Marker, Popup, Tooltip } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { DISTRICT_COORDINATES } from '../utils/districtCoordinates';
-import { Map, AlertTriangle, ShieldAlert, Activity, Filter, ChevronRight, BarChart3, TrendingUp, DollarSign, Clock, Zap, CheckCircle2 } from 'lucide-react';
+import { getDistrictCoordinates } from '../utils/districtCoordinates';
+import { Map, AlertTriangle, ShieldAlert, Activity, Filter, ChevronRight, BarChart3, TrendingUp, DollarSign, Clock, Zap, CheckCircle2, ArrowLeft } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer } from 'recharts';
 
 const formatCurrency = (val) => `₹${(val / 10000000).toFixed(2)} Cr`;
+
+function getProjectCoordinates(districtCoords, projectId, index, total) {
+  if (!districtCoords) return [22.5, 78.9];
+  if (total <= 1) return districtCoords;
+  const angle = (index / Math.max(total, 1)) * 2 * Math.PI;
+  let hash = 0;
+  const str = String(projectId);
+  for (let i = 0; i < str.length; i++) hash = (hash * 31 + str.charCodeAt(i)) % 1000;
+  const radius = 0.025 + ((hash % 45) / 1000);
+  
+  const pLat = districtCoords[0] + radius * Math.cos(angle);
+  const pLng = districtCoords[1] + (radius * Math.sin(angle) * 1.15);
+  return [pLat, pLng];
+}
 
 function MapUpdater({ bounds }) {
   const map = useMap();
@@ -79,6 +93,11 @@ export default function GeographicRisk({ user }) {
 
   const handleDistrictClick = (districtName) => {
     setLoading(true);
+    const coords = getDistrictCoordinates(districtName);
+    if (coords) {
+      setMapBounds([[coords[0] - 0.15, coords[1] - 0.15], [coords[0] + 0.15, coords[1] + 0.15]]);
+    }
+
     api.getDistrictProjects(districtName).then(data => {
       setProjectsData(data);
       setSelectedDistrict(districtName);
@@ -105,7 +124,12 @@ export default function GeographicRisk({ user }) {
     setLevel('INDIA');
     setSelectedState(null);
     setSelectedDistrict(null);
+    setProjectsData([]);
     setMapBounds([[8.4, 68.7], [37.6, 97.2]]); // Approximate India bounds
+  };
+
+  const handleBackToIndia = () => {
+    resetMap();
   };
 
   const getRiskColor = (score) => {
@@ -197,11 +221,26 @@ export default function GeographicRisk({ user }) {
           {level === 'DISTRICT' && (
             <>
               <ChevronRight size={16} className="text-slate-400"/>
-              <span className="text-slate-800">{selectedDistrict}</span>
+              <span className="text-slate-800 font-semibold">{selectedDistrict}</span>
             </>
           )}
         </div>
-        <button onClick={resetMap} className="text-xs bg-slate-100 px-3 py-1.5 rounded font-medium hover:bg-slate-200 transition-colors">Reset Map</button>
+        <div className="flex items-center gap-3">
+          <select 
+            value={selectedDistrict || ''} 
+            onChange={(e) => {
+              if (e.target.value) handleDistrictClick(e.target.value);
+              else resetMap();
+            }}
+            className="border border-slate-300 rounded px-2.5 py-1 text-xs bg-white text-slate-700 outline-none focus:border-primary font-medium"
+          >
+            <option value="">-- Jump to District on Map --</option>
+            {[...new Set(allDistricts.map(d => d.District))].sort().map(dName => (
+              <option key={dName} value={dName}>{dName}</option>
+            ))}
+          </select>
+          <button onClick={resetMap} className="text-xs bg-slate-100 px-3 py-1.5 rounded font-medium hover:bg-slate-200 transition-colors">Reset Map</button>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -211,7 +250,7 @@ export default function GeographicRisk({ user }) {
           <div className="px-4 py-3 bg-slate-50 border-b border-slate-200 flex justify-between items-center shrink-0">
             <h3 className="font-bold text-slate-800 flex items-center gap-2">
               <Map size={18} className="text-slate-500"/>
-              Geospatial AI Overlay
+              Geospatial AI Overlay {selectedDistrict ? `— ${selectedDistrict} (${projectsData.length} Projects Plotted)` : ''}
             </h3>
             <div className="flex gap-3 text-xs font-semibold">
               <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-[#ef4444]"></span> Critical</span>
@@ -233,7 +272,7 @@ export default function GeographicRisk({ user }) {
               
               {/* DISTRICT MARKERS - ALWAYS VISIBLE */}
               {allDistricts.map(districtObj => {
-                const coords = DISTRICT_COORDINATES[districtObj.District];
+                const coords = getDistrictCoordinates(districtObj.District);
                 if (!coords) return null;
                 // Only show markers for the selected state if we are in STATE or DISTRICT view
                 if (level !== 'INDIA' && selectedState) {
@@ -283,6 +322,75 @@ export default function GeographicRisk({ user }) {
                         )}
                       </div>
                     </Tooltip>
+                  </Marker>
+                );
+              })}
+
+              {/* INDIVIDUAL PROJECT MARKERS IN SELECTED DISTRICT */}
+              {level === 'DISTRICT' && selectedDistrict && projectsData.map((p, idx) => {
+                const districtCoords = getDistrictCoordinates(selectedDistrict);
+                const pCoords = getProjectCoordinates(districtCoords, p.Project_ID, idx, projectsData.length);
+                
+                const pRiskLevel = p.risk?.risk_level || 'LOW';
+                const pScore = p.risk?.score || 0;
+                const pRiskColor = pRiskLevel === 'CRITICAL' ? '#ef4444' :
+                                   pRiskLevel === 'HIGH' ? '#f97316' :
+                                   pRiskLevel === 'MEDIUM' ? '#eab308' : '#22c55e';
+
+                const pIcon = L.divIcon({
+                  className: 'custom-project-pin',
+                  html: `
+                    <div style="position:relative; display:flex; align-items:center; justify-content:center; cursor:pointer;">
+                      <div style="background-color:${pRiskColor}; width:13px; height:13px; border-radius:50%; border:2px solid white; box-shadow: 0 0 6px ${pRiskColor};"></div>
+                    </div>
+                  `,
+                  iconSize: [14, 14],
+                  iconAnchor: [7, 7]
+                });
+
+                return (
+                  <Marker key={p.Project_ID} position={pCoords} icon={pIcon}>
+                    <Tooltip direction="top" offset={[0, -10]}>
+                      <div className="text-xs font-sans">
+                        <strong className="block text-slate-800">{p.Project_ID}</strong>
+                        <span className="text-slate-600 block truncate max-w-[180px]">{p.Project_Name}</span>
+                        <span style={{ color: pRiskColor, fontWeight: 'bold' }}>{pRiskLevel} ({pScore}) • {p.Status}</span>
+                      </div>
+                    </Tooltip>
+                    <Popup>
+                      <div className="p-1 w-64 font-sans">
+                        <div className="flex justify-between items-start mb-1.5 border-b border-slate-200 pb-1.5">
+                          <span className="text-[11px] font-mono font-bold bg-slate-100 text-slate-700 px-1.5 py-0.5 rounded">{p.Project_ID}</span>
+                          <span className="text-[10px] font-bold px-1.5 py-0.5 rounded" style={{ backgroundColor: pRiskColor + '20', color: pRiskColor }}>
+                            {pRiskLevel} ({pScore})
+                          </span>
+                        </div>
+                        <h4 className="text-xs font-bold text-slate-800 mb-1 leading-snug">{p.Project_Name}</h4>
+                        <p className="text-[11px] text-slate-600 mb-2"><strong>Status:</strong> {p.Status}</p>
+                        <div className="text-[11px] bg-slate-50 p-2 rounded border border-slate-200 mb-2 space-y-1">
+                          <div className="flex justify-between">
+                            <span className="text-slate-500">Sanctioned:</span>
+                            <span className="font-semibold text-slate-700">{formatCurrency(p.Sanctioned_Amount)}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-slate-500">Expenditure:</span>
+                            <span className={`font-semibold ${p.Actual_Expenditure > p.Sanctioned_Amount ? 'text-red-600' : 'text-slate-700'}`}>
+                              {formatCurrency(p.Actual_Expenditure)}
+                            </span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-slate-500">Progress (F/P):</span>
+                            <span className="font-semibold text-slate-700">{p.Financial_Progress}% / {p.Physical_Progress}%</span>
+                          </div>
+                        </div>
+                        <button 
+                          onClick={() => navigate('/projects')}
+                          className="w-full text-center text-xs py-1.5 bg-primary text-white rounded font-medium hover:bg-primary/90 transition-colors shadow-sm"
+                        >
+                          View in Projects Section →
+                        </button>
+                      </div>
+                    </Popup>
                   </Marker>
                 );
               })}

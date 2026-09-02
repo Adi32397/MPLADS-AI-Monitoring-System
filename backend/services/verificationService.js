@@ -4,7 +4,7 @@ const { getFinancialAlerts, getProjectById } = require('./financialAnalytics');
 const getQueue = async (state, district) => {
   // Get all flagged projects from CSV/AI engine
   // getFinancialAlerts already sorts by highest risk score first
-  const flaggedProjects = getFinancialAlerts(state, district);
+  const flaggedProjects = await getFinancialAlerts(state, district);
 
   if (flaggedProjects.length === 0) return [];
 
@@ -34,7 +34,7 @@ const getQueue = async (state, district) => {
 };
 
 const getProjectDetails = async (projectId) => {
-  const project = getProjectById(projectId);
+  const project = await getProjectById(projectId);
   if (!project) return null;
 
   const [rows] = await pool.query('SELECT * FROM verification_workflow WHERE project_id = ?', [projectId]);

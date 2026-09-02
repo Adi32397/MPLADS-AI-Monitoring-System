@@ -48,8 +48,8 @@ const calculateOverview = (projects) => {
   };
 };
 
-const getGeographicOverview = () => {
-  const allProjects = getFilteredProjects('All States', 'All Districts');
+const getGeographicOverview = async () => {
+  const allProjects = await getFilteredProjects('All States', 'All Districts');
   
   const stateMap = {};
   allProjects.forEach(p => {
@@ -65,9 +65,9 @@ const getGeographicOverview = () => {
   return stateData.sort((a, b) => b.avgRiskScore - a.avgRiskScore);
 };
 
-const getStateOverview = (stateName) => {
-  const allProjects = getFilteredProjects('All States', 'All Districts');
-  const stateProjects = allProjects.filter(p => p.State === stateName);
+const getStateOverview = async (stateName) => {
+  const allProjects = await getFilteredProjects('All States', 'All Districts');
+  const stateProjects = allProjects.filter(p => (p.State || '').toLowerCase().trim() === (stateName || '').toLowerCase().trim());
   
   const districtMap = {};
   stateProjects.forEach(p => {
@@ -77,14 +77,14 @@ const getStateOverview = (stateName) => {
 
   const districtData = Object.keys(districtMap).map(district => {
     const stats = calculateOverview(districtMap[district]);
-    return { District: district, ...stats };
+    return { District: district, State: districtMap[district][0]?.State || stateName, ...stats };
   });
 
   return districtData.sort((a, b) => b.avgRiskScore - a.avgRiskScore);
 };
 
-const getAllDistrictsOverview = () => {
-  const allProjects = getFilteredProjects('All States', 'All Districts');
+const getAllDistrictsOverview = async () => {
+  const allProjects = await getFilteredProjects('All States', 'All Districts');
   const districtMap = {};
   allProjects.forEach(p => {
     if (!districtMap[p.District]) districtMap[p.District] = [];
@@ -93,20 +93,20 @@ const getAllDistrictsOverview = () => {
 
   return Object.keys(districtMap).map(district => {
     const stats = calculateOverview(districtMap[district]);
-    return { District: district, ...stats };
+    return { District: district, State: districtMap[district][0]?.State || '', ...stats };
   }).sort((a, b) => b.avgRiskScore - a.avgRiskScore);
 };
 
-const getDistrictProjects = (districtName) => {
-  const projects = getFilteredProjects('All States', districtName);
+const getDistrictProjects = async (districtName) => {
+  const projects = await getFilteredProjects('All States', districtName);
   projects.forEach(p => {
     if (!p.risk) p.risk = calculateRiskScore(p);
   });
   return projects.sort((a, b) => b.risk.score - a.risk.score);
 };
 
-const getCategoryRisk = () => {
-  const allProjects = getFilteredProjects('All States', 'All Districts');
+const getCategoryRisk = async () => {
+  const allProjects = await getFilteredProjects('All States', 'All Districts');
   const catMap = {};
   allProjects.forEach(p => {
     if (!catMap[p.Category]) catMap[p.Category] = [];
@@ -119,8 +119,8 @@ const getCategoryRisk = () => {
   }).sort((a, b) => b.avgRiskScore - a.avgRiskScore);
 };
 
-const getAgencyRisk = () => {
-  const allProjects = getFilteredProjects('All States', 'All Districts');
+const getAgencyRisk = async () => {
+  const allProjects = await getFilteredProjects('All States', 'All Districts');
   const agencyMap = {};
   allProjects.forEach(p => {
     if (!agencyMap[p.Implementing_Agency]) agencyMap[p.Implementing_Agency] = [];

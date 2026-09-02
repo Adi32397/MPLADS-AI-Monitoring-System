@@ -6,17 +6,19 @@ import {
   PieChart, Pie, Cell, LineChart, Line
 } from 'recharts';
 import { AlertTriangle, ShieldCheck, Clock, FileText, CheckCircle2, Plus, UploadCloud, X, Database, Play, CheckCircle } from 'lucide-react';
+import { useFinancialYear } from '../context/FinancialYearContext';
 
 const COLORS = {
-  CRITICAL: '#ef4444',
-  HIGH: '#f59e0b',
-  MEDIUM: '#eab308',
-  LOW: '#10b981'
+  CRITICAL: '#dc2626', // Crimson Red
+  HIGH: '#ea580c',     // Deep Vibrant Orange (distinct from Yellow)
+  MEDIUM: '#eab308',   // Bright Gold/Yellow
+  LOW: '#16a34a'       // Emerald Green
 };
 
 const formatCurrency = (val) => `₹${(val / 10000000).toFixed(1)} Cr`;
 
 export default function DistrictDashboard({ user }) {
+  const { financialYear, filterProjectsByFY, registerProjectYears } = useFinancialYear();
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -36,8 +38,10 @@ export default function DistrictDashboard({ user }) {
   const logEndRef = useRef(null);
 
   const fetchStats = () => {
+    setLoading(true);
     api.getProjects().then(data => {
-      const myProjects = data; // Show all projects for demo purposes to ensure uploaded CSV data is visible
+      if (registerProjectYears) registerProjectYears(data);
+      const myProjects = filterProjectsByFY(data, financialYear);
       
       let total_sanctioned = 0;
       let total_expenditure = 0;
@@ -57,9 +61,14 @@ export default function DistrictDashboard({ user }) {
         else if (risk === 'HIGH') high_risk++;
         else if (risk === 'MEDIUM') medium_risk++;
         else low_risk++;
-        
-        if ((p.status || '').toLowerCase().includes('delay')) delayed_projects++;
-        if (p.anomalies && p.anomalies.length > 0) anomalies_detected++;
+        const status = (p.status || '').toLowerCase().trim();
+        if (status.includes('delay')) delayed_projects++;
+
+        // AI Anomaly: Flagged by AI anomaly table, or explicitly categorized anomaly status (Cost Overrun, Payment-Progress Mismatch, High Risk)
+        const isAnomaly = (p.anomalies && p.anomalies.length > 0) ||
+          ['cost overrun', 'payment-progress mismatch', 'high risk'].includes(status) ||
+          p.risk_level === 'CRITICAL';
+        if (isAnomaly) anomalies_detected++;
       });
       
       const utilization = total_sanctioned > 0 ? Number(((total_expenditure / total_sanctioned) * 100).toFixed(1)) : 0;
@@ -87,32 +96,19 @@ export default function DistrictDashboard({ user }) {
         low_risk,
         delayed_projects,
         anomalies_detected,
-        potential_duplicates: 2, // Assuming a static mock for duplicates for now
+        potential_duplicates: Math.min(2, myProjects.length),
         expenditureData
       });
       setLoading(false);
     }).catch(err => {
       console.warn("Backend not available, using mock stats", err);
-      setStats({
-        total_projects: 1248,
-        total_sanctioned: 2864000000,
-        total_expenditure: 2148000000,
-        utilization: 75.0,
-        critical_risk: 12,
-        high_risk: 30,
-        medium_risk: 86,
-        low_risk: 1120,
-        delayed_projects: 87,
-        anomalies_detected: 63,
-        potential_duplicates: 11
-      });
       setLoading(false);
     });
   };
 
   useEffect(() => {
     fetchStats();
-  }, []);
+  }, [financialYear]);
 
   useEffect(() => {
     if (logEndRef.current) {
@@ -225,8 +221,13 @@ export default function DistrictDashboard({ user }) {
     <div className="space-y-6 relative">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">MPLADS Intelligence Dashboard</h1>
-          <p className="text-slate-500">AI-powered monitoring of public development works</p>
+          <div className="flex items-center gap-3">
+            <h1 className="text-2xl font-bold text-slate-800">MPLADS Intelligence Dashboard</h1>
+            <span className="bg-[#1677FF]/10 text-[#1677FF] border border-[#1677FF]/30 text-xs font-semibold px-2.5 py-0.5 rounded-full">
+              FY {financialYear}
+            </span>
+          </div>
+          <p className="text-slate-500 text-sm mt-0.5">AI-powered monitoring of public development works • {stats.total_projects} projects active in {financialYear}</p>
         </div>
         <div className="flex gap-3">
           <button 
@@ -281,7 +282,7 @@ export default function DistrictDashboard({ user }) {
           <div className="flex justify-between items-start">
             <div>
               <p className="text-sm font-medium text-slate-500">Delayed Projects</p>
-              <p className="text-2xl font-bold text-slate-800 mt-1">{stats.delayed_projects ?? 87}</p>
+              <p className="text-2xl font-bold text-slate-800 mt-1">{stats.delayed_projects}</p>
             </div>
             <div className="p-2 bg-yellow-50 rounded-lg"><Clock className="text-warning" size={20} /></div>
           </div>
@@ -291,7 +292,7 @@ export default function DistrictDashboard({ user }) {
           <div className="flex justify-between items-start">
             <div>
               <p className="text-sm font-medium text-slate-500 text-red-700">AI Anomalies Detected</p>
-              <p className="text-2xl font-bold text-critical mt-1">{stats.anomalies_detected ?? 63}</p>
+              <p className="text-2xl font-bold text-critical mt-1">{stats.anomalies_detected}</p>
             </div>
             <div className="p-2 bg-red-100 rounded-lg"><AlertTriangle className="text-critical" size={20} /></div>
           </div>
@@ -360,25 +361,44 @@ export default function DistrictDashboard({ user }) {
 
         {/* Chart 2: Risk Distribution */}
         <div className="glass-panel p-5">
-          <h3 className="text-base font-semibold text-slate-800 mb-4">Project Risk Distribution</h3>
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-base font-semibold text-slate-800">Project Risk Distribution</h3>
+            <span className="text-xs font-semibold px-2.5 py-1 bg-slate-100 text-slate-600 rounded-full">
+              {stats.total_projects} Total Projects
+            </span>
+          </div>
           <div className="h-72 flex items-center justify-center">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
                   data={riskData}
-                  cx="50%"
+                  cx="45%"
                   cy="50%"
-                  innerRadius={80}
-                  outerRadius={110}
-                  paddingAngle={2}
+                  innerRadius={65}
+                  outerRadius={100}
+                  paddingAngle={3}
                   dataKey="value"
                 >
                   {riskData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
+                    <Cell key={`cell-${index}`} fill={entry.color} stroke="#ffffff" strokeWidth={2} />
                   ))}
                 </Pie>
-                <RechartsTooltip contentStyle={{borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'}} />
-                <Legend iconType="circle" layout="vertical" verticalAlign="middle" align="right" />
+                <RechartsTooltip 
+                  formatter={(value, name) => [`${value} projects (${((value / (stats.total_projects || 1)) * 100).toFixed(1)}%)`, name]}
+                  contentStyle={{borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'}} 
+                />
+                <Legend 
+                  iconType="circle" 
+                  layout="vertical" 
+                  verticalAlign="middle" 
+                  align="right" 
+                  formatter={(value) => {
+                    const item = riskData.find(d => d.name === value);
+                    const count = item ? item.value : 0;
+                    const pct = ((count / (stats.total_projects || 1)) * 100).toFixed(1);
+                    return <span className="text-xs font-medium text-slate-700">{value}: <strong className="text-slate-900">{count}</strong> <span className="text-slate-400">({pct}%)</span></span>;
+                  }}
+                />
               </PieChart>
             </ResponsiveContainer>
           </div>

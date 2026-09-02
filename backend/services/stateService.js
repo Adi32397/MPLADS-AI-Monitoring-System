@@ -1,11 +1,9 @@
-const fs = require('fs');
-const path = require('path');
-const { getFilteredProjects, calculateRiskScore, projectsData } = require('./financialAnalytics');
+const { pool } = require('../config/db');
 
 // Helpers
-const getProjectsForState = (stateName) => {
+const getProjectsForState = async (stateName) => {
   if (!stateName) return [];
-  const projects = getFilteredProjects(stateName, 'All Districts');
+  const projects = await getFilteredProjects(stateName, 'All Districts');
   // Ensure risk is attached
   projects.forEach(p => {
     if (!p.risk) p.risk = calculateRiskScore(p);
@@ -14,8 +12,8 @@ const getProjectsForState = (stateName) => {
 };
 
 // 1. Dashboard KPIs (Total Projects, Sanctioned, Expenditure, Utilization, etc.)
-const getStateOverview = (stateName) => {
-  const projects = getProjectsForState(stateName);
+const getStateOverview = async (stateName) => {
+  const projects = await getProjectsForState(stateName);
   
   let sanctioned = 0;
   let expenditure = 0;
@@ -66,8 +64,8 @@ const getStateOverview = (stateName) => {
 };
 
 // 2. District Rankings within State
-const getDistrictRankings = (stateName) => {
-  const projects = getProjectsForState(stateName);
+const getDistrictRankings = async (stateName) => {
+  const projects = await getProjectsForState(stateName);
   const districtMap = {};
 
   projects.forEach(p => {
@@ -126,8 +124,8 @@ const getDistrictRankings = (stateName) => {
 };
 
 // 3. Risk Distribution
-const getRiskDistribution = (stateName) => {
-  const projects = getProjectsForState(stateName);
+const getRiskDistribution = async (stateName) => {
+  const projects = await getProjectsForState(stateName);
   const dist = { LOW: 0, MEDIUM: 0, HIGH: 0, CRITICAL: 0 };
   projects.forEach(p => dist[p.risk.risk_level]++);
   return [
@@ -140,32 +138,34 @@ const getRiskDistribution = (stateName) => {
 
 // 4. Bulk Import Processing
 const processBulkImport = async (dataRows, authorizedState) => {
-  const dataPath = path.join(__dirname, '../data/MPLADS_Demo_Dataset_26102.csv');
-  
   let validCount = 0;
   let skippedCount = 0;
   let errorCount = 0;
   const errors = [];
   const validRecords = [];
+  const riskRecords = [];
+  const anomalyRecords = [];
 
-  // Get existing IDs to check duplicates
-  const existingIds = new Set(projectsData.map(p => p.Project_ID));
+  // Get existing IDs from MySQL to check duplicates accurately
+  const [existingRows] = await pool.query('SELECT project_id FROM projects');
+  const existingIds = new Set(existingRows.map(r => r.project_id));
 
-  dataRows.forEach((row, index) => {
+  for (let index = 0; index < dataRows.length; index++) {
+    const row = dataRows[index];
     const rowNum = index + 1;
     
     // 1. Check Required Fields
     if (!row.Project_ID || !row.Project_Name || !row.State || !row.District) {
       errorCount++;
       errors.push(`Row ${rowNum}: Missing required fields.`);
-      return;
+      continue;
     }
 
     // 2. Validate Security (State Scoping)
     if (row.State !== authorizedState) {
       errorCount++;
       errors.push(`Row ${rowNum}: Unauthorized state (${row.State}). You can only import data for ${authorizedState}.`);
-      return;
+      continue;
     }
 
     // 3. Validate Data Types
@@ -174,62 +174,105 @@ const processBulkImport = async (dataRows, authorizedState) => {
     if (isNaN(sanctioned) || isNaN(expenditure)) {
       errorCount++;
       errors.push(`Row ${rowNum}: Invalid financial amounts.`);
-      return;
+      continue;
     }
 
     // 4. Duplicate Check
     if (existingIds.has(row.Project_ID)) {
       skippedCount++;
       errors.push(`Row ${rowNum}: Duplicate Project_ID (${row.Project_ID}) skipped.`);
-      return;
+      continue;
     }
 
     // Success
-    validCount++;
     existingIds.add(row.Project_ID);
-    
-    const newRecord = {
-      Project_ID: row.Project_ID,
-      Project_Name: row.Project_Name,
-      State: row.State,
-      District: row.District,
-      Category: row.Category || 'Other',
-      Sanctioned_Amount: sanctioned,
-      Actual_Expenditure: expenditure,
-      Physical_Progress: Number(row.Physical_Progress) || 0,
-      Financial_Progress: Number(row.Financial_Progress) || 0,
-      Start_Date: row.Start_Date || new Date().toISOString().split('T')[0],
-      Expected_Completion: row.Expected_Completion || '',
-      Implementing_Agency: row.Implementing_Agency || 'Unknown',
-      Status: row.Status || 'In Progress'
-    };
-    
-    validRecords.push(newRecord);
-    projectsData.push(newRecord); // Update memory
-  });
 
-  // Write valid records back to CSV
+    const rawStatus = (row.Status || '').trim();
+    let validStatus = rawStatus || 'In Progress';
+    let riskLevel = 'LOW';
+    let totalScore = 15;
+
+    if (rawStatus === 'Cost Overrun' || rawStatus === 'Payment-Progress Mismatch') {
+      riskLevel = 'HIGH';
+      totalScore = 85;
+    } else if (rawStatus === 'High Risk' || (expenditure > sanctioned && sanctioned > 0)) {
+      riskLevel = 'CRITICAL';
+      totalScore = 95;
+    } else if (rawStatus === 'Delayed') {
+      riskLevel = 'MEDIUM';
+      totalScore = 50;
+    }
+    
+    validRecords.push([
+      row.Project_ID,
+      row.Project_Name,
+      row.State,
+      row.District,
+      'Example Constituency', // Default
+      row.Category || 'Other',
+      sanctioned,
+      sanctioned, // Estimated Cost default
+      expenditure,
+      Number(row.Physical_Progress) || 0,
+      Number(row.Financial_Progress) || 0,
+      row.Start_Date || new Date().toISOString().split('T')[0],
+      row.Expected_Completion || '',
+      row.Implementing_Agency || 'Unknown',
+      validStatus
+    ]);
+
+    riskRecords.push([
+      row.Project_ID, 0, 0, 0, 0, 0, 0, totalScore, riskLevel
+    ]);
+
+    if (rawStatus === 'Cost Overrun' || (expenditure > sanctioned && sanctioned > 0)) {
+      anomalyRecords.push([
+        row.Project_ID, 'Cost Overrun', 'HIGH', `Expenditure exceeds sanctioned amount by +₹${((expenditure - sanctioned)/100000).toFixed(1)}L`, totalScore
+      ]);
+    } else if (rawStatus === 'Payment-Progress Mismatch' || (Number(row.Financial_Progress) > Number(row.Physical_Progress) + 20)) {
+      anomalyRecords.push([
+        row.Project_ID, 'Progress Mismatch', 'HIGH', `Financial progress (${row.Financial_Progress}%) exceeds physical progress (${row.Physical_Progress}%)`, totalScore
+      ]);
+    } else if (rawStatus === 'High Risk' || riskLevel === 'CRITICAL') {
+      anomalyRecords.push([
+        row.Project_ID, 'Critical AI Risk Flag', 'CRITICAL', 'Severe anomaly detected: Combined financial deviation and abnormal trajectory', totalScore
+      ]);
+    }
+  }
+
+  // Write valid records directly to MySQL
   if (validRecords.length > 0) {
-    let csvString = '';
-    const headers = ['Project_ID','Project_Name','State','District','Category','Sanctioned_Amount','Actual_Expenditure','Physical_Progress','Financial_Progress','Start_Date','Expected_Completion','Implementing_Agency','Status'];
-    
-    validRecords.forEach(record => {
-      const line = headers.map(h => {
-        let val = record[h] !== undefined ? record[h] : '';
-        // Wrap in quotes if contains comma
-        if (typeof val === 'string' && val.includes(',')) {
-          val = `"${val}"`;
-        }
-        return val;
-      }).join(',');
-      csvString += '\n' + line;
-    });
-
     try {
-      fs.appendFileSync(dataPath, csvString);
+      const placeholders = validRecords.map(() => '(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)').join(',');
+      const flatParams = validRecords.flat();
+      
+      await pool.query(`
+        INSERT INTO projects 
+        (project_id, name, state, district, constituency, category, sanctioned_amount, estimated_cost, actual_expenditure, physical_progress, financial_progress, start_date, expected_completion, implementing_agency, status) 
+        VALUES ${placeholders}
+      `, flatParams);
+
+      const riskPlaceholders = riskRecords.map(() => '(?, ?, ?, ?, ?, ?, ?, ?, ?)').join(',');
+      const riskFlatParams = riskRecords.flat();
+      
+      await pool.query(`
+        INSERT INTO risk_scores (project_id, cost_overrun_score, delay_score, progress_mismatch_score, payment_anomaly_score, historical_deviation_score, duplicate_score, total_score, risk_level) 
+        VALUES ${riskPlaceholders}
+      `, riskFlatParams);
+
+      if (anomalyRecords.length > 0) {
+        const anomalyPlaceholders = anomalyRecords.map(() => '(?, ?, ?, ?, ?)').join(',');
+        const anomalyFlatParams = anomalyRecords.flat();
+        await pool.query(`
+          INSERT INTO anomalies (project_id, anomaly_type, severity, description, score)
+          VALUES ${anomalyPlaceholders}
+        `, anomalyFlatParams);
+      }
+
+      validCount = validRecords.length;
     } catch (err) {
-      console.error("Failed to write to CSV:", err);
-      throw new Error("Failed to persist data to CSV.");
+      console.error("Failed to write to MySQL:", err);
+      throw new Error("Failed to persist data to database.");
     }
   }
 

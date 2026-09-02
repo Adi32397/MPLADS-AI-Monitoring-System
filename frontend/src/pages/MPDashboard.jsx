@@ -6,6 +6,7 @@ import {
   PieChart, Pie, Cell 
 } from 'recharts';
 import { FileText, CheckCircle2, Clock, AlertTriangle, Plus, ShieldCheck, MapPin, X, Database, UploadCloud, Play, CheckCircle } from 'lucide-react';
+import { useFinancialYear } from '../context/FinancialYearContext';
 
 const COLORS = {
   COMPLETED: '#10b981',
@@ -15,6 +16,7 @@ const COLORS = {
 };
 
 export default function MPDashboard({ user }) {
+  const { financialYear, filterProjectsByFY, registerProjectYears } = useFinancialYear();
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
   const [highRiskProjects, setHighRiskProjects] = useState([]);
@@ -32,8 +34,10 @@ export default function MPDashboard({ user }) {
   const logEndRef = useRef(null);
 
   const fetchStats = () => {
+    setLoading(true);
     api.getProjects().then(data => {
-      const myProjects = data.filter(p => p.constituency === 'Example Constituency');
+      if (registerProjectYears) registerProjectYears(data);
+      const myProjects = filterProjectsByFY(data, financialYear);
       
       let completed = 0;
       let in_progress = 0;
@@ -75,36 +79,20 @@ export default function MPDashboard({ user }) {
       setLoading(false);
     }).catch(err => {
       console.warn("Backend not available, using mock stats", err);
-      setStats({
-        total_projects: 86,
-        completed: 42,
-        in_progress: 31,
-        delayed: 9,
-        under_review: 4,
-        utilization: 76.0,
-        allocated: 185000000,
-        expenditure: 141000000,
-        remaining: 44000000,
-        high_risk: 4
-      });
       setLoading(false);
     });
 
     api.getHighRiskProjects().then(data => {
-      const myHighRisk = data.filter(p => p.constituency === 'Example Constituency');
+      const myHighRisk = filterProjectsByFY(data, financialYear);
       setHighRiskProjects(myHighRisk.slice(0, 3));
     }).catch(() => {
-      setHighRiskProjects([
-        { name: 'Rural Road Construction', risk_score: 89, status: 'Delayed', project_id: '1' },
-        { name: 'Community Hall', risk_score: 72, status: 'In Progress', project_id: '1' },
-        { name: 'Water Supply Project', risk_score: 68, status: 'Delayed', project_id: '1' }
-      ]);
+      setHighRiskProjects([]);
     });
   };
 
   useEffect(() => {
     fetchStats();
-  }, []);
+  }, [financialYear]);
 
   useEffect(() => {
     if (logEndRef.current) {

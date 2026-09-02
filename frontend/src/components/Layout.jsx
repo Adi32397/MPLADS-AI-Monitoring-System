@@ -4,9 +4,11 @@ import {
   Map, FileText, Settings, LogOut, ShieldAlert, BarChart3, Copy
 } from 'lucide-react';
 import CivicShieldChat from './CivicShieldChat';
+import { useFinancialYear } from '../context/FinancialYearContext';
 
 export default function Layout({ user, onLogout }) {
   const location = useLocation();
+  const { financialYear, setFinancialYear, availableYears } = useFinancialYear();
 
   const getNavItems = (role) => {
     switch (role) {
@@ -140,11 +142,16 @@ export default function Layout({ user, onLogout }) {
         {/* Top Navbar */}
         <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8 z-10">
           <div className="flex items-center text-sm text-slate-500 gap-4">
-            <div>
-              <span className="font-medium text-slate-700">Financial Year:</span> 
-              <select className="ml-2 bg-transparent border-none focus:ring-0 cursor-pointer text-slate-600">
-                <option>2025-2026</option>
-                <option>2024-2025</option>
+            <div className="flex items-center">
+              <span className="font-medium text-slate-700 text-xs sm:text-sm">Financial Year:</span> 
+              <select 
+                value={financialYear}
+                onChange={(e) => setFinancialYear(e.target.value)}
+                className="ml-2 bg-slate-50 border border-slate-300 hover:border-slate-400 rounded px-2.5 py-1 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-[#1677FF] cursor-pointer text-slate-800 shadow-sm transition-all"
+              >
+                {availableYears.map(fy => (
+                  <option key={fy} value={fy}>{fy}</option>
+                ))}
               </select>
             </div>
             <div className="h-4 w-px bg-slate-300"></div>
@@ -162,7 +169,7 @@ export default function Layout({ user, onLogout }) {
 
         {/* Page Content */}
         <main className="flex-1 overflow-y-auto p-8 bg-slate-50/50">
-          <Outlet />
+          <Outlet context={{ financialYear, setFinancialYear }} />
         </main>
         
         {/* Global Chatbot Widget */}

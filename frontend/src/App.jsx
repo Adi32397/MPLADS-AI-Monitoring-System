@@ -15,6 +15,7 @@ import DuplicateDetection from './pages/DuplicateDetection';
 import AlertsCenter from './pages/AlertsCenter';
 import VerificationQueue from './pages/VerificationQueue';
 import GeographicRisk from './pages/GeographicRisk';
+import { FinancialYearProvider } from './context/FinancialYearContext';
 
 const RoleRoute = ({ user, allowedRole, children }) => {
   const [showError, setShowError] = useState(false);
@@ -67,35 +68,37 @@ function App() {
 
   return (
     <Router>
-      <Routes>
-        <Route path="/login" element={!user ? <Login onLogin={handleLogin} /> : <Navigate to="/" />} />
-        
-        {/* Protected Routes */}
-        <Route path="/" element={user ? <Layout user={user} onLogout={handleLogout} /> : <Navigate to="/login" />}>
-          <Route index element={
-            <Navigate to={`/${user?.role}/dashboard`} replace />
-          } />
+      <FinancialYearProvider>
+        <Routes>
+          <Route path="/login" element={!user ? <Login onLogin={handleLogin} /> : <Navigate to="/" />} />
           
-          {/* Role-Specific Dashboards */}
-          <Route path="mp/dashboard" element={<RoleRoute user={user} allowedRole="mp"><MPDashboard user={user} /></RoleRoute>} />
-          <Route path="district/dashboard" element={<RoleRoute user={user} allowedRole="district"><DistrictDashboard user={user} /></RoleRoute>} />
+          {/* Protected Routes */}
+          <Route path="/" element={user ? <Layout user={user} onLogout={handleLogout} /> : <Navigate to="/login" />}>
+            <Route index element={
+              <Navigate to={`/${user?.role}/dashboard`} replace />
+            } />
+            
+            {/* Role-Specific Dashboards */}
+            <Route path="mp/dashboard" element={<RoleRoute user={user} allowedRole="mp"><MPDashboard user={user} /></RoleRoute>} />
+            <Route path="district/dashboard" element={<RoleRoute user={user} allowedRole="district"><DistrictDashboard user={user} /></RoleRoute>} />
 
-          {/* Shared Pages */}
-          <Route path="anomalies" element={<AIAnomalyDetection user={user} />} />
-          <Route path="high-risk" element={<HighRiskProjects user={user} />} />
-          <Route path="delayed" element={<DelayedProjects user={user} />} />
-          <Route path="utilization" element={<FundUtilization user={user} />} />
-          <Route path="projects" element={<ProjectsList user={user} />} />
-          <Route path="projects/:id" element={<ProjectDetails user={user} />} />
-          <Route path="duplicates" element={<DuplicateDetection user={user} />} />
-          <Route path="alerts" element={<AlertsCenter user={user} />} />
-          <Route path="verification" element={<VerificationQueue user={user} />} />
-          <Route path="geographic" element={<GeographicRisk user={user} />} />
-          
-          {/* Catch-all */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Route>
-      </Routes>
+            {/* Shared Pages */}
+            <Route path="anomalies" element={<AIAnomalyDetection user={user} />} />
+            <Route path="high-risk" element={<HighRiskProjects user={user} />} />
+            <Route path="delayed" element={<DelayedProjects user={user} />} />
+            <Route path="utilization" element={<FundUtilization user={user} />} />
+            <Route path="projects" element={<ProjectsList user={user} />} />
+            <Route path="projects/:id" element={<ProjectDetails user={user} />} />
+            <Route path="duplicates" element={<DuplicateDetection user={user} />} />
+            <Route path="alerts" element={<AlertsCenter user={user} />} />
+            <Route path="verification" element={<VerificationQueue user={user} />} />
+            <Route path="geographic" element={<GeographicRisk user={user} />} />
+            
+            {/* Catch-all */}
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Route>
+        </Routes>
+      </FinancialYearProvider>
     </Router>
   );
 }

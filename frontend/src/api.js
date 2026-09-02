@@ -7,6 +7,8 @@ export const api = {
   getProjects: () => axios.get(`${API_URL}/projects`).then(res => res.data),
   getProjectById: (id) => axios.get(`${API_URL}/projects/${id}`).then(res => res.data),
   getHighRiskProjects: () => axios.get(`${API_URL}/projects/high-risk`).then(res => res.data),
+  deleteProject: (id) => axios.delete(`${API_URL}/projects/${id}`).then(res => res.data),
+  bulkDeleteProjects: (projectIds) => axios.post(`${API_URL}/projects/bulk-delete`, { projectIds }).then(res => res.data),
   
   // Analytics
   getDashboardStats: () => axios.get(`${API_URL}/projects/dashboard`).then(res => res.data),

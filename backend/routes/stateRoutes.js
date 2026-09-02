@@ -13,9 +13,9 @@ const requireState = (req, res, next) => {
 };
 
 // Dashboard Overview
-router.get('/dashboard', requireState, (req, res) => {
+router.get('/dashboard', requireState, async (req, res) => {
   try {
-    const overview = stateService.getStateOverview(req.userState);
+    const overview = await stateService.getStateOverview(req.userState);
     res.json(overview);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -23,9 +23,9 @@ router.get('/dashboard', requireState, (req, res) => {
 });
 
 // District Rankings
-router.get('/districts', requireState, (req, res) => {
+router.get('/districts', requireState, async (req, res) => {
   try {
-    const rankings = stateService.getDistrictRankings(req.userState);
+    const rankings = await stateService.getDistrictRankings(req.userState);
     res.json(rankings);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -33,9 +33,9 @@ router.get('/districts', requireState, (req, res) => {
 });
 
 // Projects
-router.get('/projects', requireState, (req, res) => {
+router.get('/projects', requireState, async (req, res) => {
   try {
-    const projects = stateService.getProjectsForState(req.userState);
+    const projects = await stateService.getProjectsForState(req.userState);
     res.json(projects);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -43,9 +43,9 @@ router.get('/projects', requireState, (req, res) => {
 });
 
 // Risk Distribution
-router.get('/risk-distribution', requireState, (req, res) => {
+router.get('/risk-distribution', requireState, async (req, res) => {
   try {
-    const distribution = stateService.getRiskDistribution(req.userState);
+    const distribution = await stateService.getRiskDistribution(req.userState);
     res.json(distribution);
   } catch (error) {
     res.status(500).json({ error: error.message });

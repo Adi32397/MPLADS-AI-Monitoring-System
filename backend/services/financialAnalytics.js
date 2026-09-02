@@ -1,50 +1,41 @@
-const fs = require('fs');
-const csv = require('csv-parser');
-const path = require('path');
+const { pool } = require('../config/db');
 
-let projectsData = [];
+const getFilteredProjects = async (state, district) => {
+  let query = `
+    SELECT p.*, r.total_score as risk_score, r.risk_level, r.cost_overrun_score, r.delay_score, r.progress_mismatch_score 
+    FROM projects p
+    LEFT JOIN risk_scores r ON p.project_id = r.project_id
+    WHERE 1=1
+  `;
+  const params = [];
 
-// Load CSV into memory
-const loadData = () => {
-  return new Promise((resolve, reject) => {
-    const dataPath = path.join(__dirname, '../data/MPLADS_Demo_Dataset_26102.csv');
-    const results = [];
-    
-    if (!fs.existsSync(dataPath)) {
-      console.warn("CSV File not found at", dataPath);
-      return resolve([]);
-    }
-
-    fs.createReadStream(dataPath)
-      .pipe(csv())
-      .on('data', (data) => {
-        // Parse numerical fields safely
-        results.push({
-          ...data,
-          Sanctioned_Amount: Number(data.Sanctioned_Amount) || 0,
-          Actual_Expenditure: Number(data.Actual_Expenditure) || 0,
-          Physical_Progress: Number(data.Physical_Progress) || 0,
-          Financial_Progress: Number(data.Financial_Progress) || 0
-        });
-      })
-      .on('end', () => {
-        projectsData = results;
-        console.log(`Successfully loaded ${projectsData.length} projects from CSV.`);
-        resolve(projectsData);
-      })
-      .on('error', reject);
-  });
-};
-
-const getFilteredProjects = (state, district) => {
-  let filtered = projectsData;
   if (state && state !== 'All States') {
-    filtered = filtered.filter(p => p.State === state);
+    query += ` AND LOWER(TRIM(p.state)) = LOWER(TRIM(?))`;
+    params.push(state);
   }
   if (district && district !== 'All Districts') {
-    filtered = filtered.filter(p => p.District === district);
+    query += ` AND LOWER(TRIM(p.district)) = LOWER(TRIM(?))`;
+    params.push(district);
   }
-  return filtered;
+
+  const [rows] = await pool.query(query, params);
+
+  return rows.map(row => ({
+    Project_ID: row.project_id,
+    Project_Name: row.name,
+    State: row.state,
+    District: row.district,
+    Category: row.category,
+    Sanctioned_Amount: Number(row.sanctioned_amount) || 0,
+    Actual_Expenditure: Number(row.actual_expenditure) || 0,
+    Physical_Progress: Number(row.physical_progress) || 0,
+    Financial_Progress: Number(row.financial_progress) || 0,
+    Start_Date: row.start_date,
+    Expected_Completion: row.expected_completion,
+    Implementing_Agency: row.implementing_agency,
+    Status: row.status,
+    risk: { score: row.risk_score || 0, risk_level: row.risk_level || 'LOW' }
+  }));
 };
 
 const calculateRiskScore = (project) => {
@@ -102,8 +93,8 @@ const calculateRiskScore = (project) => {
   return { score, risk_level, reasons, assessment };
 };
 
-const getFinancialSummary = (state, district) => {
-  const projects = getFilteredProjects(state, district);
+const getFinancialSummary = async (state, district) => {
+  const projects = await getFilteredProjects(state, district);
   let totalSanctioned = 0;
   let totalExpenditure = 0;
   let anomaliesCount = 0;
@@ -131,8 +122,8 @@ const getFinancialSummary = (state, district) => {
   };
 };
 
-const getFinancialAlerts = (state, district) => {
-  const projects = getFilteredProjects(state, district);
+const getFinancialAlerts = async (state, district) => {
+  const projects = await getFilteredProjects(state, district);
   const scoredProjects = projects.map(p => {
     const risk = calculateRiskScore(p);
     return { ...p, risk };
@@ -142,8 +133,8 @@ const getFinancialAlerts = (state, district) => {
   return scoredProjects.sort((a, b) => b.risk.score - a.risk.score);
 };
 
-const getFinancialAnalytics = (state, district) => {
-  const alerts = getFinancialAlerts(state, district);
+const getFinancialAnalytics = async (state, district) => {
+  const alerts = await getFinancialAlerts(state, district);
   
   // Risk Distribution
   const riskDistribution = {
@@ -179,18 +170,36 @@ const getFinancialAnalytics = (state, district) => {
   };
 };
 
-const getProjectById = (id) => {
-  const project = projectsData.find(p => p.Project_ID === id);
-  if (!project) return null;
+const getProjectById = async (id) => {
+  const [rows] = await pool.query(`
+    SELECT p.*, r.total_score as risk_score, r.risk_level, r.cost_overrun_score, r.delay_score, r.progress_mismatch_score 
+    FROM projects p
+    LEFT JOIN risk_scores r ON p.project_id = r.project_id
+    WHERE LOWER(TRIM(p.project_id)) = LOWER(TRIM(?))
+  `, [id]);
+  
+  if (rows.length === 0) return null;
+  const row = rows[0];
+  
+  const project = {
+    Project_ID: row.project_id,
+    Project_Name: row.name,
+    State: row.state,
+    District: row.district,
+    Category: row.category,
+    Sanctioned_Amount: Number(row.sanctioned_amount) || 0,
+    Actual_Expenditure: Number(row.actual_expenditure) || 0,
+    Physical_Progress: Number(row.physical_progress) || 0,
+    Financial_Progress: Number(row.financial_progress) || 0,
+    Start_Date: row.start_date,
+    Expected_Completion: row.expected_completion,
+    Implementing_Agency: row.implementing_agency,
+    Status: row.status
+  };
+
   const risk = calculateRiskScore(project);
   return { ...project, risk };
 };
-
-// Initial load
-loadData();
-
-// Getter so other modules always read the live array (avoids stale reference from destructuring)
-const getProjectsData = () => projectsData;
 
 module.exports = {
   getFilteredProjects,
@@ -198,8 +207,5 @@ module.exports = {
   getFinancialSummary,
   getFinancialAlerts,
   getFinancialAnalytics,
-  getProjectById,
-  getProjectsData,
-  projectsData,
-  loadData
+  getProjectById
 };

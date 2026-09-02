@@ -10,7 +10,26 @@ router.get('/', async (req, res) => {
       FROM projects p
       LEFT JOIN risk_scores r ON p.project_id = r.project_id
     `);
-    res.json(rows);
+
+    // Fetch anomalies from the database
+    const [anomaliesRows] = await pool.query(`
+      SELECT project_id, anomaly_type, description, severity FROM anomalies
+    `);
+    
+    const anomaliesByProject = {};
+    anomaliesRows.forEach(a => {
+      if (!anomaliesByProject[a.project_id]) {
+        anomaliesByProject[a.project_id] = [];
+      }
+      anomaliesByProject[a.project_id].push({ type: a.anomaly_type, description: a.description, severity: a.severity });
+    });
+
+    // Map anomalies back to projects
+    const enrichedRows = rows.map(p => {
+      return { ...p, anomalies: anomaliesByProject[p.project_id] || [] };
+    });
+
+    res.json(enrichedRows);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -40,6 +59,7 @@ router.get('/dashboard', async (req, res) => {
       SELECT COUNT(*) as delayed_projects FROM projects WHERE status = 'Delayed'
     `);
 
+    // Compute anomalies from the actual AI anomalies table
     const [[anomalyStats]] = await pool.query(`
       SELECT COUNT(*) as anomalies_detected FROM anomalies
     `);
@@ -160,39 +180,51 @@ router.post('/bulk', async (req, res) => {
     }
 
     let successCount = 0;
+    let skippedCount = 0;
+    let errorCount = 0;
+    const errors = [];
+    const validRecords = [];
+    const riskRecords = [];
+    const anomalyRecords = [];
+
+    // Get existing IDs to check duplicates
+    const [existingRows] = await pool.query('SELECT project_id FROM projects');
+    const existingIds = new Set(existingRows.map(r => r.project_id));
     
     for (const p of projects) {
       const projectId = p.Project_ID || ('PROJ-BLK' + Math.floor(Math.random() * 1000000));
+      
+      if (existingIds.has(projectId)) {
+        skippedCount++;
+        errors.push(`Project_ID (${projectId}) already exists. Skipped.`);
+        continue;
+      }
+
       const amount = Number(p.Sanctioned_Amount) || 0;
       const actExp = Number(p.Actual_Expenditure) || 0;
       const phyProg = Number(p.Physical_Progress) || 0;
       const finProg = Number(p.Financial_Progress) || 0;
       
       const rawStatus = (p.Status || '').trim();
+      const normStatus = rawStatus.toLowerCase();
       let validStatus = rawStatus || 'In Progress';
       
       let riskLevel = 'LOW';
       let totalScore = Math.floor(Math.random() * 20) + 10;
       
-      if (rawStatus === 'Cost Overrun' || rawStatus === 'Payment-Progress Mismatch') {
+      if (normStatus === 'cost overrun' || normStatus === 'payment-progress mismatch') {
         riskLevel = 'HIGH';
         totalScore = 80 + Math.floor(Math.random() * 10);
-      } else if (rawStatus === 'High Risk') {
-        riskLevel = 'CRITICAL';
-        totalScore = 90 + Math.floor(Math.random() * 10);
-      } else if (rawStatus === 'Delayed') {
-        riskLevel = 'MEDIUM';
-        totalScore = 50 + Math.floor(Math.random() * 15);
-      } else if (actExp > amount && amount > 0) {
+      } else if (normStatus === 'high risk' || (actExp > amount && amount > 0)) {
         riskLevel = 'CRITICAL';
         totalScore = 95;
+      } else if (normStatus === 'delayed') {
+        riskLevel = 'MEDIUM';
+        totalScore = 50 + Math.floor(Math.random() * 15);
       }
 
-      await pool.query(`
-        REPLACE INTO projects 
-        (project_id, name, state, district, constituency, category, sanctioned_amount, estimated_cost, actual_expenditure, physical_progress, financial_progress, start_date, expected_completion, implementing_agency, status) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-      `, [
+      existingIds.add(projectId);
+      validRecords.push([
         projectId, 
         p.Project_Name || 'Bulk Imported Project', 
         p.State || 'Uttarakhand', 
@@ -210,19 +242,116 @@ router.post('/bulk', async (req, res) => {
         validStatus
       ]);
 
-      await pool.query(`
-        REPLACE INTO risk_scores (project_id, cost_overrun_score, delay_score, progress_mismatch_score, payment_anomaly_score, historical_deviation_score, duplicate_score, total_score, risk_level) 
-        VALUES (?, 0, 0, 0, 0, 0, 0, ?, ?)
-      `, [projectId, totalScore, riskLevel]);
-      
-      successCount++;
+      riskRecords.push([
+        projectId, 0, 0, 0, 0, 0, 0, totalScore, riskLevel
+      ]);
+
+      if (normStatus === 'cost overrun' || (actExp > amount && amount > 0)) {
+        anomalyRecords.push([
+          projectId, 'Cost Overrun', 'HIGH', `Expenditure exceeds sanctioned amount by +₹${((actExp - amount)/100000).toFixed(1)}L`, totalScore
+        ]);
+      } else if (normStatus === 'payment-progress mismatch' || (finProg > phyProg + 20)) {
+        anomalyRecords.push([
+          projectId, 'Progress Mismatch', 'HIGH', `Financial progress (${finProg}%) exceeds physical progress (${phyProg}%)`, totalScore
+        ]);
+      } else if (normStatus === 'high risk' || riskLevel === 'CRITICAL') {
+        anomalyRecords.push([
+          projectId, 'Critical AI Risk Flag', 'CRITICAL', 'Severe anomaly detected: Combined financial deviation and abnormal trajectory', totalScore
+        ]);
+      }
     }
 
-    res.status(201).json({ message: `Successfully imported ${successCount} projects` });
+    if (validRecords.length > 0) {
+      const placeholders = validRecords.map(() => '(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)').join(',');
+      const flatParams = validRecords.flat();
+      await pool.query(`
+        INSERT INTO projects 
+        (project_id, name, state, district, constituency, category, sanctioned_amount, estimated_cost, actual_expenditure, physical_progress, financial_progress, start_date, expected_completion, implementing_agency, status) 
+        VALUES ${placeholders}
+      `, flatParams);
+
+      const riskPlaceholders = riskRecords.map(() => '(?, ?, ?, ?, ?, ?, ?, ?, ?)').join(',');
+      const riskFlatParams = riskRecords.flat();
+      await pool.query(`
+        INSERT INTO risk_scores (project_id, cost_overrun_score, delay_score, progress_mismatch_score, payment_anomaly_score, historical_deviation_score, duplicate_score, total_score, risk_level) 
+        VALUES ${riskPlaceholders}
+      `, riskFlatParams);
+
+      if (anomalyRecords.length > 0) {
+        const anomalyPlaceholders = anomalyRecords.map(() => '(?, ?, ?, ?, ?)').join(',');
+        const anomalyFlatParams = anomalyRecords.flat();
+        await pool.query(`
+          INSERT INTO anomalies (project_id, anomaly_type, severity, description, score)
+          VALUES ${anomalyPlaceholders}
+        `, anomalyFlatParams);
+      }
+
+      successCount = validRecords.length;
+    }
+
+    res.status(201).json({ 
+      message: `Processed ${projects.length} projects.`,
+      summary: {
+        imported: successCount,
+        skipped: skippedCount,
+        errors: errorCount
+      },
+      details: errors.slice(0, 50)
+    });
   } catch (error) {
     console.error("Bulk import error:", error);
     res.status(500).json({ error: error.message });
   }
 });
 
+// Delete a project
+router.delete('/:id', async (req, res) => {
+  try {
+    const projectId = req.params.id;
+    
+    // Check if project exists
+    const [[project]] = await pool.query('SELECT * FROM projects WHERE project_id = ?', [projectId]);
+    if (!project) {
+      return res.status(404).json({ error: 'Project not found' });
+    }
+
+    // Delete related records first to avoid foreign key constraints
+    await pool.query('DELETE FROM risk_scores WHERE project_id = ?', [projectId]);
+    await pool.query('DELETE FROM anomalies WHERE project_id = ?', [projectId]);
+    await pool.query('DELETE FROM payments WHERE project_id = ?', [projectId]);
+
+    // Delete the project
+    await pool.query('DELETE FROM projects WHERE project_id = ?', [projectId]);
+    
+    res.json({ message: 'Project deleted successfully' });
+  } catch (error) {
+    console.error("Error deleting project:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Bulk delete projects
+router.post('/bulk-delete', async (req, res) => {
+  try {
+    const { projectIds } = req.body;
+    if (!Array.isArray(projectIds) || projectIds.length === 0) {
+      return res.status(400).json({ error: 'Expected an array of project IDs' });
+    }
+
+    // Delete related records first
+    await pool.query('DELETE FROM risk_scores WHERE project_id IN (?)', [projectIds]);
+    await pool.query('DELETE FROM anomalies WHERE project_id IN (?)', [projectIds]);
+    await pool.query('DELETE FROM payments WHERE project_id IN (?)', [projectIds]);
+
+    // Delete projects
+    const [result] = await pool.query('DELETE FROM projects WHERE project_id IN (?)', [projectIds]);
+    
+    res.json({ message: `Successfully deleted ${result.affectedRows} projects` });
+  } catch (error) {
+    console.error("Bulk delete error:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 module.exports = router;
+

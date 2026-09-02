@@ -2,8 +2,11 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { api } from '../api';
 import { AlertTriangle, Filter, Search, ChevronRight } from 'lucide-react';
+import { DISTRICT_COORDINATES } from '../utils/districtCoordinates';
+import { useFinancialYear, getProjectFinancialYear } from '../context/FinancialYearContext';
 
 export default function AIAnomalyDetection({ user }) {
+  const { financialYear } = useFinancialYear();
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -14,15 +17,9 @@ export default function AIAnomalyDetection({ user }) {
   const [stateFilter, setStateFilter] = useState('All States');
 
   useEffect(() => {
-    // For demo, if backend fails, provide deterministic mock data
+    // Load all high risk projects across all districts
     api.getHighRiskProjects().then(data => {
-      let filteredData = data;
-      if (user) {
-        if (user.role === 'mp') filteredData = data.filter(p => p.constituency === 'Example Constituency');
-        if (user.role === 'district') filteredData = data; // Show all for demo so CSV upload is visible
-        if (user.role === 'state') filteredData = data.filter(p => p.state === 'Uttarakhand');
-      }
-      setProjects(filteredData);
+      setProjects(data);
       setLoading(false);
     }).catch(err => {
       console.warn("Using mock high-risk data", err);
@@ -89,8 +86,12 @@ export default function AIAnomalyDetection({ user }) {
   const formatCurrency = (val) => `₹${(val / 100000).toFixed(1)} Lakh`;
 
   // Dynamic filter options based on actual data
-  const uniqueDistricts = [...new Set(projects.map(p => p.district))].filter(Boolean);
-  const uniqueStates = [...new Set(projects.map(p => p.state))].filter(Boolean);
+  const uniqueDistricts = [...new Set([
+    ...projects.map(p => p.district),
+    ...Object.keys(DISTRICT_COORDINATES)
+  ])].filter(Boolean).sort();
+
+  const uniqueStates = [...new Set(projects.map(p => p.state))].filter(Boolean).sort();
   const uniqueRiskLevels = [...new Set(projects.map(p => p.risk_level))].filter(Boolean);
 
   // Apply Filters
@@ -100,19 +101,27 @@ export default function AIAnomalyDetection({ user }) {
       (p.project_id && p.project_id.toLowerCase().includes(searchTerm.toLowerCase()));
     
     const matchesRisk = riskFilter === 'All Risk Levels' || p.risk_level === riskFilter;
-    const matchesDistrict = districtFilter === 'All Districts' || p.district === districtFilter;
-    const matchesState = stateFilter === 'All States' || p.state === stateFilter;
+    const matchesDistrict = districtFilter === 'All Districts' || (p.district || '').toLowerCase() === districtFilter.toLowerCase();
+    const matchesState = stateFilter === 'All States' || (p.state || '').toLowerCase() === stateFilter.toLowerCase();
+    const matchesFY = financialYear && financialYear !== 'All Financial Years'
+      ? getProjectFinancialYear(p.start_date || p.Start_Date) === financialYear
+      : true;
     
-    return matchesSearch && matchesRisk && matchesDistrict && matchesState;
+    return matchesSearch && matchesRisk && matchesDistrict && matchesState && matchesFY;
   });
 
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-end">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800 flex items-center gap-2">
-            <AlertTriangle className="text-critical" /> AI Anomaly Detection
-          </h1>
+          <div className="flex items-center gap-3">
+            <h1 className="text-2xl font-bold text-slate-800 flex items-center gap-2">
+              <AlertTriangle className="text-critical" /> AI Anomaly Detection
+            </h1>
+            <span className="bg-red-100 text-red-700 border border-red-200 text-xs font-semibold px-2.5 py-0.5 rounded-full">
+              FY {financialYear}
+            </span>
+          </div>
           <p className="text-slate-500 mt-1">Identify unusual financial and project execution patterns using machine learning.</p>
         </div>
       </div>

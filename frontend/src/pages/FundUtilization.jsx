@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { api } from '../api';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, Legend, PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 import { AlertTriangle, TrendingUp, Filter, AlertCircle, ChevronDown, ChevronRight, Activity, ShieldAlert, CheckCircle2, Zap } from 'lucide-react';
+import { useFinancialYear } from '../context/FinancialYearContext';
 
 const formatCurrency = (val) => `₹${(val / 100000).toFixed(1)} Lakh`;
 const formatCrore = (val) => `₹${(val / 10000000).toFixed(2)} Cr`;
 
 export default function FundUtilization({ user }) {
+  const { financialYear, filterProjectsByFY } = useFinancialYear();
   const [loading, setLoading] = useState(true);
   
   // State for Filters
@@ -59,8 +61,15 @@ export default function FundUtilization({ user }) {
     return <div className="p-8 text-center text-slate-500">Loading Financial Intelligence Data...</div>;
   }
 
+  // Filter projects by FY
+  const displayProjects = filterProjectsByFY(projects, financialYear);
+  const totalSanctioned = displayProjects.reduce((acc, p) => acc + Number(p.Sanctioned_Amount || 0), 0);
+  const totalExp = displayProjects.reduce((acc, p) => acc + Number(p.Actual_Expenditure || 0), 0);
+  const util = totalSanctioned > 0 ? Number(((totalExp / totalSanctioned) * 100).toFixed(1)) : 0;
+  const anomaliesCount = displayProjects.filter(p => p.Status === 'Cost Overrun' || p.Status === 'Payment-Progress Mismatch' || p.Status === 'High Risk').length;
+
   // Pre-process Progress Gap data for Chart
-  const progressGapData = projects.slice(0, 15).map(p => ({
+  const progressGapData = displayProjects.slice(0, 15).map(p => ({
     name: p.Project_ID,
     financial: p.Financial_Progress,
     physical: p.Physical_Progress,
@@ -72,7 +81,12 @@ export default function FundUtilization({ user }) {
       {/* HEADER & FILTERS */}
       <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Financial Monitoring</h1>
+          <div className="flex items-center gap-3">
+            <h1 className="text-2xl font-bold text-slate-800">Financial Monitoring</h1>
+            <span className="bg-blue-100 text-blue-700 border border-blue-200 text-xs font-semibold px-2.5 py-0.5 rounded-full">
+              FY {financialYear}
+            </span>
+          </div>
           <p className="text-slate-500 mt-1">AI-powered detection of anomalies, fraud, and inefficiencies in MPLAD Scheme implementation.</p>
         </div>
         <div className="flex gap-4 items-center bg-white border border-slate-200 p-2 rounded-lg shadow-sm">
@@ -108,27 +122,27 @@ export default function FundUtilization({ user }) {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="glass-panel p-5 border-l-4 border-l-blue-500">
           <p className="text-slate-500 text-sm font-medium">Total Sanctioned</p>
-          <h3 className="text-2xl font-bold text-slate-800 mt-1">{formatCrore(summary.total_sanctioned)}</h3>
-          <p className="text-xs text-slate-400 mt-2">{summary.total_projects} Projects Selected</p>
+          <h3 className="text-2xl font-bold text-slate-800 mt-1">{formatCrore(totalSanctioned)}</h3>
+          <p className="text-xs text-slate-400 mt-2">{displayProjects.length} Projects Selected</p>
         </div>
         <div className="glass-panel p-5 border-l-4 border-l-orange-500">
           <p className="text-slate-500 text-sm font-medium">Actual Expenditure</p>
-          <h3 className="text-2xl font-bold text-slate-800 mt-1">{formatCrore(summary.total_expenditure)}</h3>
+          <h3 className="text-2xl font-bold text-slate-800 mt-1">{formatCrore(totalExp)}</h3>
           <p className="text-xs text-slate-400 mt-2">Total funds released to date</p>
         </div>
         <div className="glass-panel p-5 border-l-4 border-l-emerald-500 relative overflow-hidden">
           <p className="text-slate-500 text-sm font-medium">Utilization Rate</p>
-          <h3 className="text-2xl font-bold text-slate-800 mt-1">{summary.utilization_percentage.toFixed(1)}%</h3>
+          <h3 className="text-2xl font-bold text-slate-800 mt-1">{util}%</h3>
           <div className="mt-3 w-full bg-slate-100 rounded-full h-1.5">
-            <div className={`h-1.5 rounded-full ${summary.utilization_percentage > 100 ? 'bg-red-500' : 'bg-emerald-500'}`} style={{width: `${Math.min(summary.utilization_percentage, 100)}%`}}></div>
+            <div className={`h-1.5 rounded-full ${util > 100 ? 'bg-red-500' : 'bg-emerald-500'}`} style={{width: `${Math.min(util, 100)}%`}}></div>
           </div>
-          {summary.utilization_percentage > 100 && (
+          {util > 100 && (
             <AlertTriangle className="absolute top-4 right-4 text-red-500 opacity-20" size={40} />
           )}
         </div>
         <div className="glass-panel p-5 border-l-4 border-l-red-500 bg-red-50/30">
           <p className="text-red-600 text-sm font-medium flex items-center gap-2"><AlertCircle size={14}/> Financial Anomalies</p>
-          <h3 className="text-2xl font-bold text-slate-800 mt-1">{summary.anomalies_count}</h3>
+          <h3 className="text-2xl font-bold text-slate-800 mt-1">{anomaliesCount}</h3>
           <p className="text-xs text-red-400 mt-2">Projects requiring urgent verification</p>
         </div>
       </div>

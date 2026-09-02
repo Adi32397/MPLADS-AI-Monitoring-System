@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { api } from '../api';
-import { AlertTriangle, BrainCircuit, ShieldAlert, Calendar, CheckCircle, Clock } from 'lucide-react';
+import { AlertTriangle, BrainCircuit, ShieldAlert, Calendar, CheckCircle, Clock, Trash2 } from 'lucide-react';
 
 export default function ProjectDetails({ user }) {
   const { id } = useParams();
@@ -10,6 +10,19 @@ export default function ProjectDetails({ user }) {
   const [verificationModal, setVerificationModal] = useState(false);
   const [alertSuccess, setAlertSuccess] = useState(false);
   const [expandedAnomaly, setExpandedAnomaly] = useState(null);
+  const navigate = useNavigate();
+
+  const handleDelete = async () => {
+    if (window.confirm('Are you sure you want to delete this project?')) {
+      try {
+        await api.deleteProject(id);
+        navigate('/projects'); 
+      } catch (error) {
+        console.error('Failed to delete project', error);
+        alert('Failed to delete project. Please try again.');
+      }
+    }
+  };
 
   useEffect(() => {
     // Mock project for demo if backend fails
@@ -180,12 +193,20 @@ export default function ProjectDetails({ user }) {
           <p className="text-lg text-slate-600">{project.name} • {project.district}</p>
         </div>
         
-        <button 
-          onClick={() => setVerificationModal(true)}
-          className="px-4 py-2 bg-primary hover:bg-primary-light text-white text-sm font-medium rounded-lg shadow transition-colors flex items-center gap-2"
-        >
-          <ShieldAlert size={18} /> Create Verification Request
-        </button>
+        <div className="flex gap-3">
+          <button 
+            onClick={handleDelete}
+            className="px-4 py-2 bg-red-50 hover:bg-red-100 text-red-600 text-sm font-medium rounded-lg border border-red-200 transition-colors flex items-center gap-2"
+          >
+            <Trash2 size={18} /> Delete Project
+          </button>
+          <button 
+            onClick={() => setVerificationModal(true)}
+            className="px-4 py-2 bg-primary hover:bg-primary-light text-white text-sm font-medium rounded-lg shadow transition-colors flex items-center gap-2"
+          >
+            <ShieldAlert size={18} /> Create Verification Request
+          </button>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

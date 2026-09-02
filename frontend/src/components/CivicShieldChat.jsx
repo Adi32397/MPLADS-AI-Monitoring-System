@@ -60,6 +60,19 @@ export default function CivicShieldChat({ user }) {
     }
   };
 
+  const sendQuickMessage = async (text) => {
+    setMessages(prev => [...prev, { role: 'user', content: text }]);
+    setIsLoading(true);
+    try {
+      const response = await api.askCivicShieldAi(text, user);
+      setMessages(prev => [...prev, { role: 'assistant', content: response.reply }]);
+    } catch (err) {
+      setMessages(prev => [...prev, { role: 'assistant', content: "SYSTEM ERROR: Unable to process request. Please try again later." }]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <>
       {/* Chat Button */}
@@ -123,6 +136,27 @@ export default function CivicShieldChat({ user }) {
                 <div className="p-3 rounded-lg bg-[#00D4FF]/5 border border-[#00D4FF]/20 rounded-tl-none">
                   <Loader2 size={16} className="text-[#00D4FF] animate-spin" />
                 </div>
+              </div>
+            )}
+            {messages.length <= 2 && !isLoading && (
+              <div className="pt-2 flex flex-wrap gap-1.5">
+                <span className="text-[10px] text-[#00D4FF]/60 w-full mb-0.5 font-mono uppercase tracking-wider">Quick Inquiries:</span>
+                {[
+                  'Details of MPL-2026-2002',
+                  'What is the budget of MPL-2026-2002?',
+                  'Who is the agency for MPL-2026-2002?',
+                  'Show cost overruns',
+                  'Projects in Almora'
+                ].map(q => (
+                  <button
+                    key={q}
+                    type="button"
+                    onClick={() => sendQuickMessage(q)}
+                    className="text-[11px] bg-[#00D4FF]/10 hover:bg-[#00D4FF]/25 text-[#00D4FF] border border-[#00D4FF]/30 px-2.5 py-1 rounded-md transition-all text-left"
+                  >
+                    {q}
+                  </button>
+                ))}
               </div>
             )}
             <div ref={messagesEndRef} />
