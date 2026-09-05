@@ -26,7 +26,11 @@ const TopNavBar = () => {
           <div className="w-1.5 h-1.5 bg-[#00D4FF] rounded-full opacity-50"></div>
           <div className="w-1.5 h-1.5 bg-[#00D4FF] rounded-full opacity-25"></div>
         </div>
-        <Shield size={18} className="text-[#00D4FF]" />
+        <img 
+          src="/civicshield-logo.png" 
+          alt="CivicShield Logo" 
+          className="w-7 h-8 object-contain drop-shadow-[0_0_8px_rgba(0,212,255,0.4)]" 
+        />
         <div className="flex items-baseline gap-3">
           <h1 className="text-[#00D4FF] font-bold tracking-[0.2em] text-sm">CIVICSHIELD</h1>
           <span className="text-[#1677FF]/70 text-[10px] tracking-widest hidden sm:block">MPLADS INTELLIGENCE SYSTEM</span>
@@ -347,12 +351,13 @@ const LoginCard = ({ onLogin }) => {
         <div className="flex flex-col items-center mb-8">
           <div className="relative mb-6" style={{ perspective: '1000px' }}>
             <div 
-              className="w-16 h-16 border bg-[#00D4FF]/5 flex items-center justify-center"
-              style={{ animation: 'flipDiamond 4s ease-in-out infinite', transformStyle: 'preserve-3d' }}
+              className="w-24 h-24 border border-amber-500/30 bg-gradient-to-b from-[#00D4FF]/10 via-amber-500/5 to-slate-950/90 rounded-2xl flex items-center justify-center p-2.5 shadow-[0_0_30px_rgba(245,158,11,0.25)] backdrop-blur-md transition-transform hover:scale-105"
             >
-              <div style={{ transform: 'rotate(-45deg)' }}>
-                <Shield size={24} className="text-[#00D4FF]" />
-              </div>
+              <img 
+                src="/civicshield-logo.png" 
+                alt="CivicShield Emblem" 
+                className="max-h-full max-w-full object-contain filter drop-shadow-[0_0_15px_rgba(251,191,36,0.5)]" 
+              />
             </div>
           </div>
           <h2 

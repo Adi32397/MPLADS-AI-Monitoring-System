@@ -93,12 +93,22 @@ export default function Layout({ user, onLogout }) {
     <div className="flex h-screen bg-slate-50">
       {/* Sidebar */}
       <div className="w-64 bg-primary text-slate-300 flex flex-col hidden md:flex">
-        <div className="p-6">
-          <h1 className="text-xl font-bold text-white flex items-center gap-2">
-            <Activity className="text-accent-light" />
-            CivicShield AI
-          </h1>
-          <p className="text-xs text-slate-400 mt-1">MPLADS Intelligence</p>
+        <div className="p-5 border-b border-primary-light/30">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-12 rounded-lg bg-gradient-to-b from-amber-500/10 via-slate-900/90 to-slate-950 border border-amber-500/30 flex items-center justify-center p-1 shadow-inner shrink-0">
+              <img 
+                src="/civicshield-logo.png" 
+                alt="CivicShield Emblem" 
+                className="max-h-full max-w-full object-contain filter drop-shadow-[0_2px_6px_rgba(251,191,36,0.3)]" 
+              />
+            </div>
+            <div>
+              <h1 className="text-lg font-bold text-white tracking-wide leading-tight">
+                CivicShield
+              </h1>
+              <p className="text-[10px] text-accent-light font-semibold tracking-wider uppercase mt-0.5">MPLADS Intelligence</p>
+            </div>
+          </div>
         </div>
         
         <nav className="flex-1 px-4 space-y-1 overflow-y-auto">
@@ -142,6 +152,11 @@ export default function Layout({ user, onLogout }) {
         {/* Top Navbar */}
         <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8 z-10">
           <div className="flex items-center text-sm text-slate-500 gap-4">
+            <div className="flex items-center gap-2 md:hidden">
+              <img src="/civicshield-logo.png" alt="CivicShield" className="w-6 h-7 object-contain" />
+              <span className="font-bold text-slate-800 text-sm tracking-wide">CivicShield</span>
+              <div className="h-4 w-px bg-slate-300 ml-1"></div>
+            </div>
             <div className="flex items-center">
               <span className="font-medium text-slate-700 text-xs sm:text-sm">Financial Year:</span> 
               <select 

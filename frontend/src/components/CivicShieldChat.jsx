@@ -79,10 +79,11 @@ export default function CivicShieldChat({ user }) {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 bg-[#00D4FF] text-slate-900 p-4 rounded-full shadow-[0_0_20px_rgba(0,212,255,0.4)] hover:scale-110 transition-transform z-50 flex items-center justify-center group"
+          className="fixed bottom-6 right-6 bg-slate-950 border-2 border-amber-500/80 p-2.5 rounded-full shadow-[0_0_25px_rgba(245,158,11,0.45)] hover:scale-110 transition-all z-50 flex items-center justify-center group"
+          title="Open CivicShield AI"
         >
-          <Bot size={24} />
-          <div className="absolute inset-0 bg-[#00D4FF] rounded-full animate-ping opacity-20 group-hover:opacity-40"></div>
+          <img src="/civicshield-logo.png" alt="CivicShield AI" className="w-8 h-8 object-contain filter drop-shadow-[0_0_8px_rgba(251,191,36,0.5)]" />
+          <div className="absolute inset-0 bg-amber-400 rounded-full animate-ping opacity-20 group-hover:opacity-40 pointer-events-none"></div>
         </button>
       )}
 
@@ -93,8 +94,8 @@ export default function CivicShieldChat({ user }) {
           {/* Header */}
           <div className="bg-[#00D4FF]/10 border-b border-[#00D4FF]/20 p-4 flex justify-between items-center shrink-0">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-[#00D4FF]/20 flex items-center justify-center text-[#00D4FF]">
-                <Bot size={18} />
+              <div className="w-9 h-9 rounded-lg bg-slate-950 border border-amber-500/40 flex items-center justify-center p-1 shadow-inner">
+                <img src="/civicshield-logo.png" alt="CivicShield AI" className="w-full h-full object-contain filter drop-shadow-[0_0_6px_rgba(251,191,36,0.4)]" />
               </div>
               <div>
                 <h3 className="text-[#00D4FF] font-bold text-sm tracking-widest uppercase">CivicShield AI</h3>
@@ -116,8 +117,8 @@ export default function CivicShieldChat({ user }) {
           <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-[#020b14] to-[#041221]">
             {messages.map((msg, idx) => (
               <div key={idx} className={`flex gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
-                <div className={`w-6 h-6 rounded flex items-center justify-center shrink-0 ${msg.role === 'user' ? 'bg-[#1677FF]/20 text-[#1677FF]' : 'bg-[#00D4FF]/20 text-[#00D4FF]'}`}>
-                  {msg.role === 'user' ? <UserIcon size={14} /> : <Bot size={14} />}
+                <div className={`w-7 h-7 rounded flex items-center justify-center shrink-0 ${msg.role === 'user' ? 'bg-[#1677FF]/20 text-[#1677FF]' : 'bg-slate-900 border border-[#00D4FF]/40 p-0.5'}`}>
+                  {msg.role === 'user' ? <UserIcon size={14} /> : <img src="/civicshield-logo.png" alt="CS" className="w-full h-full object-contain" />}
                 </div>
                 <div className={`p-3 rounded-lg text-sm max-w-[80%] whitespace-pre-wrap leading-relaxed shadow-md ${
                   msg.role === 'user' 
