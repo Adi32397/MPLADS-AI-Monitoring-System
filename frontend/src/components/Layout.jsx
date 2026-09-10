@@ -21,8 +21,6 @@ export default function Layout({ user, onLogout }) {
           { name: 'Delayed Projects', path: '/delayed', icon: Activity },
           { name: 'High-Risk Projects', path: '/high-risk', icon: AlertTriangle },
           { name: 'Alerts', path: '/alerts', icon: ShieldAlert },
-          { name: 'Reports', path: '#', icon: FileText },
-          { name: 'Settings', path: '#', icon: Settings },
         ];
       case 'district':
         return [
@@ -34,7 +32,6 @@ export default function Layout({ user, onLogout }) {
           { name: 'Verification Queue', path: '/verification', icon: Activity },
           { name: 'Alerts Center', path: '/alerts', icon: ShieldAlert },
           { name: 'Geographic Risk', path: '/geographic', icon: Map },
-          { name: 'Settings', path: '#', icon: Settings },
         ];
       case 'state':
         return [
@@ -46,8 +43,6 @@ export default function Layout({ user, onLogout }) {
           { name: 'Geographic Risk', path: '#', icon: Map },
           { name: 'Fund Utilization', path: '/utilization', icon: BarChart3 },
           { name: 'Alerts & Escalations', path: '/alerts', icon: ShieldAlert },
-          { name: 'Reports', path: '#', icon: FileText },
-          { name: 'Settings', path: '#', icon: Settings },
         ];
       case 'ministry':
         return [
@@ -59,8 +54,6 @@ export default function Layout({ user, onLogout }) {
           { name: 'Financial Analytics', path: '#', icon: BarChart3 },
           { name: 'Trend Analysis', path: '#', icon: Activity },
           { name: 'Alerts & Escalations', path: '/alerts', icon: ShieldAlert },
-          { name: 'Reports', path: '#', icon: FileText },
-          { name: 'Settings', path: '#', icon: Settings },
         ];
       default:
         return [];

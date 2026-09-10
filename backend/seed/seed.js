@@ -118,6 +118,24 @@ const generateData = async () => {
         VALUES (?, ?, ?)
       `, [pid, totalScore, rLevel]);
       
+      // Insert simulated payments for this project
+      let remainingExp = expAmt;
+      let pCount = 1;
+      let currentDate = new Date('2025-05-15');
+      while (remainingExp > 1 && pCount <= 4) {
+        let paymentAmount = pCount === 4 ? remainingExp : remainingExp * (Math.random() * 0.4 + 0.2);
+        if (paymentAmount > remainingExp) paymentAmount = remainingExp;
+        
+        await pool.query(`
+          INSERT INTO payments (project_id, payment_date, amount, payment_type, status)
+          VALUES (?, ?, ?, ?, 'Completed')
+        `, [pid, currentDate.toISOString().split('T')[0], paymentAmount, 'Milestone ' + pCount]);
+        
+        remainingExp -= paymentAmount;
+        pCount++;
+        currentDate.setMonth(currentDate.getMonth() + 1 + Math.floor(Math.random() * 2));
+      }
+      
       // Potential Duplicate Pair
       if (i === 10) {
         await pool.query(`

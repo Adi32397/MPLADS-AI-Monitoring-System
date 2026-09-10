@@ -255,14 +255,64 @@ function VerificationDetailsModal({ projectDetails, onClose }) {
   const [checklist, setChecklist] = useState(p.workflow.checklist || { financial: {}, project: {}, compliance: {} });
 
   // Prototype Evidence State
-  const [photosUploaded, setPhotosUploaded] = useState(false);
+  const [sitePhotos, setSitePhotos] = useState([]);
+  const [isUploading, setIsUploading] = useState(false);
   const [previewFile, setPreviewFile] = useState(null);
+  const [previewIndex, setPreviewIndex] = useState(null); // For photo gallery lightbox
   const fileInputRef = React.useRef(null);
+
+  useEffect(() => {
+    fetchPhotos();
+  }, [p.Project_ID]);
+
+  const fetchPhotos = () => {
+    api.fetchSitePhotos(p.Project_ID).then(data => {
+      setSitePhotos(data || []);
+    }).catch(console.error);
+  };
 
   const handleFileUpload = (e) => {
     if (e.target.files && e.target.files.length > 0) {
-      setPhotosUploaded(true);
+      setIsUploading(true);
+      api.uploadSitePhotos(p.Project_ID, e.target.files)
+        .then(() => {
+          fetchPhotos();
+        })
+        .catch(err => {
+          console.error(err);
+          alert("Failed to upload photos. Please check format and size.");
+        })
+        .finally(() => {
+          setIsUploading(false);
+          e.target.value = ''; // Reset input
+        });
     }
+  };
+
+  const handleDeletePhoto = (photoId) => {
+    if (window.confirm("Are you sure you want to delete this photo?")) {
+      api.deleteSitePhoto(p.Project_ID, photoId).then(() => {
+        fetchPhotos();
+      }).catch(console.error);
+    }
+  };
+
+  const handleDownloadSanction = () => {
+    window.open(api.getVerificationEvidenceUrl(p.Project_ID), '_blank');
+  };
+  
+  const handleDownloadPhoto = (photoPath, photoName) => {
+    const link = document.createElement('a');
+    link.href = api.getSitePhotoUrl(photoPath);
+    link.download = photoName;
+    link.target = '_blank';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handleDownloadAllPhotos = () => {
+    window.open(api.getDownloadAllPhotosUrl(p.Project_ID), '_blank');
   };
 
   const toggleCheck = (category, field) => {
@@ -295,7 +345,7 @@ function VerificationDetailsModal({ projectDetails, onClose }) {
       inspection_result: inspectionResult,
       final_decision: decision,
       checklist,
-      evidence: [] // Evidence mock handled via UI
+      evidence: [] // Legacy mock array, photos handled separately now
     }).then(() => {
       alert("Verification Findings Submitted Successfully");
       onClose();
@@ -375,36 +425,80 @@ function VerificationDetailsModal({ projectDetails, onClose }) {
               </div>
             </div>
 
-            {/* Evidence Prototype UI */}
+            {/* Evidence UI */}
             <div className="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden relative">
               <div className="px-5 py-3 border-b border-slate-100 bg-slate-50">
-                <h3 className="font-bold text-slate-800 flex items-center gap-2"><Paperclip size={18}/> Verification Evidence (Prototype)</h3>
+                <h3 className="font-bold text-slate-800 flex items-center gap-2"><Paperclip size={18}/> Verification Evidence</h3>
               </div>
               <div className="p-5">
-                <p className="text-xs text-slate-500 mb-4">Functional mock demonstrating document handling without requiring production S3 storage.</p>
-                <div className="space-y-3">
+                <div className="space-y-6">
+                  {/* PDF Sanction Order */}
                   <div className="flex items-center justify-between p-3 border border-slate-200 rounded-lg">
                     <div className="flex items-center gap-3">
                       <FileText className="text-blue-500" size={20}/>
-                      <div><p className="text-sm font-medium">Sanction_Order.pdf</p><p className="text-xs text-slate-400">Uploaded 12 days ago</p></div>
+                      <div><p className="text-sm font-medium">Sanction_Order_{p.Project_ID}.pdf</p><p className="text-xs text-slate-400">Dynamically Generated</p></div>
                     </div>
-                    <button onClick={() => setPreviewFile('Sanction_Order.pdf')} className="text-xs text-primary font-medium hover:underline">Preview</button>
+                    <div className="flex gap-3 items-center">
+                      <button onClick={() => setPreviewFile(`Sanction_Order_${p.Project_ID}.pdf`)} className="text-xs text-primary font-medium hover:underline">Preview</button>
+                      <button onClick={handleDownloadSanction} className="text-xs text-slate-500 font-medium hover:text-slate-800 hover:underline">Download</button>
+                    </div>
                   </div>
-                  <div className="flex items-center justify-between p-3 border border-slate-200 rounded-lg">
-                    <div className="flex items-center gap-3">
-                      <Camera className="text-emerald-500" size={20}/>
+
+                  {/* Site Inspection Photos Component */}
+                  <div className="border border-slate-200 rounded-lg p-4 bg-slate-50">
+                    <div className="flex justify-between items-start mb-4">
                       <div>
-                        <p className="text-sm font-medium">Site_Inspection_Photos.zip</p>
-                        <p className="text-xs text-slate-400">{photosUploaded ? 'Uploaded just now' : 'Missing'}</p>
+                        <h4 className="font-bold text-slate-800 flex items-center gap-2"><Camera className="text-emerald-500" size={18}/> Site Inspection Photos</h4>
+                        <p className="text-xs text-slate-500 mt-1">Upload multiple site inspection photos (JPG, PNG, WEBP)</p>
+                        <p className="text-xs font-semibold text-emerald-700 mt-1">{sitePhotos.length} / 5+ Photos Uploaded</p>
+                        <span className="inline-block mt-2 text-[10px] font-bold bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded">PROTOTYPE EVIDENCE</span>
+                      </div>
+                      <div className="flex flex-col items-end gap-2">
+                        <input type="file" ref={fileInputRef} onChange={handleFileUpload} className="hidden" multiple accept="image/jpeg, image/png, image/webp" />
+                        <button onClick={() => fileInputRef.current.click()} disabled={isUploading} className="text-xs bg-emerald-500 text-white px-3 py-1.5 rounded hover:bg-emerald-600 font-bold transition-colors disabled:opacity-50">
+                          {isUploading ? 'Uploading...' : '+ Add Photos'}
+                        </button>
+                        {sitePhotos.length > 0 && (
+                          <button onClick={handleDownloadAllPhotos} className="text-xs text-slate-600 bg-slate-200 px-3 py-1 rounded hover:bg-slate-300 font-medium transition-colors">
+                            Download ZIP
+                          </button>
+                        )}
                       </div>
                     </div>
-                    <input type="file" ref={fileInputRef} onChange={handleFileUpload} className="hidden" />
-                    {!photosUploaded ? (
-                      <button onClick={() => fileInputRef.current.click()} className="text-xs bg-slate-100 px-3 py-1 rounded text-slate-600 hover:bg-slate-200 font-medium">Upload File</button>
+
+                    {/* AI Mock Note */}
+                    <div className="bg-white p-3 rounded border border-indigo-100 text-xs text-indigo-800 mb-4 shadow-sm flex items-start gap-2">
+                      <Zap size={14} className="mt-0.5 text-indigo-500"/>
+                      <div>
+                        <strong>AI Image Analysis: Prototype / Not Available</strong><br/>
+                        <span className="text-indigo-600">Visual Evidence for Verification. Requires Officer Review to confirm consistency with reported progress.</span>
+                      </div>
+                    </div>
+
+                    {/* Photo Gallery Grid */}
+                    {sitePhotos.length > 0 ? (
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                        {sitePhotos.map((photo, index) => (
+                          <div key={photo.id} className="relative group rounded border border-slate-200 bg-white shadow-sm overflow-hidden aspect-video cursor-pointer" onClick={() => setPreviewIndex(index)}>
+                            <img src={api.getSitePhotoUrl(photo.file_path)} alt={`Photo ${index + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform" />
+                            <div className="absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity flex gap-1">
+                              <button onClick={(e) => { e.stopPropagation(); handleDeletePhoto(photo.id); }} className="p-1 bg-red-500/80 hover:bg-red-600 text-white rounded-full backdrop-blur"><X size={12}/></button>
+                            </div>
+                            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-2 pt-6 pointer-events-none">
+                              <p className="text-[10px] text-white truncate font-medium">Photo {index + 1}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     ) : (
-                      <button onClick={() => setPreviewFile('Site_Inspection_Photos.zip')} className="text-xs text-primary font-medium hover:underline">Preview</button>
+                      <div className="bg-white rounded-lg border-2 border-dashed border-slate-300 p-8 flex flex-col items-center justify-center text-center">
+                        <Camera className="text-slate-300 mb-2" size={32}/>
+                        <p className="text-sm font-medium text-slate-600">No photos uploaded yet</p>
+                        <p className="text-xs text-slate-400 mt-1">Upload at least 5 photos of the project site</p>
+                      </div>
                     )}
                   </div>
+
                 </div>
               </div>
             </div>
@@ -428,11 +522,14 @@ function VerificationDetailsModal({ projectDetails, onClose }) {
                 ) : (
                   <>
                     <div>
-                      <label className="block text-xs font-semibold text-slate-500 mb-1">Select Officer / Team (Demo Users)</label>
-                      <select value={assignOfficer} onChange={e => setAssignOfficer(e.target.value)} className="w-full border border-slate-300 rounded px-3 py-2 text-sm">
-                        <option value="">-- Select Officer --</option>
-                        {MOCK_OFFICERS.map(o => <option key={o} value={o}>{o}</option>)}
-                      </select>
+                      <label className="block text-xs font-semibold text-slate-500 mb-1">Assign Officer / Team</label>
+                      <input 
+                        type="text" 
+                        value={assignOfficer} 
+                        onChange={e => setAssignOfficer(e.target.value)} 
+                        placeholder="Type officer's name..."
+                        className="w-full border border-slate-300 rounded px-3 py-2 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+                      />
                     </div>
                     <button onClick={handleAssign} className="w-full py-2 bg-slate-800 text-white rounded text-sm font-medium hover:bg-slate-700">Assign Officer</button>
                   </>
@@ -499,8 +596,8 @@ function VerificationDetailsModal({ projectDetails, onClose }) {
         </div>
       </div>
 
-      {/* PROTOTYPE DOCUMENT PREVIEW MODAL */}
-      {previewFile && (
+      {/* PDF SANCTION ORDER PREVIEW MODAL */}
+      {previewFile && previewFile.includes('Sanction_Order') && (
         <div className="fixed inset-0 z-[60] bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-8">
           <div className="bg-white w-full max-w-4xl h-[80vh] rounded-xl shadow-2xl flex flex-col overflow-hidden">
             <div className="px-4 py-3 bg-slate-100 border-b border-slate-200 flex justify-between items-center shrink-0">
@@ -508,17 +605,59 @@ function VerificationDetailsModal({ projectDetails, onClose }) {
                 <FileText size={18} className="text-primary"/> 
                 Document Preview: {previewFile}
               </h3>
-              <button onClick={() => setPreviewFile(null)} className="p-1.5 hover:bg-slate-200 rounded-full text-slate-500"><X size={18}/></button>
+              <div className="flex items-center gap-3">
+                <button onClick={handleDownloadSanction} className="px-3 py-1.5 bg-white border border-slate-300 text-slate-700 text-xs font-medium rounded hover:bg-slate-50 transition-colors shadow-sm">
+                  Download File
+                </button>
+                <button onClick={() => setPreviewFile(null)} className="p-1.5 hover:bg-slate-200 rounded-full text-slate-500"><X size={18}/></button>
+              </div>
             </div>
-            <div className="flex-1 bg-slate-200 flex flex-col items-center justify-center p-8 text-center border-4 border-dashed border-slate-300 m-8 rounded-xl opacity-75">
-              <div className="bg-white p-6 rounded-full shadow-sm mb-4"><FileText size={48} className="text-slate-400"/></div>
-              <h4 className="text-xl font-bold text-slate-700">MOCK DOCUMENT VIEWER</h4>
-              <p className="text-slate-500 mt-2 max-w-md">In a production environment, this iframe would securely render the document from an S3 bucket or equivalent government storage solution.</p>
-              <div className="mt-6 px-4 py-2 bg-slate-300 rounded text-slate-600 text-sm font-mono">FILE: {previewFile}</div>
+            <div className="flex-1 bg-slate-200 flex flex-col p-2">
+              <iframe src={api.getVerificationEvidenceUrl(p.Project_ID)} className="w-full h-full border-0 rounded bg-white shadow-inner" title="Sanction Order PDF" />
             </div>
           </div>
         </div>
       )}
+
+      {/* MULTI-PHOTO LIGHTBOX MODAL */}
+      {previewIndex !== null && sitePhotos.length > 0 && (
+        <div className="fixed inset-0 z-[70] bg-black/95 backdrop-blur-md flex flex-col items-center justify-center">
+          <div className="absolute top-0 left-0 right-0 p-4 flex justify-between items-center bg-gradient-to-b from-black/80 to-transparent">
+            <div className="text-white">
+              <p className="font-bold text-lg">Site Inspection Photos</p>
+              <p className="text-sm opacity-80">Project: {p.Project_ID} • {p.Project_Name} • {p.District}, {p.State}</p>
+            </div>
+            <div className="flex gap-4">
+              <button onClick={() => handleDownloadPhoto(sitePhotos[previewIndex].file_path, sitePhotos[previewIndex].file_name)} className="text-white hover:text-emerald-400 font-medium text-sm">Download This Photo</button>
+              <button onClick={() => setPreviewIndex(null)} className="text-white hover:text-red-400"><X size={28}/></button>
+            </div>
+          </div>
+          
+          <div className="flex-1 w-full flex items-center justify-center p-8 relative">
+            <button 
+              onClick={(e) => { e.stopPropagation(); setPreviewIndex(prev => prev > 0 ? prev - 1 : sitePhotos.length - 1); }} 
+              className="absolute left-4 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white backdrop-blur z-10 transition-colors"
+            >
+              <ChevronRight className="rotate-180" size={32} />
+            </button>
+            
+            <img src={api.getSitePhotoUrl(sitePhotos[previewIndex].file_path)} className="max-w-full max-h-full object-contain rounded drop-shadow-2xl" alt={`Preview ${previewIndex + 1}`} />
+            
+            <button 
+              onClick={(e) => { e.stopPropagation(); setPreviewIndex(prev => prev < sitePhotos.length - 1 ? prev + 1 : 0); }} 
+              className="absolute right-4 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white backdrop-blur z-10 transition-colors"
+            >
+              <ChevronRight size={32} />
+            </button>
+          </div>
+          
+          <div className="absolute bottom-6 bg-black/50 backdrop-blur border border-white/10 px-6 py-3 rounded-full text-white text-sm">
+            <p className="font-medium">Photo {previewIndex + 1} of {sitePhotos.length}</p>
+            <p className="text-xs opacity-60 text-center">{sitePhotos[previewIndex].file_name}</p>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }

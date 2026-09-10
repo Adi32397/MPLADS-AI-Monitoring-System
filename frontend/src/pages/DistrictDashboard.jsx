@@ -73,17 +73,49 @@ export default function DistrictDashboard({ user }) {
       
       const utilization = total_sanctioned > 0 ? Number(((total_expenditure / total_sanctioned) * 100).toFixed(1)) : 0;
       
-      const baseSanctioned = total_sanctioned * 0.4;
-      const baseExpenditure = total_expenditure * 0.2;
-      
-      const expenditureData = [
-        { month: 'Apr', sanctioned: baseSanctioned, expenditure: baseExpenditure },
-        { month: 'May', sanctioned: baseSanctioned * 1.2, expenditure: baseExpenditure * 1.5 },
-        { month: 'Jun', sanctioned: baseSanctioned * 1.5, expenditure: baseExpenditure * 2.1 },
-        { month: 'Jul', sanctioned: baseSanctioned * 1.8, expenditure: baseExpenditure * 2.8 },
-        { month: 'Aug', sanctioned: total_sanctioned * 0.9, expenditure: total_expenditure * 0.8 },
-        { month: 'Sep', sanctioned: total_sanctioned, expenditure: total_expenditure }
-      ];
+      const monthNames = ['Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar'];
+      const monthlyData = {};
+      monthNames.forEach(m => monthlyData[m] = { month: m, sanctioned: 0, expenditure: 0 });
+
+      // Aggregate payments and sanctioned amounts by month
+      myProjects.forEach(p => {
+        // Sanctioned Amount: Add to the month the project started
+        if (p.start_date) {
+          const d = new Date(p.start_date);
+          if (!isNaN(d.getTime())) {
+            const m = d.toLocaleString('en-US', { month: 'short' });
+            if (monthlyData[m]) {
+              monthlyData[m].sanctioned += Number(p.sanctioned_amount || 0);
+            }
+          }
+        }
+        
+        // Payments: Add to the month they were made
+        if (p.payments && Array.isArray(p.payments)) {
+          p.payments.forEach(payment => {
+            const pd = new Date(payment.payment_date);
+            if (!isNaN(pd.getTime())) {
+              const pm = pd.toLocaleString('en-US', { month: 'short' });
+              if (monthlyData[pm]) {
+                monthlyData[pm].expenditure += Number(payment.amount || 0);
+              }
+            }
+          });
+        }
+      });
+
+      // Calculate cumulative totals
+      let currentSanc = 0;
+      let currentExp = 0;
+      const expenditureData = monthNames.map(m => {
+        currentSanc += monthlyData[m].sanctioned;
+        currentExp += monthlyData[m].expenditure;
+        return {
+          month: m,
+          sanctioned: currentSanc,
+          expenditure: currentExp
+        };
+      });
       
       setStats({
         total_projects: myProjects.length,
@@ -147,25 +179,26 @@ export default function DistrictDashboard({ user }) {
     
     const reader = new FileReader();
     reader.onload = async (e) => {
-      const text = e.target.result;
-      const lines = text.split('\n').map(line => line.trim()).filter(line => line);
+      const rawText = e.target.result;
+      const cleanText = (rawText || '').replace(/^\uFEFF/, '');
+      const lines = cleanText.split(/\r?\n/).map(line => line.trim()).filter(line => line);
       if (lines.length <= 1) {
         setLogs(prev => [...prev, 'ERROR: FILE IS EMPTY OR HAS NO DATA ROWS']);
         setBulkState('done');
         return;
       }
       
-      const headers = lines[0].split(',').map(h => h.trim());
+      const headers = lines[0].split(',').map(h => h.replace(/^"|"$/g, '').trim().replace(/^\uFEFF/, ''));
       const projectsToImport = [];
       
       for (let i = 1; i < lines.length; i++) {
         const lineStr = lines[i].trim();
         if (!lineStr) continue;
         
-        const values = lineStr.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(v => v.replace(/^"|"$/g, '').trim());
+        const values = lineStr.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(v => v ? v.replace(/^"|"$/g, '').trim() : '');
         const row = {};
         headers.forEach((header, index) => {
-          row[header] = values[index] || '';
+          row[header] = values[index] !== undefined ? values[index] : '';
         });
 
         projectsToImport.push(row);
@@ -181,16 +214,30 @@ export default function DistrictDashboard({ user }) {
       }, 400);
 
       try {
-        await fetch('http://localhost:5000/api/projects/bulk', {
+        const res = await fetch('http://localhost:5000/api/projects/bulk', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(projectsToImport)
         });
         
+        if (!res.ok) {
+          const errorData = await res.json().catch(() => ({}));
+          throw new Error(errorData.error || `Upload failed with status: ${res.status}`);
+        }
+
+        const data = await res.json();
+        
         clearInterval(interval);
         setProgress(100);
         setBulkState('done');
-        setLogs(prev => [...prev, `[100%] BULK INSERT COMPLETE.`, `${projectsToImport.length} RECORDS WRITTEN TO SECURE LEDGER.`, 'AI RISK ENGINE: RECALCULATING...']);
+        const importedCount = data.summary?.imported ?? projectsToImport.length;
+        setLogs(prev => [
+          ...prev, 
+          `[100%] BULK INSERT COMPLETE.`, 
+          `SUCCESS: ${importedCount} RECORDS SAVED TO SECURE LEDGER.`,
+          data.summary?.skipped ? `NOTE: ${data.summary.skipped} RECORDS DEDUPLICATED.` : null,
+          'AI RISK ENGINE: RECALCULATING...'
+        ].filter(Boolean));
         
         fetchStats();
       } catch (err) {
@@ -405,7 +452,7 @@ export default function DistrictDashboard({ user }) {
         </div>
       </div>
       <p className="text-xs text-slate-400 text-center italic pb-4">
-        Prototype uses a combination of publicly available MPLADS information and synthetic/derived data for demonstration purposes.
+        Prototype dashboard. Financial progress chart is now driven by true historical database records.
       </p>
 
       {/* --- MODALS --- */}

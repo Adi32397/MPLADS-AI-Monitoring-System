@@ -32,6 +32,22 @@ export const api = {
   assignVerification: (projectId, data) => axios.patch(`${API_URL}/verification-queue/${projectId}/assign`, data).then(res => res.data),
   updateVerificationStatus: (projectId, status) => axios.patch(`${API_URL}/verification-queue/${projectId}/status`, { status }).then(res => res.data),
   submitVerificationFindings: (projectId, data) => axios.post(`${API_URL}/verification-queue/${projectId}/findings`, data).then(res => res.data),
+  getVerificationEvidenceUrl: (projectId) => `${API_URL}/verification-queue/${projectId}/evidence`,
+  
+  // Site Inspection Photos
+  fetchSitePhotos: (projectId) => axios.get(`${API_URL}/verification-queue/${projectId}/site-inspection-photos`).then(res => res.data),
+  uploadSitePhotos: (projectId, files) => {
+    const formData = new FormData();
+    for (let i = 0; i < files.length; i++) {
+      formData.append('photos', files[i]);
+    }
+    return axios.post(`${API_URL}/verification-queue/${projectId}/site-inspection-photos`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    }).then(res => res.data);
+  },
+  deleteSitePhoto: (projectId, photoId) => axios.delete(`${API_URL}/verification-queue/${projectId}/site-inspection-photos/${photoId}`).then(res => res.data),
+  getSitePhotoUrl: (filePath) => `http://localhost:5000${filePath}`,
+  getDownloadAllPhotosUrl: (projectId) => `${API_URL}/verification-queue/${projectId}/site-inspection-photos/download-all`,
   
   // Geographic Risk
   getGeographicOverview: () => axios.get(`${API_URL}/geographic/overview`).then(res => res.data),

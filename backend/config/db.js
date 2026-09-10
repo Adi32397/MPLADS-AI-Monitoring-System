@@ -38,6 +38,19 @@ const initDb = async () => {
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
       );
     `);
+    
+    await connection.query(`
+      CREATE TABLE IF NOT EXISTS project_evidence (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        project_id VARCHAR(50) NOT NULL,
+        evidence_type VARCHAR(50) DEFAULT 'SITE_INSPECTION_PHOTO',
+        file_name VARCHAR(255) NOT NULL,
+        file_path VARCHAR(255) NOT NULL,
+        file_size INT,
+        uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (project_id) REFERENCES projects(project_id) ON DELETE CASCADE
+      );
+    `);
     await connection.end();
     console.log('Database initialized successfully.');
   } catch (error) {

@@ -92,24 +92,25 @@ export default function StateDashboard({ user }) {
     
     const reader = new FileReader();
     reader.onload = async (e) => {
-      const text = e.target.result;
-      const lines = text.split('\n').map(line => line.trim()).filter(line => line);
+      const rawText = e.target.result;
+      const cleanText = (rawText || '').replace(/^\uFEFF/, '');
+      const lines = cleanText.split(/\r?\n/).map(line => line.trim()).filter(line => line);
       if (lines.length <= 1) {
         setLogs(prev => [...prev, 'ERROR: FILE IS EMPTY OR HAS NO DATA ROWS']);
         setBulkState('done');
         return;
       }
       
-      const headers = lines[0].split(',').map(h => h.trim());
+      const headers = lines[0].split(',').map(h => h.replace(/^"|"$/g, '').trim().replace(/^\uFEFF/, ''));
       const projectsToImport = [];
       
       for (let i = 1; i < lines.length; i++) {
         const lineStr = lines[i].trim();
         if (!lineStr) continue;
-        const values = lineStr.split(',').map(v => v.trim());
+        const values = lineStr.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(v => v ? v.replace(/^"|"$/g, '').trim() : '');
         const row = {};
         headers.forEach((header, index) => {
-          row[header] = values[index] || '';
+          row[header] = values[index] !== undefined ? values[index] : '';
         });
         projectsToImport.push(row);
       }

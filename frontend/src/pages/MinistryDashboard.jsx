@@ -46,24 +46,25 @@ export default function MinistryDashboard({ user }) {
     
     const reader = new FileReader();
     reader.onload = async (e) => {
-      const text = e.target.result;
-      const lines = text.split('\n').map(line => line.trim()).filter(line => line);
+      const rawText = e.target.result;
+      const cleanText = (rawText || '').replace(/^\uFEFF/, '');
+      const lines = cleanText.split(/\r?\n/).map(line => line.trim()).filter(line => line);
       if (lines.length <= 1) {
         setLogs(prev => [...prev, 'ERROR: FILE IS EMPTY OR HAS NO DATA ROWS']);
         setBulkState('done');
         return;
       }
       
-      const headers = lines[0].split(',').map(h => h.trim());
+      const headers = lines[0].split(',').map(h => h.replace(/^"|"$/g, '').trim().replace(/^\uFEFF/, ''));
       const projectsToImport = [];
       
       for (let i = 1; i < lines.length; i++) {
         const lineStr = lines[i].trim();
         if (!lineStr) continue;
-        const values = lineStr.split(',').map(v => v.trim());
+        const values = lineStr.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(v => v ? v.replace(/^"|"$/g, '').trim() : '');
         const row = {};
         headers.forEach((header, index) => {
-          row[header] = values[index] || '';
+          row[header] = values[index] !== undefined ? values[index] : '';
         });
         projectsToImport.push(row);
       }
@@ -78,16 +79,30 @@ export default function MinistryDashboard({ user }) {
       }, 400);
 
       try {
-        await fetch('http://localhost:5000/api/projects/bulk', {
+        const res = await fetch('http://localhost:5000/api/projects/bulk', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(projectsToImport)
         });
+
+        if (!res.ok) {
+          const errorData = await res.json().catch(() => ({}));
+          throw new Error(errorData.error || `Upload failed with status: ${res.status}`);
+        }
+
+        const data = await res.json();
         
         clearInterval(interval);
         setProgress(100);
         setBulkState('done');
-        setLogs(prev => [...prev, `[100%] BULK INSERT COMPLETE.`, `${projectsToImport.length} RECORDS WRITTEN TO SECURE LEDGER.`, 'AI RISK ENGINE: RECALCULATING...']);
+        const importedCount = data.summary?.imported ?? projectsToImport.length;
+        setLogs(prev => [
+          ...prev, 
+          `[100%] BULK INSERT COMPLETE.`, 
+          `SUCCESS: ${importedCount} RECORDS WRITTEN TO SECURE LEDGER.`, 
+          data.summary?.skipped ? `NOTE: ${data.summary.skipped} RECORDS DEDUPLICATED.` : null,
+          'AI RISK ENGINE: RECALCULATING...'
+        ].filter(Boolean));
       } catch (err) {
         clearInterval(interval);
         setBulkState('done');
