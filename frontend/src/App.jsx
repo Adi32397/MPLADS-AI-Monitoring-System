@@ -15,6 +15,7 @@ import DuplicateDetection from './pages/DuplicateDetection';
 import AlertsCenter from './pages/AlertsCenter';
 import VerificationQueue from './pages/VerificationQueue';
 import GeographicRisk from './pages/GeographicRisk';
+import About from './pages/About';
 import { FinancialYearProvider } from './context/FinancialYearContext';
 
 const RoleRoute = ({ user, allowedRole, children }) => {
@@ -93,6 +94,7 @@ function App() {
             <Route path="alerts" element={<AlertsCenter user={user} />} />
             <Route path="verification" element={<VerificationQueue user={user} />} />
             <Route path="geographic" element={<GeographicRisk user={user} />} />
+            <Route path="about" element={<About user={user} />} />
             
             {/* Catch-all */}
             <Route path="*" element={<Navigate to="/" replace />} />

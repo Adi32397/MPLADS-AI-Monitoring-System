@@ -1,7 +1,8 @@
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { 
   LayoutDashboard, AlertTriangle, Search, Activity, 
-  Map, FileText, Settings, LogOut, ShieldAlert, BarChart3, Copy
+  Map, FileText, Settings, LogOut, ShieldAlert, BarChart3, Copy,
+  Info, Github, Linkedin
 } from 'lucide-react';
 import CivicShieldChat from './CivicShieldChat';
 import { useFinancialYear } from '../context/FinancialYearContext';
@@ -21,6 +22,7 @@ export default function Layout({ user, onLogout }) {
           { name: 'Delayed Projects', path: '/delayed', icon: Activity },
           { name: 'High-Risk Projects', path: '/high-risk', icon: AlertTriangle },
           { name: 'Alerts', path: '/alerts', icon: ShieldAlert },
+          { name: 'About Developer', path: '/about', icon: Info },
         ];
       case 'district':
         return [
@@ -32,6 +34,7 @@ export default function Layout({ user, onLogout }) {
           { name: 'Verification Queue', path: '/verification', icon: Activity },
           { name: 'Alerts Center', path: '/alerts', icon: ShieldAlert },
           { name: 'Geographic Risk', path: '/geographic', icon: Map },
+          { name: 'About Developer', path: '/about', icon: Info },
         ];
       case 'state':
         return [
@@ -43,6 +46,7 @@ export default function Layout({ user, onLogout }) {
           { name: 'Geographic Risk', path: '#', icon: Map },
           { name: 'Fund Utilization', path: '/utilization', icon: BarChart3 },
           { name: 'Alerts & Escalations', path: '/alerts', icon: ShieldAlert },
+          { name: 'About Developer', path: '/about', icon: Info },
         ];
       case 'ministry':
         return [
@@ -54,6 +58,7 @@ export default function Layout({ user, onLogout }) {
           { name: 'Financial Analytics', path: '#', icon: BarChart3 },
           { name: 'Trend Analysis', path: '#', icon: Activity },
           { name: 'Alerts & Escalations', path: '/alerts', icon: ShieldAlert },
+          { name: 'About Developer', path: '/about', icon: Info },
         ];
       default:
         return [];
@@ -121,6 +126,44 @@ export default function Layout({ user, onLogout }) {
           ))}
         </nav>
         
+        {/* Creator Info Card in Panel */}
+        <div className="mx-3 my-2 p-3 rounded-xl bg-slate-900/95 border border-slate-700/60 shadow-md">
+          <div className="flex items-center gap-2.5 mb-1.5">
+            <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-amber-500 to-amber-300 text-slate-950 font-extrabold text-xs flex items-center justify-center shrink-0 shadow">
+              AS
+            </div>
+            <div className="overflow-hidden min-w-0">
+              <Link to="/about" className="text-xs font-bold text-white hover:text-amber-400 transition-colors truncate block">
+                Aditya Singh Saini
+              </Link>
+              <p className="text-[10px] text-amber-400 font-medium truncate">Student of UPES</p>
+            </div>
+          </div>
+          <p className="text-[10px] text-slate-400 leading-tight line-clamp-2 mb-2">
+            Computer Science | Full-Stack | AI & Cloud
+          </p>
+          <div className="flex items-center gap-1.5 pt-2 border-t border-slate-800">
+            <a 
+              href="https://github.com/Adi32397" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex-1 flex items-center justify-center gap-1 py-1 px-1.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-[10px] font-medium transition-colors"
+              title="GitHub Profile"
+            >
+              <Github size={11} /> GitHub
+            </a>
+            <a 
+              href="https://www.linkedin.com/in/aditya-singh-saini-a3654731b/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex-1 flex items-center justify-center gap-1 py-1 px-1.5 rounded bg-[#0A66C2]/20 hover:bg-[#0A66C2]/30 text-[#38bdf8] hover:text-white text-[10px] font-medium transition-colors border border-[#0A66C2]/40"
+              title="LinkedIn Profile"
+            >
+              <Linkedin size={11} /> LinkedIn
+            </a>
+          </div>
+        </div>
+
         <div className="p-4 border-t border-primary-light">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-accent-light font-bold">
@@ -167,7 +210,15 @@ export default function Layout({ user, onLogout }) {
               {getHeaderContext(user?.role)}
             </div>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
+            <Link 
+              to="/about" 
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 border border-slate-200 transition-colors shadow-sm"
+              title="About Developer & Project"
+            >
+              <Info size={14} className="text-accent" />
+              <span>About Developer</span>
+            </Link>
             <button className="relative p-2 text-slate-400 hover:text-slate-600">
               <ShieldAlert size={20} />
               <span className="absolute top-1 right-1 w-2 h-2 bg-critical rounded-full"></span>
