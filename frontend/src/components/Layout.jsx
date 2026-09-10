@@ -129,8 +129,12 @@ export default function Layout({ user, onLogout }) {
         {/* Creator Info Card in Panel */}
         <div className="mx-3 my-2 p-3 rounded-xl bg-slate-900/95 border border-slate-700/60 shadow-md">
           <div className="flex items-center gap-2.5 mb-1.5">
-            <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-amber-500 to-amber-300 text-slate-950 font-extrabold text-xs flex items-center justify-center shrink-0 shadow">
-              AS
+            <div className="w-7 h-7 rounded-lg overflow-hidden border border-amber-400/60 shrink-0 shadow">
+              <img 
+                src="/developer.jpg" 
+                alt="Aditya Singh Saini" 
+                className="w-full h-full object-cover object-top" 
+              />
             </div>
             <div className="overflow-hidden min-w-0">
               <Link to="/about" className="text-xs font-bold text-white hover:text-amber-400 transition-colors truncate block">

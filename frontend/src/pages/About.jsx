@@ -96,16 +96,15 @@ export default function About() {
         <div className="absolute bottom-0 left-1/3 -mb-20 w-80 h-80 rounded-full bg-amber-500/10 blur-3xl pointer-events-none"></div>
 
         <div className="relative z-10 flex flex-col lg:flex-row items-center lg:items-start gap-8">
-          {/* Avatar / Monogram with glow ring */}
+          {/* Avatar / Portrait with glow ring */}
           <div className="relative shrink-0">
-            <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl bg-gradient-to-tr from-amber-500 via-yellow-400 to-amber-200 p-[3px] shadow-lg shadow-amber-500/20">
-              <div className="w-full h-full rounded-2xl bg-slate-950 flex flex-col items-center justify-center text-center p-2">
-                <span className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-br from-amber-200 via-amber-400 to-yellow-500 bg-clip-text text-transparent">
-                  AS
-                </span>
-                <span className="text-[10px] tracking-widest uppercase font-mono text-slate-400 mt-1">
-                  Developer
-                </span>
+            <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-2xl bg-gradient-to-tr from-amber-500 via-yellow-400 to-amber-200 p-[3px] shadow-xl shadow-amber-500/25 group">
+              <div className="w-full h-full rounded-2xl overflow-hidden bg-slate-950 relative">
+                <img 
+                  src="/developer.jpg" 
+                  alt="Aditya Singh Saini" 
+                  className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105" 
+                />
               </div>
             </div>
             <div className="absolute -bottom-2 -right-2 bg-emerald-500 text-white p-1.5 rounded-full border-2 border-slate-950 shadow">
