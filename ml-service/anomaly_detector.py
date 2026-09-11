@@ -1,6 +1,12 @@
 import pandas as pd
 import numpy as np
-from sklearn.ensemble import IsolationForest
+
+try:
+    from sklearn.ensemble import IsolationForest
+except (ImportError, Exception) as e:
+    # Windows 11 Smart App Control (SAC) blocks unsigned C-extensions such as scipy._sparsetools.
+    # Fallback seamlessly to native pure-NumPy IsolationForest
+    from isolation_forest import IsolationForest
 
 class AnomalyDetector:
     def __init__(self):
@@ -76,8 +82,8 @@ class AnomalyDetector:
         anomaly_scores = self.model.score_samples(X) # Lower score = more anomalous
 
         results = []
-        for i, row in projects_df.iterrows():
-            is_anomaly = predictions[i] == -1
+        for idx, (_, row) in enumerate(projects_df.iterrows()):
+            is_anomaly = predictions[idx] == -1
             rule_based_result = self.generate_risk_assessment(row.to_dict())
             
             # Combine statistical anomaly with rule-based
