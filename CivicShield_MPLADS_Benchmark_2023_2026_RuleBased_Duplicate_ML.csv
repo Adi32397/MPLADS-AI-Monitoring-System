@@ -1,0 +1,385 @@
+Project_ID,Project_Name,State,District,Category,Sanctioned_Amount,Actual_Expenditure,Physical_Progress,Financial_Progress,Start_Date,Expected_Completion,Status,Implementing_Agency,Project_Year
+MPLADS-2023-1330,Installation of Drinking Water Facility - Demo Site 172,Gujarat,Ahmedabad,Healthcare,3000000,2882300,88,92,11-01-2023,28-10-2023,In Progress,Panchayati Raj Department,2023
+MPLADS-2023-1135,Upgradation of Government School - Demo Site 62,Gujarat,Surat,Road Infrastructure,500000,401000,64,58,09-11-2023,26-05-2024,Delayed,PWD,2023
+MPLADS-2023-1172,Improvement of Primary Health Centre - Demo Site 857,Gujarat,Surat,Public Facilities,2000000,1820500,76,78,18-03-2023,16-01-2024,In Progress,PWD,2023
+MPLADS-2023-1251,Upgradation of Local Market Facility - Demo Site 288,Gujarat,Surat,Water & Sanitation,3000000,2359300,55,58,01-06-2023,25-06-2024,Delayed,Municipal Corporation,2023
+MPLADS-2023-1310,Upgradation of Local Market Facility - Demo Site 542,Gujarat,Surat,Road Infrastructure,1500000,1216000,64,64,10-07-2023,01-06-2024,Delayed,PWD,2023
+MPLADS-2023-1204,Construction of Community Hall - Demo Site 956,Gujarat,Vadodara,Water & Sanitation,2500000,2272700,71,75,25-09-2023,01-08-2024,Delayed,Rural Works Department,2023
+MPLADS-2023-1252,Upgradation of Government School - Demo Site 644,Gujarat,Vadodara,Water & Sanitation,1800000,1686600,52,55,01-10-2023,07-07-2024,Delayed,District Administration,2023
+MPLADS-2023-1355,Improvement of Primary Health Centre - Demo Site 478,Gujarat,Vadodara,Healthcare,3000000,2590400,36,31,11-04-2023,12-01-2024,Delayed,Municipal Corporation,2023
+MPLADS-2023-1019,Installation of Solar Street Lights - Demo Site 425,Karnataka,Hubballi,Public Facilities,2500000,2460300,51,51,10-03-2023,25-04-2024,Delayed,PWD,2023
+MPLADS-2023-1067,Upgradation of Local Market Facility - Demo Site 756,Karnataka,Hubballi,Public Facilities,750000,657000,93,88,16-04-2023,26-04-2024,In Progress,Municipal Corporation,2023
+MPLADS-2023-1069,Construction of Public Toilet Complex - Demo Site 635,Karnataka,Hubballi,Community Development,4000000,3894200,38,31,01-08-2023,23-07-2024,Delayed,Municipal Corporation,2023
+MPLADS-2023-1070,Installation of Drinking Water Facility - Demo Site 853,Karnataka,Hubballi,Water & Sanitation,1500000,1153600,91,87,02-06-2023,06-03-2024,In Progress,Health Department,2023
+MPLADS-2023-1152,Installation of Drinking Water Facility - Demo Site 7,Karnataka,Hubballi,Water & Sanitation,1000000,802400,69,62,19-09-2023,17-03-2024,Delayed,Municipal Corporation,2023
+MPLADS-2023-1332,Installation of Drinking Water Facility - Demo Site 501,Karnataka,Hubballi,Community Development,500000,466200,35,44,04-05-2023,18-01-2024,Delayed,District Administration,2023
+MPLADS-2023-1008,Construction of Small Bridge - Demo Site 49,Karnataka,Mangaluru,Public Facilities,4000000,3556900,84,88,07-09-2023,15-04-2024,In Progress,Rural Works Department,2023
+MPLADS-2023-1108,Construction of Drainage System - Demo Site 678,Karnataka,Mangaluru,Community Development,1500000,1161000,50,46,13-09-2023,06-09-2024,Delayed,Health Department,2023
+MPLADS-2023-1132,Construction of Community Hall - Demo Site 525,Karnataka,Mangaluru,Water & Sanitation,500000,383300,92,100,03-10-2023,03-04-2024,In Progress,Health Department,2023
+MPLADS-2023-1208,Construction of Rural Road - Demo Site 954,Karnataka,Mangaluru,Community Development,2000000,1571400,83,89,23-07-2023,06-05-2024,In Progress,Health Department,2023
+MPLADS-2023-1216,Upgradation of Local Market Facility - Demo Site 208,Karnataka,Mangaluru,Healthcare,2000000,1698400,35,31,11-08-2023,29-03-2024,Delayed,Municipal Corporation,2023
+MPLADS-2023-1322,Upgradation of Government School - Demo Site 395,Karnataka,Mangaluru,Community Development,500000,452000,57,67,23-03-2023,18-11-2023,Delayed,Municipal Corporation,2023
+MPLADS-DUP-024,Development of Public Park - Alternate Demo Site 7353,Karnataka,Mangaluru,Healthcare,2040000,1553616,26,26,11-08-2023,29-03-2024,Delayed,PWD,2023
+MPLADS-2023-1030,Installation of Drinking Water Facility - Demo Site 572,Karnataka,Mysuru,Healthcare,2000000,1718400,44,49,05-06-2023,29-07-2024,Delayed,PWD,2023
+MPLADS-2023-1059,Installation of Drinking Water Facility - Demo Site 302,Karnataka,Mysuru,Public Facilities,2000000,1825200,47,52,22-06-2023,06-06-2024,Delayed,Rural Works Department,2023
+MPLADS-2023-1179,Renovation of Community Centre - Demo Site 941,Karnataka,Mysuru,Public Facilities,3000000,2310300,98,99,16-08-2023,03-04-2024,Completed,PWD,2023
+MPLADS-2023-1202,Upgradation of Government School - Demo Site 759,Karnataka,Mysuru,Healthcare,750000,720900,54,48,19-03-2023,02-11-2023,Delayed,Rural Works Department,2023
+MPLADS-2023-1265,Construction of Rural Road - Demo Site 747,Karnataka,Mysuru,Community Development,500000,426600,94,87,12-10-2023,23-11-2024,In Progress,Health Department,2023
+MPLADS-2023-1187,Installation of Drinking Water Facility - Demo Site 6,Madhya Pradesh,Bhopal,Water & Sanitation,3000000,4566125,41,116,24-08-2023,20-09-2024,Delayed,Municipal Corporation,2023
+MPLADS-2023-1258,Construction of Community Hall - Demo Site 944,Madhya Pradesh,Bhopal,Community Development,1250000,1031000,55,51,21-04-2023,18-01-2024,Delayed,Health Department,2023
+MPLADS-2023-1080,Construction of Community Hall - Demo Site 857,Madhya Pradesh,Gwalior,Education,1000000,938700,61,65,12-06-2023,03-03-2024,Delayed,Rural Works Department,2023
+MPLADS-2023-1093,Upgradation of Government School - Demo Site 769,Madhya Pradesh,Gwalior,Healthcare,500000,486500,40,39,17-02-2023,02-12-2023,Delayed,Panchayati Raj Department,2023
+MPLADS-2023-1141,Construction of Rural Road - Demo Site 966,Madhya Pradesh,Gwalior,Education,2500000,4170909,27,115,03-02-2023,24-01-2024,Delayed,Rural Works Department,2023
+MPLADS-2023-1006,Development of Public Park - Demo Site 796,Madhya Pradesh,Jabalpur,Public Facilities,4000000,3667600,83,83,11-04-2023,11-02-2024,In Progress,Panchayati Raj Department,2023
+MPLADS-2023-1033,Construction of Community Hall - Demo Site 927,Madhya Pradesh,Jabalpur,Community Development,3000000,2733900,54,58,18-02-2023,04-02-2024,Delayed,Municipal Corporation,2023
+MPLADS-2023-1223,Improvement of Primary Health Centre - Demo Site 467,Madhya Pradesh,Jabalpur,Education,2000000,1830400,55,58,05-08-2023,06-08-2024,Delayed,PWD,2023
+MPLADS-2023-1302,Construction of Community Hall - Demo Site 712,Madhya Pradesh,Jabalpur,Electricity,4000000,3572700,99,99,19-04-2023,04-11-2023,Completed,District Administration,2023
+MPLADS-2023-1048,Construction of Public Toilet Complex - Demo Site 404,Maharashtra,Aurangabad,Electricity,2000000,1870300,75,68,16-03-2023,21-09-2023,In Progress,Panchayati Raj Department,2023
+MPLADS-2023-1206,Renovation of Community Centre - Demo Site 616,Maharashtra,Aurangabad,Education,750000,679500,40,43,16-03-2023,12-01-2024,Delayed,Rural Works Department,2023
+MPLADS-2023-1207,Construction of Small Bridge - Demo Site 164,Maharashtra,Aurangabad,Road Infrastructure,4000000,3142300,70,75,18-04-2023,10-06-2024,Delayed,PWD,2023
+MPLADS-2023-1221,Construction of Community Hall - Demo Site 33,Maharashtra,Aurangabad,Water & Sanitation,1500000,2151420,47,133,15-01-2023,26-02-2024,Delayed,Rural Works Department,2023
+MPLADS-2023-1336,Installation of Drinking Water Facility - Demo Site 918,Maharashtra,Aurangabad,Water & Sanitation,2000000,1591500,98,100,24-10-2023,01-10-2024,Completed,Health Department,2023
+MPLADS-2023-1214,Construction of Drainage System - Demo Site 168,Maharashtra,Nagpur,Road Infrastructure,1000000,840100,93,100,23-10-2023,11-07-2024,In Progress,Health Department,2023
+MPLADS-2023-1242,Development of Public Park - Demo Site 10,Maharashtra,Nagpur,Education,4000000,3299900,42,48,07-05-2023,20-05-2024,Delayed,Rural Works Department,2023
+MPLADS-2023-1098,Construction of Rural Road - Demo Site 232,Maharashtra,Nashik,Healthcare,3000000,2636400,46,43,09-04-2023,10-11-2023,Delayed,Health Department,2023
+MPLADS-2023-1144,Improvement of Primary Health Centre - Demo Site 179,Maharashtra,Nashik,Healthcare,500000,412900,96,100,01-11-2023,19-05-2024,Completed,Health Department,2023
+MPLADS-2023-1039,Construction of Community Hall - Demo Site 91,Maharashtra,Pune,Water & Sanitation,2000000,1738300,92,86,04-03-2023,27-03-2024,In Progress,District Administration,2023
+MPLADS-2023-1126,Improvement of Primary Health Centre - Demo Site 173,Maharashtra,Pune,Public Facilities,1250000,1100300,73,81,20-11-2023,22-11-2024,Delayed,Rural Works Department,2023
+MPLADS-DUP-009,Installation of Drinking Water Facility - Alternate Demo Site 3192,Maharashtra,Pune,Water & Sanitation,2040000,1874710,100,74,04-03-2023,27-03-2024,In Progress,Panchayati Raj Department,2023
+MPLADS-2023-1043,Construction of Drainage System - Demo Site 689,Rajasthan,Jaipur,Electricity,1000000,915600,54,51,03-04-2023,23-12-2023,Delayed,Health Department,2023
+MPLADS-2023-1345,Upgradation of Government School - Demo Site 627,Rajasthan,Jaipur,Public Facilities,2000000,1745000,62,70,19-06-2023,16-05-2024,Delayed,Education Department,2023
+MPLADS-2023-1164,Installation of Drinking Water Facility - Demo Site 605,Rajasthan,Jodhpur,Public Facilities,3000000,2611200,77,85,18-02-2023,05-10-2023,In Progress,District Administration,2023
+MPLADS-2023-1195,Development of Public Park - Demo Site 190,Rajasthan,Jodhpur,Education,1000000,983900,66,68,21-09-2023,03-11-2024,Delayed,Health Department,2023
+MPLADS-2023-1090,Construction of Community Hall - Demo Site 637,Rajasthan,Kota,Road Infrastructure,2000000,1719600,74,80,08-03-2023,15-03-2024,Delayed,Municipal Corporation,2023
+MPLADS-2023-1114,Installation of Drinking Water Facility - Demo Site 94,Rajasthan,Kota,Water & Sanitation,4000000,3636000,51,54,19-06-2023,27-07-2024,Delayed,Health Department,2023
+MPLADS-2023-1118,Installation of Drinking Water Facility - Demo Site 5,Rajasthan,Kota,Healthcare,1000000,942721,12,93,17-10-2023,22-04-2024,Delayed,Panchayati Raj Department,2023
+MPLADS-2023-1305,Construction of Public Toilet Complex - Demo Site 903,Rajasthan,Kota,Public Facilities,1250000,967700,56,50,20-02-2023,06-12-2023,Delayed,Rural Works Department,2023
+MPLADS-2023-1340,Development of Public Park - Demo Site 495,Rajasthan,Kota,Electricity,2500000,2116100,65,75,13-03-2023,28-04-2024,Delayed,Rural Works Department,2023
+MPLADS-2023-1158,Construction of Small Bridge - Demo Site 175,Rajasthan,Udaipur,Electricity,3000000,2571300,60,64,20-06-2023,27-01-2024,Delayed,Panchayati Raj Department,2023
+MPLADS-2023-1121,Upgradation of Government School - Demo Site 29,Tamil Nadu,Chennai,Community Development,6000000,7000000,98,95,15-03-2023,08-03-2024,Delayed,District Administration,2023
+MPLADS-2023-1140,Renovation of Community Centre - Demo Site 266,Tamil Nadu,Chennai,Public Facilities,2500000,2192900,52,46,18-04-2023,22-10-2023,Delayed,District Administration,2023
+MPLADS-2023-1324,Construction of Small Bridge - Demo Site 176,Tamil Nadu,Chennai,Healthcare,500000,729286,51,134,22-06-2023,13-04-2024,In Progress,PWD,2023
+MPLADS-2023-1074,Construction of Drainage System - Demo Site 283,Tamil Nadu,Coimbatore,Water & Sanitation,2500000,2277500,61,60,15-05-2023,08-05-2024,Delayed,Municipal Corporation,2023
+MPLADS-2023-1122,Renovation of Community Centre - Demo Site 282,Tamil Nadu,Coimbatore,Education,4000000,3748800,72,70,07-11-2023,26-12-2024,Delayed,Municipal Corporation,2023
+MPLADS-2023-1189,Construction of Drainage System - Demo Site 432,Tamil Nadu,Coimbatore,Healthcare,4000000,3856100,79,84,20-08-2023,21-04-2024,In Progress,Municipal Corporation,2023
+MPLADS-2023-1201,Renovation of Community Centre - Demo Site 11,Tamil Nadu,Coimbatore,Public Facilities,7500000,100000,98,5,08-10-2023,06-06-2024,In Progress,PWD,2023
+MPLADS-DUP-010,Improvement of Primary Health Centre - Alternate Demo Site 5158,Tamil Nadu,Coimbatore,Healthcare,4025000,3857671,73,83,20-08-2023,21-04-2024,In Progress,Rural Works Department,2023
+MPLADS-2023-1025,Upgradation of Local Market Facility - Demo Site 227,Tamil Nadu,Madurai,Road Infrastructure,5000000,7000000,2,95,22-02-2023,21-02-2024,Delayed,District Administration,2023
+MPLADS-2023-1250,Construction of Community Hall - Demo Site 234,Tamil Nadu,Madurai,Community Development,750000,700400,96,97,02-04-2023,07-01-2024,Completed,Education Department,2023
+MPLADS-2023-1277,Construction of Drainage System - Demo Site 990,Tamil Nadu,Madurai,Community Development,1500000,1425100,75,84,13-04-2023,28-03-2024,In Progress,Education Department,2023
+MPLADS-2023-1045,Construction of Drainage System - Demo Site 954,Tamil Nadu,Salem,Education,3000000,2628400,97,89,22-03-2023,04-05-2024,Completed,PWD,2023
+MPLADS-2023-1138,Development of Public Park - Demo Site 396,Tamil Nadu,Salem,Water & Sanitation,1500000,1223000,99,97,21-11-2023,25-05-2024,Completed,Rural Works Department,2023
+MPLADS-2023-1311,Upgradation of Local Market Facility - Demo Site 93,Tamil Nadu,Salem,Electricity,1250000,973500,97,91,14-06-2023,04-04-2024,Completed,Panchayati Raj Department,2023
+MPLADS-2023-1188,Improvement of Primary Health Centre - Demo Site 493,Uttar Pradesh,Kanpur Nagar,Healthcare,1000000,887200,74,68,02-07-2023,19-03-2024,Delayed,Education Department,2023
+MPLADS-2023-1011,Renovation of Community Centre - Demo Site 465,Uttar Pradesh,Lucknow,Road Infrastructure,4000000,3106000,61,67,25-03-2023,25-02-2024,Delayed,Municipal Corporation,2023
+MPLADS-2023-1145,Improvement of Primary Health Centre - Demo Site 393,Uttar Pradesh,Lucknow,Electricity,1250000,978200,43,42,09-10-2023,15-09-2024,Delayed,Health Department,2023
+MPLADS-2023-1162,Development of Public Park - Demo Site 785,Uttar Pradesh,Lucknow,Healthcare,750000,596500,70,67,05-05-2023,16-06-2024,Delayed,Municipal Corporation,2023
+MPLADS-2023-1052,Renovation of Community Centre - Demo Site 578,Uttar Pradesh,Prayagraj,Electricity,2500000,1949700,35,41,04-07-2023,08-08-2024,Delayed,Health Department,2023
+MPLADS-2023-1167,Construction of Small Bridge - Demo Site 842,Uttar Pradesh,Prayagraj,Education,1000000,939900,90,90,21-09-2023,12-06-2024,In Progress,Education Department,2023
+MPLADS-2023-1175,Construction of Community Hall - Demo Site 761,Uttar Pradesh,Prayagraj,Healthcare,2500000,2463300,63,67,19-10-2023,06-10-2024,Delayed,PWD,2023
+MPLADS-2023-1339,Improvement of Primary Health Centre - Demo Site 456,Uttar Pradesh,Prayagraj,Public Facilities,2000000,1631700,35,43,08-07-2023,25-03-2024,Delayed,Panchayati Raj Department,2023
+MPLADS-2023-1344,Construction of Drainage System - Demo Site 122,Uttar Pradesh,Prayagraj,Electricity,1000000,764800,96,100,25-02-2023,14-10-2023,Completed,Rural Works Department,2023
+MPLADS-2023-1031,Installation of Drinking Water Facility - Demo Site 763,Uttar Pradesh,Varanasi,Public Facilities,2000000,1537200,84,80,09-03-2023,05-11-2023,In Progress,Education Department,2023
+MPLADS-2023-1078,Development of Public Park - Demo Site 540,Uttar Pradesh,Varanasi,Community Development,2000000,1705600,79,78,17-03-2023,21-11-2023,In Progress,District Administration,2023
+MPLADS-2023-1190,Construction of Drainage System - Demo Site 440,Uttar Pradesh,Varanasi,Education,4000000,3189500,61,57,08-04-2023,11-03-2024,Delayed,PWD,2023
+MPLADS-2023-1219,Construction of Small Bridge - Demo Site 319,Uttar Pradesh,Varanasi,Education,750000,680300,39,42,08-02-2023,21-09-2023,Delayed,Municipal Corporation,2023
+MPLADS-2023-1134,Upgradation of Government School - Demo Site 87,Uttarakhand,Almora,Electricity,1000000,965600,43,48,16-10-2023,02-08-2024,Delayed,Education Department,2023
+MPLADS-2023-1170,Improvement of Primary Health Centre - Demo Site 428,Uttarakhand,Almora,Road Infrastructure,2000000,1622400,98,92,07-11-2023,19-10-2024,Completed,Health Department,2023
+MPLADS-2023-1282,Upgradation of Government School - Demo Site 657,Uttarakhand,Almora,Road Infrastructure,500000,428700,74,67,05-02-2023,06-10-2023,Delayed,Panchayati Raj Department,2023
+MPLADS-2023-1342,Renovation of Community Centre - Demo Site 768,Uttarakhand,Dehradun,Healthcare,2000000,1768100,83,77,22-02-2023,07-09-2023,In Progress,Education Department,2023
+MPLADS-2023-1053,Renovation of Community Centre - Demo Site 131,Uttarakhand,Haridwar,Road Infrastructure,3000000,2477600,37,46,03-11-2023,23-08-2024,Delayed,Municipal Corporation,2023
+MPLADS-2023-1228,Upgradation of Local Market Facility - Demo Site 859,Uttarakhand,Haridwar,Electricity,5000000,7000000,8,160,11-07-2023,24-05-2024,Delayed,Education Department,2023
+MPLADS-2023-1084,Construction of Rural Road - Demo Site 92,Uttarakhand,Nainital,Healthcare,1500000,1281400,94,95,03-01-2023,18-02-2024,In Progress,Panchayati Raj Department,2023
+MPLADS-2023-1253,Improvement of Primary Health Centre - Demo Site 406,Uttarakhand,Nainital,Water & Sanitation,1500000,1165500,39,43,09-06-2023,28-05-2024,Delayed,Health Department,2023
+MPLADS-2023-1269,Improvement of Primary Health Centre - Demo Site 296,Uttarakhand,Nainital,Healthcare,500000,482100,91,95,16-02-2023,23-09-2023,In Progress,Panchayati Raj Department,2023
+MPLADS-2023-1270,Development of Public Park - Demo Site 940,Uttarakhand,Nainital,Electricity,3000000,2733400,38,45,12-03-2023,03-01-2024,Delayed,Rural Works Department,2023
+MPLADS-2023-1316,Construction of Community Hall - Demo Site 540,Uttarakhand,Nainital,Electricity,2500000,2252000,39,46,15-05-2023,22-04-2024,Delayed,District Administration,2023
+MPLADS-2023-1351,Construction of Small Bridge - Demo Site 613,Uttarakhand,Nainital,Electricity,500000,401200,36,38,24-06-2023,20-02-2024,Delayed,Education Department,2023
+MPLADS-2024-1147,Construction of Rural Road - Demo Site 78,Gujarat,Ahmedabad,Education,1500000,1373900,60,69,03-03-2024,14-11-2024,Delayed,Panchayati Raj Department,2024
+MPLADS-2024-1163,Installation of Drinking Water Facility - Demo Site 363,Gujarat,Ahmedabad,Education,750000,739400,70,76,22-07-2024,19-02-2025,Delayed,Health Department,2024
+MPLADS-2024-1071,Construction of Rural Road - Demo Site 105,Gujarat,Rajkot,Education,2000000,1697900,56,57,07-08-2024,03-04-2025,Delayed,Municipal Corporation,2024
+MPLADS-2024-1203,Installation of Solar Street Lights - Demo Site 486,Gujarat,Rajkot,Education,4000000,3064100,96,90,15-10-2024,29-04-2025,Completed,Municipal Corporation,2024
+MPLADS-2024-1209,Construction of Community Hall - Demo Site 424,Gujarat,Rajkot,Education,1250000,1707911,36,154,16-04-2024,16-02-2025,Delayed,PWD,2024
+MPLADS-2024-1232,Renovation of Community Centre - Demo Site 105,Gujarat,Rajkot,Education,6000000,8500000,2,160,11-11-2024,19-07-2025,Delayed,District Administration,2024
+MPLADS-2024-1234,Improvement of Primary Health Centre - Demo Site 156,Gujarat,Rajkot,Healthcare,4000000,3561400,88,86,12-03-2024,04-05-2025,In Progress,Panchayati Raj Department,2024
+MPLADS-2024-1021,Improvement of Primary Health Centre - Demo Site 353,Gujarat,Surat,Water & Sanitation,1800000,1562700,47,40,14-02-2024,15-03-2025,Delayed,District Administration,2024
+MPLADS-2024-1139,Upgradation of Government School - Demo Site 626,Gujarat,Surat,Water & Sanitation,1500000,1431100,87,97,19-06-2024,29-12-2024,In Progress,Panchayati Raj Department,2024
+MPLADS-2024-1092,Construction of Rural Road - Demo Site 772,Gujarat,Vadodara,Road Infrastructure,4000000,3640900,47,41,10-02-2024,28-02-2025,Delayed,Rural Works Department,2024
+MPLADS-2024-1218,Renovation of Community Centre - Demo Site 469,Gujarat,Vadodara,Public Facilities,1250000,1154900,95,100,18-01-2024,15-12-2024,Completed,Rural Works Department,2024
+MPLADS-2024-1050,Renovation of Community Centre - Demo Site 299,Karnataka,Bengaluru Urban,Public Facilities,1250000,1234200,62,62,23-09-2024,31-05-2025,Delayed,Rural Works Department,2024
+MPLADS-2024-1255,Improvement of Primary Health Centre - Demo Site 26,Karnataka,Bengaluru Urban,Electricity,500000,380100,96,94,09-04-2024,13-03-2025,Completed,Education Department,2024
+MPLADS-2024-1356,Improvement of Primary Health Centre - Demo Site 205,Karnataka,Bengaluru Urban,Public Facilities,2000000,1553300,38,45,11-08-2024,07-03-2025,Delayed,Health Department,2024
+MPLADS-2024-1358,Construction of Rural Road - Demo Site 485,Karnataka,Bengaluru Urban,Water & Sanitation,1000000,958000,73,69,24-10-2024,26-10-2025,Delayed,PWD,2024
+MPLADS-2024-1060,Construction of Rural Road - Demo Site 438,Karnataka,Hubballi,Public Facilities,1000000,965800,78,86,13-02-2024,10-11-2024,In Progress,PWD,2024
+MPLADS-2024-1085,Construction of Community Hall - Demo Site 433,Karnataka,Hubballi,Education,4000000,3689600,48,51,03-09-2024,09-05-2025,Delayed,Panchayati Raj Department,2024
+MPLADS-2024-1354,Upgradation of Government School - Demo Site 791,Karnataka,Hubballi,Education,2000000,1747700,59,55,04-01-2024,10-12-2024,Delayed,Municipal Corporation,2024
+MPLADS-2024-1133,Improvement of Primary Health Centre - Demo Site 260,Karnataka,Mangaluru,Water & Sanitation,2500000,2264800,61,62,22-03-2024,27-04-2025,Delayed,District Administration,2024
+MPLADS-2024-1148,Improvement of Primary Health Centre - Demo Site 856,Karnataka,Mangaluru,Electricity,3000000,2824200,86,93,22-01-2024,13-12-2024,In Progress,PWD,2024
+MPLADS-2024-1062,Upgradation of Local Market Facility - Demo Site 644,Karnataka,Mysuru,Public Facilities,750000,617200,42,38,08-05-2024,04-01-2025,Delayed,Education Department,2024
+MPLADS-2024-1191,Upgradation of Local Market Facility - Demo Site 984,Karnataka,Mysuru,Community Development,4000000,3488100,45,41,15-02-2024,21-08-2024,Delayed,Health Department,2024
+MPLADS-2024-1213,Upgradation of Local Market Facility - Demo Site 188,Karnataka,Mysuru,Healthcare,1250000,990100,70,74,06-06-2024,01-02-2025,Delayed,Education Department,2024
+MPLADS-2024-1229,Construction of Small Bridge - Demo Site 486,Karnataka,Mysuru,Electricity,1250000,1007700,50,46,14-04-2024,13-01-2025,Delayed,Education Department,2024
+MPLADS-2024-1256,Installation of Solar Street Lights - Demo Site 533,Karnataka,Mysuru,Road Infrastructure,1500000,1438300,52,49,23-08-2024,28-04-2025,Delayed,District Administration,2024
+MPLADS-2024-1318,Installation of Solar Street Lights - Demo Site 402,Karnataka,Mysuru,Community Development,1250000,942500,93,97,12-04-2024,15-01-2025,In Progress,Education Department,2024
+MPLADS-2024-1009,Construction of Drainage System - Demo Site 914,Madhya Pradesh,Bhopal,Water & Sanitation,1250000,1141800,66,59,10-11-2024,13-11-2025,Delayed,Education Department,2024
+MPLADS-2024-1010,Construction of Small Bridge - Demo Site 672,Madhya Pradesh,Bhopal,Public Facilities,750000,582800,74,83,25-09-2024,14-11-2025,Delayed,Education Department,2024
+MPLADS-2024-1298,Construction of Small Bridge - Demo Site 109,Madhya Pradesh,Bhopal,Healthcare,750000,671100,53,58,17-11-2024,26-05-2025,Delayed,Panchayati Raj Department,2024
+MPLADS-2024-1319,Development of Public Park - Demo Site 817,Madhya Pradesh,Bhopal,Healthcare,2500000,1939600,81,76,20-02-2024,01-02-2025,In Progress,PWD,2024
+MPLADS-2024-1001,Installation of Drinking Water Facility - Demo Site 494,Madhya Pradesh,Gwalior,Public Facilities,750000,568700,65,57,01-08-2024,15-04-2025,Delayed,Rural Works Department,2024
+MPLADS-2024-1054,Upgradation of Government School - Demo Site 399,Madhya Pradesh,Gwalior,Electricity,4000000,3529100,39,77,19-08-2024,18-04-2025,Delayed,Education Department,2024
+MPLADS-2024-1136,Construction of Drainage System - Demo Site 325,Madhya Pradesh,Gwalior,Water & Sanitation,500000,402700,75,77,08-08-2024,15-08-2025,In Progress,Municipal Corporation,2024
+MPLADS-2024-1155,Renovation of Community Centre - Demo Site 282,Madhya Pradesh,Gwalior,Community Development,1250000,1039900,91,84,18-04-2024,12-06-2025,In Progress,District Administration,2024
+MPLADS-2024-1299,Construction of Drainage System - Demo Site 922,Madhya Pradesh,Gwalior,Healthcare,4000000,3861600,49,53,07-04-2024,13-12-2024,Delayed,District Administration,2024
+MPLADS-2024-1024,Construction of Rural Road - Demo Site 94,Madhya Pradesh,Indore,Community Development,500000,463800,36,44,25-06-2024,21-02-2025,Delayed,Health Department,2024
+MPLADS-2024-1198,Construction of Rural Road - Demo Site 385,Madhya Pradesh,Indore,Road Infrastructure,500000,409000,72,71,04-11-2024,02-07-2025,Delayed,Rural Works Department,2024
+MPLADS-2024-1056,Development of Public Park - Demo Site 883,Madhya Pradesh,Jabalpur,Road Infrastructure,4000000,3040400,51,43,24-01-2024,21-09-2024,Delayed,PWD,2024
+MPLADS-2024-1082,Construction of Drainage System - Demo Site 516,Madhya Pradesh,Jabalpur,Electricity,1800000,1760200,99,99,11-07-2024,21-01-2025,Completed,Health Department,2024
+MPLADS-2024-1120,Improvement of Primary Health Centre - Demo Site 286,Madhya Pradesh,Jabalpur,Community Development,2000000,1638600,67,73,06-05-2024,04-01-2025,Delayed,Panchayati Raj Department,2024
+MPLADS-2024-1173,Construction of Public Toilet Complex - Demo Site 395,Madhya Pradesh,Jabalpur,Water & Sanitation,1000000,952400,37,46,02-05-2024,13-02-2025,Delayed,PWD,2024
+MPLADS-2024-1301,Upgradation of Local Market Facility - Demo Site 64,Madhya Pradesh,Jabalpur,Education,2500000,1956600,96,90,02-08-2024,04-05-2025,Completed,Education Department,2024
+MPLADS-DUP-008,Renovation of Community Centre - Alternate Demo Site 6889,Madhya Pradesh,Jabalpur,Road Infrastructure,4020000,3866431,52,42,24-01-2024,21-09-2024,Delayed,Municipal Corporation,2024
+MPLADS-2024-1081,Upgradation of Government School - Demo Site 328,Maharashtra,Nagpur,Community Development,1000000,931000,59,51,07-06-2024,31-01-2025,Delayed,Health Department,2024
+MPLADS-2024-1193,Upgradation of Local Market Facility - Demo Site 580,Maharashtra,Nagpur,Healthcare,2000000,1853500,40,48,01-02-2024,25-11-2024,Delayed,Education Department,2024
+MPLADS-2024-1205,Installation of Solar Street Lights - Demo Site 312,Maharashtra,Nagpur,Road Infrastructure,1250000,1153200,48,47,11-02-2024,10-12-2024,Delayed,Panchayati Raj Department,2024
+MPLADS-2024-1034,Construction of Rural Road - Demo Site 606,Maharashtra,Nashik,Road Infrastructure,1500000,1217700,37,62,25-09-2024,17-09-2025,Delayed,Education Department,2024
+MPLADS-2024-1037,Construction of Rural Road - Demo Site 917,Maharashtra,Nashik,Road Infrastructure,1000000,752700,67,63,06-09-2024,04-10-2025,Delayed,Rural Works Department,2024
+MPLADS-2024-1099,Upgradation of Local Market Facility - Demo Site 674,Maharashtra,Nashik,Community Development,1250000,1031700,98,96,24-10-2024,27-06-2025,Completed,District Administration,2024
+MPLADS-2024-1176,Construction of Rural Road - Demo Site 995,Maharashtra,Nashik,Education,4000000,3492900,64,66,23-03-2024,12-11-2024,Delayed,Health Department,2024
+MPLADS-2024-1259,Installation of Drinking Water Facility - Demo Site 48,Maharashtra,Nashik,Education,1800000,1382900,100,97,09-05-2024,12-05-2025,Completed,Health Department,2024
+MPLADS-2024-1106,Development of Public Park - Demo Site 663,Maharashtra,Pune,Healthcare,1800000,1608200,56,64,03-04-2024,12-10-2024,Delayed,Panchayati Raj Department,2024
+MPLADS-2024-1217,Construction of Rural Road - Demo Site 621,Maharashtra,Pune,Community Development,500000,445100,61,56,01-11-2024,30-08-2025,Delayed,Health Department,2024
+MPLADS-2024-1240,Upgradation of Government School - Demo Site 737,Maharashtra,Pune,Electricity,500000,420300,88,82,22-05-2024,03-03-2025,In Progress,District Administration,2024
+MPLADS-2024-1119,Installation of Drinking Water Facility - Demo Site 947,Rajasthan,Jaipur,Road Infrastructure,2000000,1698700,94,90,10-01-2024,09-07-2024,In Progress,Panchayati Raj Department,2024
+MPLADS-2024-1129,Construction of Drainage System - Demo Site 492,Rajasthan,Jaipur,Water & Sanitation,1500000,1308400,47,41,14-07-2024,30-06-2025,Delayed,Rural Works Department,2024
+MPLADS-2024-1231,Construction of Drainage System - Demo Site 312,Rajasthan,Jaipur,Electricity,750000,695710,15,88,22-03-2024,09-10-2024,In Progress,District Administration,2024
+MPLADS-2024-1125,Construction of Community Hall - Demo Site 883,Rajasthan,Jodhpur,Community Development,1800000,1560400,62,59,02-07-2024,12-04-2025,Delayed,Health Department,2024
+MPLADS-2024-1244,Upgradation of Local Market Facility - Demo Site 668,Rajasthan,Jodhpur,Healthcare,1000000,880500,67,71,16-08-2024,21-08-2025,Delayed,Panchayati Raj Department,2024
+MPLADS-2024-1296,Construction of Public Toilet Complex - Demo Site 93,Rajasthan,Jodhpur,Education,750000,681200,99,98,23-11-2024,14-09-2025,Completed,Health Department,2024
+MPLADS-2024-1341,Installation of Drinking Water Facility - Demo Site 582,Rajasthan,Jodhpur,Healthcare,750000,734500,49,59,22-04-2024,08-12-2024,Delayed,Municipal Corporation,2024
+MPLADS-DUP-007,Renovation of Community Centre - Alternate Demo Site 6946,Rajasthan,Jodhpur,Community Development,1820000,1510277,76,69,02-07-2024,12-04-2025,Delayed,Education Department,2024
+MPLADS-2024-1233,Construction of Public Toilet Complex - Demo Site 575,Rajasthan,Kota,Water & Sanitation,1000000,818100,35,31,23-01-2024,23-10-2024,Delayed,Rural Works Department,2024
+MPLADS-2024-1260,Construction of Drainage System - Demo Site 180,Rajasthan,Kota,Road Infrastructure,500000,410400,66,73,15-01-2024,02-02-2025,Delayed,Panchayati Raj Department,2024
+MPLADS-DUP-012,Construction of Community Hall - Alternate Demo Site 2256,Rajasthan,Kota,Road Infrastructure,510000,463492,57,74,15-01-2024,02-02-2025,Delayed,PWD,2024
+MPLADS-2024-1321,Construction of Small Bridge - Demo Site 846,Rajasthan,Udaipur,Road Infrastructure,500000,407400,99,96,17-04-2024,23-04-2025,Completed,District Administration,2024
+MPLADS-2024-1100,Construction of Community Hall - Demo Site 389,Tamil Nadu,Chennai,Road Infrastructure,2500000,2215096,22,90,20-07-2024,18-06-2025,In Progress,Health Department,2024
+MPLADS-2024-1285,Construction of Public Toilet Complex - Demo Site 724,Tamil Nadu,Chennai,Water & Sanitation,7500000,7000000,98,160,18-05-2024,16-04-2025,In Progress,Panchayati Raj Department,2024
+MPLADS-2024-1103,Installation of Solar Street Lights - Demo Site 811,Tamil Nadu,Coimbatore,Electricity,4000000,3421200,64,66,25-02-2024,11-03-2025,Delayed,Health Department,2024
+MPLADS-2024-1160,Installation of Drinking Water Facility - Demo Site 269,Tamil Nadu,Coimbatore,Healthcare,1250000,1089033,9,80,24-09-2024,20-04-2025,Delayed,Municipal Corporation,2024
+MPLADS-2024-1220,Construction of Drainage System - Demo Site 189,Tamil Nadu,Coimbatore,Education,1250000,1878963,29,135,12-11-2024,18-08-2025,Delayed,Health Department,2024
+MPLADS-2024-1096,Construction of Rural Road - Demo Site 939,Tamil Nadu,Madurai,Public Facilities,500000,417900,66,72,05-01-2024,11-08-2024,Delayed,Panchayati Raj Department,2024
+MPLADS-2024-1275,Construction of Public Toilet Complex - Demo Site 75,Tamil Nadu,Madurai,Public Facilities,2500000,1947300,69,66,10-09-2024,12-04-2025,Delayed,District Administration,2024
+MPLADS-2024-1038,Construction of Small Bridge - Demo Site 749,Tamil Nadu,Salem,Education,1000000,753600,81,79,20-01-2024,20-12-2024,In Progress,Education Department,2024
+MPLADS-2024-1150,Upgradation of Local Market Facility - Demo Site 393,Tamil Nadu,Salem,Healthcare,2000000,1660800,76,74,13-01-2024,03-09-2024,In Progress,Health Department,2024
+MPLADS-2024-1263,Upgradation of Government School - Demo Site 440,Tamil Nadu,Salem,Community Development,2500000,2100500,38,45,19-09-2024,01-07-2025,Delayed,Panchayati Raj Department,2024
+MPLADS-2024-1292,Construction of Public Toilet Complex - Demo Site 357,Tamil Nadu,Salem,Water & Sanitation,1000000,816600,50,54,04-09-2024,22-03-2025,Delayed,Rural Works Department,2024
+MPLADS-2024-1013,Renovation of Community Centre - Demo Site 163,Uttar Pradesh,Kanpur Nagar,Community Development,2500000,2242100,78,72,19-03-2024,12-11-2024,In Progress,District Administration,2024
+MPLADS-2024-1026,Construction of Small Bridge - Demo Site 164,Uttar Pradesh,Kanpur Nagar,Water & Sanitation,2500000,2414100,82,89,25-05-2024,24-11-2024,In Progress,Rural Works Department,2024
+MPLADS-2024-1107,Development of Public Park - Demo Site 63,Uttar Pradesh,Kanpur Nagar,Healthcare,1500000,1130300,83,93,11-10-2024,18-10-2025,In Progress,Municipal Corporation,2024
+MPLADS-2024-1112,Construction of Small Bridge - Demo Site 482,Uttar Pradesh,Kanpur Nagar,Education,750000,660100,45,53,05-07-2024,14-04-2025,Delayed,Panchayati Raj Department,2024
+MPLADS-2024-1157,Renovation of Community Centre - Demo Site 916,Uttar Pradesh,Lucknow,Healthcare,1250000,1019000,39,48,25-07-2024,18-04-2025,Delayed,Panchayati Raj Department,2024
+MPLADS-2024-1297,Improvement of Primary Health Centre - Demo Site 925,Uttar Pradesh,Lucknow,Education,500000,437400,63,68,17-08-2024,06-04-2025,Delayed,Municipal Corporation,2024
+MPLADS-2024-1159,Upgradation of Government School - Demo Site 350,Uttar Pradesh,Prayagraj,Community Development,2000000,1567200,69,63,02-04-2024,26-01-2025,Delayed,Health Department,2024
+MPLADS-2024-1169,Construction of Rural Road - Demo Site 44,Uttar Pradesh,Prayagraj,Water & Sanitation,500000,380400,86,94,01-03-2024,29-09-2024,In Progress,Rural Works Department,2024
+MPLADS-2024-1238,Development of Public Park - Demo Site 557,Uttar Pradesh,Varanasi,Healthcare,500000,399700,55,58,13-01-2024,08-03-2025,Delayed,Panchayati Raj Department,2024
+MPLADS-2024-1246,Construction of Small Bridge - Demo Site 824,Uttar Pradesh,Varanasi,Electricity,2500000,2250700,35,31,21-06-2024,29-05-2025,Delayed,Municipal Corporation,2024
+MPLADS-2024-1320,Upgradation of Government School - Demo Site 585,Uttar Pradesh,Varanasi,Community Development,1250000,1187100,64,61,16-08-2024,02-03-2025,Delayed,Education Department,2024
+MPLADS-2024-D013,Construction of Community Hall - Alternate Demo Site 9200,Uttar Pradesh,Varanasi,Education,4010000,3189500,61,57,15-10-2024,10-11-2025,Delayed,Education Department,2024
+MPLADS-2024-1117,Installation of Drinking Water Facility - Demo Site 922,Uttarakhand,Almora,Electricity,750000,685500,67,63,12-01-2024,22-07-2024,Delayed,Municipal Corporation,2024
+MPLADS-2024-1165,Upgradation of Local Market Facility - Demo Site 992,Uttarakhand,Almora,Electricity,1800000,1618000,96,91,18-09-2024,18-05-2025,Completed,Education Department,2024
+MPLADS-2024-1247,Renovation of Community Centre - Demo Site 64,Uttarakhand,Almora,Public Facilities,750000,683600,71,63,25-07-2024,07-09-2025,Delayed,Rural Works Department,2024
+MPLADS-2024-1003,Upgradation of Government School - Demo Site 488,Uttarakhand,Dehradun,Water & Sanitation,1500000,1213800,78,86,16-01-2024,07-01-2025,In Progress,Rural Works Department,2024
+MPLADS-2024-1287,Construction of Rural Road - Demo Site 688,Uttarakhand,Dehradun,Road Infrastructure,2500000,1916800,67,68,16-09-2024,08-09-2025,Delayed,Rural Works Department,2024
+MPLADS-2024-1288,Construction of Small Bridge - Demo Site 953,Uttarakhand,Dehradun,Road Infrastructure,750000,669000,98,92,10-08-2024,23-02-2025,Completed,Education Department,2024
+MPLADS-2024-1294,Improvement of Primary Health Centre - Demo Site 333,Uttarakhand,Dehradun,Public Facilities,1800000,1624500,57,50,19-02-2024,30-03-2025,Delayed,Panchayati Raj Department,2024
+MPLADS-2024-1104,Construction of Public Toilet Complex - Demo Site 208,Uttarakhand,Haridwar,Water & Sanitation,2500000,2371900,37,37,17-03-2024,12-03-2025,Delayed,District Administration,2024
+MPLADS-2024-1183,Construction of Drainage System - Demo Site 845,Uttarakhand,Haridwar,Electricity,1250000,954200,70,72,22-07-2024,23-01-2025,Delayed,Municipal Corporation,2024
+MPLADS-2024-1222,Development of Public Park - Demo Site 957,Uttarakhand,Haridwar,Road Infrastructure,2000000,1611600,37,38,18-06-2024,05-03-2025,Delayed,PWD,2024
+MPLADS-2024-1274,Upgradation of Local Market Facility - Demo Site 574,Uttarakhand,Haridwar,Road Infrastructure,1800000,1414600,87,84,06-11-2024,23-10-2025,In Progress,Health Department,2024
+MPLADS-2024-1314,Construction of Rural Road - Demo Site 305,Uttarakhand,Haridwar,Water & Sanitation,750000,590700,70,77,25-02-2024,24-01-2025,Delayed,Panchayati Raj Department,2024
+MPLADS-2024-1279,Improvement of Primary Health Centre - Demo Site 773,Uttarakhand,Nainital,Electricity,1500000,1277300,87,94,07-08-2024,15-06-2025,In Progress,Panchayati Raj Department,2024
+MPLADS-2024-1353,Development of Public Park - Demo Site 749,Uttarakhand,Nainital,Water & Sanitation,2500000,2379901,28,100,08-11-2024,22-09-2025,In Progress,Municipal Corporation,2024
+MPLADS-2024-D014,Construction of Public Toilet Complex - Alternate Demo Site 5010,Uttarakhand,Nainital,Electricity,3045000,2733400,38,45,02-05-2024,18-06-2025,Delayed,District Administration,2024
+MPLADS-2025-1224,Renovation of Community Centre - Demo Site 812,Gujarat,Rajkot,Road Infrastructure,4000000,3069300,76,72,13-11-2025,01-12-2026,In Progress,Panchayati Raj Department,2025
+MPLADS-2025-1325,Construction of Drainage System - Demo Site 265,Gujarat,Rajkot,Road Infrastructure,1500000,1251600,87,90,19-11-2025,02-01-2027,In Progress,PWD,2025
+MPLADS-2025-1076,Construction of Community Hall - Demo Site 626,Gujarat,Surat,Education,1000000,983800,77,86,06-05-2025,08-04-2026,In Progress,PWD,2025
+MPLADS-2025-1273,Construction of Community Hall - Demo Site 235,Gujarat,Surat,Community Development,1500000,1302100,82,79,14-08-2025,20-05-2026,In Progress,Municipal Corporation,2025
+MPLADS-2025-1212,Development of Public Park - Demo Site 449,Gujarat,Vadodara,Community Development,1250000,1209900,93,94,17-07-2025,10-04-2026,In Progress,PWD,2025
+MPLADS-2025-1028,Installation of Solar Street Lights - Demo Site 464,Karnataka,Bengaluru Urban,Electricity,1500000,1479700,72,79,07-11-2025,20-10-2026,In Progress,Rural Works Department,2025
+MPLADS-2025-1154,Construction of Drainage System - Demo Site 848,Karnataka,Bengaluru Urban,Road Infrastructure,500000,437400,36,32,24-09-2025,15-11-2026,In Progress,District Administration,2025
+MPLADS-2025-1182,Renovation of Community Centre - Demo Site 256,Karnataka,Bengaluru Urban,Road Infrastructure,3000000,4418700,46,153,15-06-2025,07-05-2026,Delayed,Municipal Corporation,2025
+MPLADS-2025-1278,Construction of Public Toilet Complex - Demo Site 208,Karnataka,Bengaluru Urban,Electricity,2000000,2085447,13,97,08-09-2025,23-03-2026,Delayed,PWD,2025
+MPLADS-2025-1293,Renovation of Community Centre - Demo Site 129,Karnataka,Bengaluru Urban,Education,1250000,964200,59,51,24-05-2025,30-06-2026,Delayed,Municipal Corporation,2025
+MPLADS-2025-1079,Upgradation of Local Market Facility - Demo Site 288,Karnataka,Hubballi,Education,1000000,1474202,45,128,17-08-2025,17-07-2026,Delayed,Municipal Corporation,2025
+MPLADS-2025-1089,Construction of Rural Road - Demo Site 39,Karnataka,Hubballi,Healthcare,3000000,2560900,64,59,05-11-2025,28-11-2026,In Progress,Health Department,2025
+MPLADS-2025-1102,Upgradation of Local Market Facility - Demo Site 222,Karnataka,Mangaluru,Healthcare,1250000,1777121,26,127,02-04-2025,22-12-2025,Delayed,Municipal Corporation,2025
+MPLADS-2025-1123,Upgradation of Government School - Demo Site 942,Karnataka,Mangaluru,Community Development,4000000,3598000,25,85,10-04-2025,21-04-2026,Delayed,District Administration,2025
+MPLADS-2025-1166,Construction of Small Bridge - Demo Site 314,Karnataka,Mangaluru,Public Facilities,1500000,1422200,17,54,21-10-2025,04-05-2026,Delayed,Rural Works Department,2025
+MPLADS-2025-1020,Upgradation of Government School - Demo Site 185,Karnataka,Mysuru,Public Facilities,500000,466000,62,66,10-08-2025,27-06-2026,Delayed,Health Department,2025
+MPLADS-2025-1095,Development of Public Park - Demo Site 697,Karnataka,Mysuru,Public Facilities,1500000,1281000,48,53,05-05-2025,26-05-2026,Delayed,Health Department,2025
+MPLADS-2025-1115,Installation of Drinking Water Facility - Demo Site 599,Karnataka,Mysuru,Healthcare,500000,457700,47,40,15-10-2025,14-04-2026,Delayed,Health Department,2025
+MPLADS-2025-1151,Renovation of Community Centre - Demo Site 319,Madhya Pradesh,Bhopal,Public Facilities,2500000,2367100,93,89,05-04-2025,29-11-2025,In Progress,Municipal Corporation,2025
+MPLADS-2025-1313,Upgradation of Government School - Demo Site 499,Madhya Pradesh,Bhopal,Public Facilities,500000,398312,9,88,20-04-2025,13-02-2026,Delayed,Municipal Corporation,2025
+MPLADS-2025-1058,Upgradation of Local Market Facility - Demo Site 921,Madhya Pradesh,Gwalior,Education,4000000,3695900,56,58,05-10-2025,09-11-2026,In Progress,PWD,2025
+MPLADS-2025-1124,Installation of Solar Street Lights - Demo Site 858,Madhya Pradesh,Gwalior,Public Facilities,500000,472700,69,68,08-03-2025,17-01-2026,Delayed,PWD,2025
+MPLADS-2025-1243,Construction of Rural Road - Demo Site 792,Madhya Pradesh,Gwalior,Road Infrastructure,1500000,1240700,61,56,14-04-2025,27-10-2025,Delayed,Rural Works Department,2025
+MPLADS-2025-1248,Construction of Small Bridge - Demo Site 32,Madhya Pradesh,Gwalior,Healthcare,1500000,1338900,92,92,23-08-2025,13-03-2026,In Progress,PWD,2025
+MPLADS-2025-1276,Installation of Solar Street Lights - Demo Site 736,Madhya Pradesh,Gwalior,Electricity,5000000,8500000,8,100,19-01-2025,28-02-2026,Delayed,Rural Works Department,2025
+MPLADS-2025-1143,Installation of Drinking Water Facility - Demo Site 666,Madhya Pradesh,Indore,Community Development,1500000,1321800,63,61,08-09-2025,15-05-2026,Delayed,Health Department,2025
+MPLADS-2025-1280,Development of Public Park - Demo Site 585,Madhya Pradesh,Indore,Public Facilities,1000000,1031883,13,84,20-11-2025,29-08-2026,In Progress,Municipal Corporation,2025
+MPLADS-2025-1346,Renovation of Community Centre - Demo Site 189,Madhya Pradesh,Indore,Education,1000000,784300,49,50,08-01-2025,18-11-2025,Delayed,Health Department,2025
+MPLADS-2025-D016,Construction of Public Toilet Complex - Alternate Demo Site 9387,Madhya Pradesh,Indore,Education,3010000,2641400,75,78,21-04-2025,09-05-2026,In Progress,Rural Works Department,2025
+MPLADS-2025-1057,Development of Public Park - Demo Site 726,Madhya Pradesh,Jabalpur,Road Infrastructure,1800000,1755700,52,62,12-07-2025,07-08-2026,Delayed,Panchayati Raj Department,2025
+MPLADS-2025-1308,Construction of Public Toilet Complex - Demo Site 356,Madhya Pradesh,Jabalpur,Public Facilities,1500000,1345100,80,84,19-09-2025,24-06-2026,In Progress,Rural Works Department,2025
+MPLADS-2025-1360,Construction of Public Toilet Complex - Demo Site 332,Madhya Pradesh,Jabalpur,Community Development,1500000,1414000,100,100,01-02-2025,28-03-2026,Completed,Panchayati Raj Department,2025
+MPLADS-2025-1051,Construction of Public Toilet Complex - Demo Site 564,Maharashtra,Nagpur,Community Development,4000000,3656400,60,65,01-04-2025,22-01-2026,Delayed,Municipal Corporation,2025
+MPLADS-2025-1101,Construction of Community Hall - Demo Site 744,Maharashtra,Nagpur,Healthcare,1500000,1135700,87,80,19-11-2025,17-08-2026,In Progress,PWD,2025
+MPLADS-2025-1225,Construction of Rural Road - Demo Site 633,Maharashtra,Nagpur,Education,1250000,1027300,70,62,16-04-2025,09-06-2026,Delayed,District Administration,2025
+MPLADS-DUP-003,Construction of Drainage System - Alternate Demo Site 2882,Maharashtra,Nagpur,Community Development,4010000,3529596,47,63,01-04-2025,22-01-2026,Delayed,Panchayati Raj Department,2025
+MPLADS-2025-1110,Construction of Drainage System - Demo Site 197,Maharashtra,Nashik,Community Development,2000000,1828700,75,82,20-07-2025,25-02-2026,In Progress,Rural Works Department,2025
+MPLADS-2025-1185,Construction of Drainage System - Demo Site 142,Maharashtra,Nashik,Healthcare,4000000,3280000,39,35,14-02-2025,27-08-2025,Delayed,PWD,2025
+MPLADS-DUP-005,Construction of Public Toilet Complex - Alternate Demo Site 3422,Maharashtra,Nashik,Community Development,2045000,1665033,60,71,20-07-2025,25-02-2026,In Progress,Rural Works Department,2025
+MPLADS-2025-1177,Development of Public Park - Demo Site 103,Maharashtra,Pune,Road Infrastructure,1500000,1199800,35,44,22-11-2025,16-11-2026,In Progress,Health Department,2025
+MPLADS-2025-1197,Construction of Drainage System - Demo Site 991,Maharashtra,Pune,Education,2000000,1511500,100,96,11-08-2025,27-03-2026,Completed,Health Department,2025
+MPLADS-2025-1237,Installation of Solar Street Lights - Demo Site 323,Maharashtra,Pune,Road Infrastructure,2500000,2275800,55,60,06-10-2025,19-08-2026,Delayed,Rural Works Department,2025
+MPLADS-2025-D019,Construction of Rural Road - Alternate Demo Site 5285,Maharashtra,Pune,Electricity,795000,665700,88,82,18-08-2025,10-05-2026,In Progress,Health Department,2025
+MPLADS-2025-D020,Upgradation of Local Market Facility - Alternate Demo Site 2867,Maharashtra,Pune,Community Development,530000,445100,61,56,01-08-2025,10-08-2026,Delayed,Health Department,2025
+MPLADS-2025-1281,Improvement of Primary Health Centre - Demo Site 439,Rajasthan,Jaipur,Community Development,1250000,981200,76,68,18-05-2025,01-05-2026,In Progress,District Administration,2025
+MPLADS-2025-1286,Construction of Rural Road - Demo Site 138,Rajasthan,Jaipur,Healthcare,3000000,2960800,55,60,03-04-2025,10-11-2025,Delayed,Rural Works Department,2025
+MPLADS-2025-1066,Upgradation of Local Market Facility - Demo Site 587,Rajasthan,Jodhpur,Healthcare,2000000,1814400,70,66,10-11-2025,31-10-2026,In Progress,Panchayati Raj Department,2025
+MPLADS-2025-1335,Construction of Community Hall - Demo Site 576,Rajasthan,Jodhpur,Water & Sanitation,750000,694400,85,84,12-11-2025,04-08-2026,In Progress,Health Department,2025
+MPLADS-2025-D017,Construction of Rural Road - Alternate Demo Site 8860,Rajasthan,Jodhpur,Education,770000,681200,99,98,19-10-2025,13-11-2026,Completed,Education Department,2025
+MPLADS-2025-1014,Renovation of Community Centre - Demo Site 402,Rajasthan,Kota,Education,2000000,1637400,50,51,18-11-2025,27-05-2026,Delayed,District Administration,2025
+MPLADS-2025-1192,Installation of Drinking Water Facility - Demo Site 243,Rajasthan,Kota,Community Development,1250000,1043800,59,52,17-06-2025,30-12-2025,Delayed,Health Department,2025
+MPLADS-2025-1087,Construction of Rural Road - Demo Site 460,Rajasthan,Udaipur,Road Infrastructure,1500000,1174100,36,46,14-06-2025,01-02-2026,Delayed,Municipal Corporation,2025
+MPLADS-2025-1137,Construction of Community Hall - Demo Site 99,Rajasthan,Udaipur,Education,3000000,2779500,99,100,10-10-2025,20-08-2026,Completed,Health Department,2025
+MPLADS-2025-1266,Construction of Rural Road - Demo Site 196,Rajasthan,Udaipur,Community Development,2500000,2463000,51,53,09-10-2025,25-04-2026,Delayed,Panchayati Raj Department,2025
+MPLADS-2025-1326,Installation of Solar Street Lights - Demo Site 929,Rajasthan,Udaipur,Public Facilities,500000,412600,44,40,12-11-2025,26-08-2026,Delayed,Rural Works Department,2025
+MPLADS-DUP-011,Renovation of Community Centre - Alternate Demo Site 6101,Rajasthan,Udaipur,Community Development,2530000,2504672,61,42,09-10-2025,25-04-2026,Delayed,Rural Works Department,2025
+MPLADS-2025-1032,Renovation of Community Centre - Demo Site 501,Tamil Nadu,Chennai,Healthcare,750000,709100,97,96,09-07-2025,23-05-2026,Completed,Panchayati Raj Department,2025
+MPLADS-2025-1131,Improvement of Primary Health Centre - Demo Site 771,Tamil Nadu,Chennai,Healthcare,2000000,1972300,45,51,08-01-2025,14-09-2025,Delayed,District Administration,2025
+MPLADS-2025-1149,Improvement of Primary Health Centre - Demo Site 706,Tamil Nadu,Chennai,Electricity,4000000,5750191,31,140,11-01-2025,19-11-2025,In Progress,District Administration,2025
+MPLADS-2025-1046,Upgradation of Local Market Facility - Demo Site 726,Tamil Nadu,Coimbatore,Healthcare,2000000,1719900,86,80,16-05-2025,01-07-2026,In Progress,PWD,2025
+MPLADS-2025-1055,Upgradation of Local Market Facility - Demo Site 637,Tamil Nadu,Coimbatore,Electricity,1800000,1740700,79,73,03-10-2025,26-04-2026,In Progress,Municipal Corporation,2025
+MPLADS-2025-1111,Upgradation of Government School - Demo Site 852,Tamil Nadu,Madurai,Electricity,750000,1256097,30,122,25-07-2025,31-08-2026,Delayed,Municipal Corporation,2025
+MPLADS-2025-1128,Renovation of Community Centre - Demo Site 228,Tamil Nadu,Madurai,Education,3000000,2312400,83,80,24-07-2025,11-07-2026,In Progress,Municipal Corporation,2025
+MPLADS-2025-1156,Installation of Solar Street Lights - Demo Site 917,Tamil Nadu,Madurai,Community Development,3000000,2661900,67,66,18-05-2025,22-06-2026,Delayed,PWD,2025
+MPLADS-2025-1300,Upgradation of Government School - Demo Site 532,Tamil Nadu,Madurai,Public Facilities,3000000,2488600,60,66,05-09-2025,13-08-2026,Delayed,Rural Works Department,2025
+MPLADS-2025-1284,Construction of Public Toilet Complex - Demo Site 778,Tamil Nadu,Salem,Water & Sanitation,500000,434700,89,83,01-08-2025,11-06-2026,In Progress,District Administration,2025
+MPLADS-2025-1022,Construction of Public Toilet Complex - Demo Site 340,Uttar Pradesh,Kanpur Nagar,Electricity,500000,478300,71,81,12-05-2025,04-01-2026,Delayed,Education Department,2025
+MPLADS-2025-1064,Installation of Drinking Water Facility - Demo Site 532,Uttar Pradesh,Kanpur Nagar,Education,2000000,1604400,35,37,04-01-2025,11-11-2025,Delayed,Education Department,2025
+MPLADS-2025-1075,Construction of Drainage System - Demo Site 188,Uttar Pradesh,Kanpur Nagar,Electricity,1250000,1135300,55,61,19-09-2025,28-06-2026,Delayed,PWD,2025
+MPLADS-2025-1088,Installation of Solar Street Lights - Demo Site 120,Uttar Pradesh,Lucknow,Public Facilities,1250000,1948474,42,116,17-03-2025,14-09-2025,Delayed,Rural Works Department,2025
+MPLADS-2025-1257,Installation of Solar Street Lights - Demo Site 361,Uttar Pradesh,Lucknow,Water & Sanitation,3000000,2629400,41,33,25-04-2025,12-03-2026,Delayed,Panchayati Raj Department,2025
+MPLADS-2025-1264,Installation of Solar Street Lights - Demo Site 300,Uttar Pradesh,Lucknow,Education,1250000,1101400,62,59,21-10-2025,14-10-2026,In Progress,Education Department,2025
+MPLADS-2025-1306,Development of Public Park - Demo Site 71,Uttar Pradesh,Lucknow,Public Facilities,1500000,1157500,95,92,12-11-2025,10-07-2026,Completed,Municipal Corporation,2025
+MPLADS-2025-1317,Installation of Solar Street Lights - Demo Site 255,Uttar Pradesh,Lucknow,Community Development,1500000,1250800,39,39,23-05-2025,08-12-2025,Delayed,Health Department,2025
+MPLADS-2025-1352,Construction of Rural Road - Demo Site 147,Uttar Pradesh,Lucknow,Electricity,2000000,1961400,64,63,22-11-2025,04-06-2026,Delayed,Municipal Corporation,2025
+MPLADS-2025-1040,Upgradation of Local Market Facility - Demo Site 316,Uttar Pradesh,Prayagraj,Electricity,3000000,2600500,52,45,08-08-2025,20-02-2026,Delayed,Health Department,2025
+MPLADS-2025-1047,Upgradation of Local Market Facility - Demo Site 488,Uttar Pradesh,Prayagraj,Public Facilities,1500000,1397200,51,54,13-05-2025,16-03-2026,Delayed,Education Department,2025
+MPLADS-2025-1097,Construction of Rural Road - Demo Site 807,Uttar Pradesh,Prayagraj,Public Facilities,1000000,794100,37,47,17-06-2025,08-03-2026,Delayed,PWD,2025
+MPLADS-2025-1295,Installation of Solar Street Lights - Demo Site 248,Uttar Pradesh,Prayagraj,Community Development,750000,708100,64,60,13-07-2025,16-07-2026,Delayed,Panchayati Raj Department,2025
+MPLADS-2025-1241,Renovation of Community Centre - Demo Site 118,Uttar Pradesh,Varanasi,Electricity,1250000,1221800,77,80,06-06-2025,19-12-2025,In Progress,Rural Works Department,2025
+MPLADS-2025-1065,Upgradation of Government School - Demo Site 570,Uttarakhand,Almora,Public Facilities,1800000,1698100,90,83,15-07-2025,06-07-2026,In Progress,Education Department,2025
+MPLADS-2025-1315,Improvement of Primary Health Centre - Demo Site 716,Uttarakhand,Almora,Healthcare,1500000,1275200,60,61,22-05-2025,04-07-2026,Delayed,District Administration,2025
+MPLADS-2025-1337,Renovation of Community Centre - Demo Site 854,Uttarakhand,Almora,Healthcare,500000,475400,81,91,23-10-2025,14-05-2026,In Progress,PWD,2025
+MPLADS-2025-1338,Improvement of Primary Health Centre - Demo Site 371,Uttarakhand,Almora,Community Development,500000,445400,95,96,18-02-2025,28-08-2025,Completed,Municipal Corporation,2025
+MPLADS-2025-1042,Installation of Solar Street Lights - Demo Site 306,Uttarakhand,Dehradun,Water & Sanitation,2500000,2395000,46,48,12-04-2025,30-05-2026,Delayed,Education Department,2025
+MPLADS-2025-1044,Upgradation of Local Market Facility - Demo Site 962,Uttarakhand,Dehradun,Water & Sanitation,750000,607400,66,60,19-05-2025,19-03-2026,Delayed,Health Department,2025
+MPLADS-2025-1063,Construction of Rural Road - Demo Site 682,Uttarakhand,Dehradun,Education,4000000,3008300,37,39,19-07-2025,30-07-2026,Delayed,Panchayati Raj Department,2025
+MPLADS-2025-1153,Construction of Rural Road - Demo Site 602,Uttarakhand,Dehradun,Road Infrastructure,1800000,1521800,63,62,16-08-2025,01-06-2026,Delayed,Education Department,2025
+MPLADS-2025-1327,Improvement of Primary Health Centre - Demo Site 920,Uttarakhand,Dehradun,Electricity,1250000,960700,59,55,13-04-2025,03-01-2026,Delayed,Municipal Corporation,2025
+MPLADS-2025-1007,Upgradation of Government School - Demo Site 678,Uttarakhand,Haridwar,Healthcare,2500000,2130900,62,68,09-08-2025,25-09-2026,In Progress,Education Department,2025
+MPLADS-2025-1027,Upgradation of Local Market Facility - Demo Site 160,Uttarakhand,Haridwar,Water & Sanitation,2000000,1927100,54,51,13-03-2025,27-12-2025,Delayed,Panchayati Raj Department,2025
+MPLADS-2025-1094,Improvement of Primary Health Centre - Demo Site 109,Uttarakhand,Haridwar,Education,2000000,1536100,54,62,07-09-2025,08-07-2026,Delayed,Health Department,2025
+MPLADS-2025-1180,Construction of Community Hall - Demo Site 598,Uttarakhand,Haridwar,Community Development,1250000,1160900,43,38,02-08-2025,16-06-2026,Delayed,Panchayati Raj Department,2025
+MPLADS-2025-1303,Upgradation of Government School - Demo Site 806,Uttarakhand,Haridwar,Public Facilities,4000000,3421400,82,82,20-06-2025,30-04-2026,In Progress,Rural Works Department,2025
+MPLADS-2025-1357,Upgradation of Local Market Facility - Demo Site 94,Uttarakhand,Haridwar,Road Infrastructure,750000,616100,56,56,11-02-2025,17-12-2025,Delayed,District Administration,2025
+MPLADS-2025-1018,Development of Public Park - Demo Site 809,Uttarakhand,Nainital,Water & Sanitation,2000000,1508000,35,71,24-06-2025,15-03-2026,Delayed,Education Department,2025
+MPLADS-2025-1061,Upgradation of Local Market Facility - Demo Site 373,Uttarakhand,Nainital,Education,3000000,2618000,89,88,24-06-2025,25-01-2026,In Progress,Panchayati Raj Department,2025
+MPLADS-2025-1226,Installation of Solar Street Lights - Demo Site 893,Uttarakhand,Nainital,Water & Sanitation,4000000,3119000,59,60,05-04-2025,01-11-2025,Delayed,Health Department,2025
+MPLADS-DUP-022,Installation of Solar Street Lights - Alternate Demo Site 2323,Uttarakhand,Nainital,Education,3045000,2346135,90,77,24-06-2025,25-01-2026,In Progress,Municipal Corporation,2025
+MPLADS-2026-1171,Development of Public Park - Demo Site 321,Gujarat,Ahmedabad,Public Facilities,1000000,945600,45,52,23-07-2026,02-03-2027,In Progress,Municipal Corporation,2026
+MPLADS-2026-1215,Construction of Community Hall - Demo Site 385,Gujarat,Ahmedabad,Education,1800000,1387900,49,57,09-05-2026,05-01-2027,In Progress,PWD,2026
+MPLADS-2026-1254,Installation of Solar Street Lights - Demo Site 977,Gujarat,Ahmedabad,Road Infrastructure,3000000,2560200,51,51,04-10-2026,19-10-2027,In Progress,District Administration,2026
+MPLADS-2026-1291,Construction of Community Hall - Demo Site 431,Gujarat,Ahmedabad,Healthcare,4000000,3511674,14,82,14-07-2026,10-06-2027,Completed,Panchayati Raj Department,2026
+MPLADS-2026-1113,Upgradation of Government School - Demo Site 321,Gujarat,Rajkot,Community Development,750000,660400,52,51,08-10-2026,02-05-2027,In Progress,District Administration,2026
+MPLADS-2026-1307,Renovation of Community Centre - Demo Site 435,Gujarat,Rajkot,Education,1800000,1667800,69,71,01-08-2026,05-08-2027,In Progress,Panchayati Raj Department,2026
+MPLADS-2026-1036,Installation of Solar Street Lights - Demo Site 429,Gujarat,Surat,Community Development,4000000,3514100,41,33,07-07-2026,12-05-2027,In Progress,Rural Works Department,2026
+MPLADS-2026-1109,Construction of Small Bridge - Demo Site 841,Gujarat,Surat,Public Facilities,1800000,1497700,96,100,01-07-2026,19-02-2027,Completed,Rural Works Department,2026
+MPLADS-2026-1161,Improvement of Primary Health Centre - Demo Site 608,Gujarat,Vadodara,Electricity,3000000,2554500,68,74,17-04-2026,04-12-2026,In Progress,Rural Works Department,2026
+MPLADS-2026-1200,Construction of Small Bridge - Demo Site 216,Gujarat,Vadodara,Water & Sanitation,500000,434400,80,72,16-11-2026,30-08-2027,In Progress,Education Department,2026
+MPLADS-2026-1328,Construction of Drainage System - Demo Site 919,Karnataka,Bengaluru Urban,Education,1250000,1211600,97,90,05-05-2026,07-11-2026,Completed,Health Department,2026
+MPLADS-2026-1350,Construction of Drainage System - Demo Site 955,Karnataka,Bengaluru Urban,Healthcare,1000000,973000,82,90,07-02-2026,30-09-2026,In Progress,PWD,2026
+MPLADS-2026-1210,Construction of Public Toilet Complex - Demo Site 779,Karnataka,Mangaluru,Electricity,1500000,1315200,68,66,22-09-2026,11-08-2027,In Progress,PWD,2026
+MPLADS-2026-1323,Improvement of Primary Health Centre - Demo Site 523,Karnataka,Mangaluru,Electricity,500000,384000,93,96,13-10-2026,19-11-2027,In Progress,Panchayati Raj Department,2026
+MPLADS-2026-1196,Installation of Solar Street Lights - Demo Site 942,Karnataka,Mysuru,Community Development,750000,675200,53,50,02-09-2026,17-03-2027,In Progress,Municipal Corporation,2026
+MPLADS-2026-1283,Construction of Rural Road - Demo Site 485,Karnataka,Mysuru,Water & Sanitation,1800000,1653400,93,97,05-02-2026,20-01-2027,In Progress,District Administration,2026
+MPLADS-2026-1267,Development of Public Park - Demo Site 273,Madhya Pradesh,Bhopal,Water & Sanitation,4000000,3825400,95,100,06-01-2026,22-11-2026,Completed,PWD,2026
+MPLADS-2026-1333,Construction of Drainage System - Demo Site 333,Madhya Pradesh,Bhopal,Community Development,1500000,1464100,48,52,01-01-2026,20-07-2026,Delayed,Education Department,2026
+MPLADS-2026-1249,Renovation of Community Centre - Demo Site 559,Madhya Pradesh,Gwalior,Public Facilities,1000000,799500,57,60,12-07-2026,18-01-2027,In Progress,Health Department,2026
+MPLADS-2026-1127,Installation of Solar Street Lights - Demo Site 817,Madhya Pradesh,Indore,Education,3000000,2641400,75,78,17-02-2026,18-08-2026,In Progress,Education Department,2026
+MPLADS-2026-1235,Construction of Public Toilet Complex - Demo Site 33,Madhya Pradesh,Indore,Road Infrastructure,2500000,1983200,79,88,01-07-2026,24-01-2027,In Progress,Education Department,2026
+MPLADS-2026-1331,Installation of Drinking Water Facility - Demo Site 950,Madhya Pradesh,Indore,Public Facilities,4000000,3874900,84,89,07-04-2026,06-01-2027,In Progress,District Administration,2026
+MPLADS-2026-1343,Installation of Drinking Water Facility - Demo Site 143,Madhya Pradesh,Indore,Education,500000,442100,68,75,02-05-2026,19-06-2027,In Progress,Education Department,2026
+MPLADS-DUP-023,Construction of Drainage System - Alternate Demo Site 9982,Madhya Pradesh,Indore,Education,510000,484684,87,81,02-05-2026,19-06-2027,In Progress,Education Department,2026
+MPLADS-2026-1174,Construction of Rural Road - Demo Site 402,Madhya Pradesh,Jabalpur,Road Infrastructure,1250000,1123300,55,62,07-08-2026,14-02-2027,In Progress,Education Department,2026
+MPLADS-2026-1017,Development of Public Park - Demo Site 783,Maharashtra,Aurangabad,Road Infrastructure,1000000,963900,39,42,21-09-2026,19-06-2027,In Progress,Panchayati Raj Department,2026
+MPLADS-2026-1091,Construction of Rural Road - Demo Site 959,Maharashtra,Aurangabad,Road Infrastructure,1500000,1475000,86,86,04-07-2026,31-05-2027,In Progress,PWD,2026
+MPLADS-2026-1334,Upgradation of Local Market Facility - Demo Site 503,Maharashtra,Aurangabad,Community Development,4000000,3560300,40,38,06-01-2026,14-09-2026,In Progress,Rural Works Department,2026
+MPLADS-2026-1272,Construction of Public Toilet Complex - Demo Site 785,Maharashtra,Nagpur,Water & Sanitation,1800000,1437200,74,70,11-08-2026,08-07-2027,In Progress,Education Department,2026
+MPLADS-2026-1245,Upgradation of Government School - Demo Site 20,Maharashtra,Nashik,Healthcare,1250000,1197700,57,63,17-11-2026,18-09-2027,In Progress,Municipal Corporation,2026
+MPLADS-2026-1312,Upgradation of Government School - Demo Site 982,Maharashtra,Nashik,Healthcare,750000,720700,80,84,09-02-2026,18-11-2026,In Progress,District Administration,2026
+MPLADS-2026-1227,Installation of Drinking Water Facility - Demo Site 588,Maharashtra,Pune,Electricity,750000,665700,88,82,17-10-2026,01-08-2027,In Progress,District Administration,2026
+MPLADS-2026-1239,Installation of Solar Street Lights - Demo Site 342,Maharashtra,Pune,Education,1500000,1343500,53,89,12-07-2026,08-04-2027,Delayed,Health Department,2026
+MPLADS-2026-1077,Construction of Public Toilet Complex - Demo Site 38,Rajasthan,Jaipur,Education,2000000,1799400,69,69,01-11-2026,28-10-2027,In Progress,Rural Works Department,2026
+MPLADS-2026-1349,Construction of Small Bridge - Demo Site 235,Rajasthan,Jaipur,Community Development,500000,408000,99,100,24-01-2026,13-08-2026,Completed,PWD,2026
+MPLADS-2026-1184,Upgradation of Local Market Facility - Demo Site 110,Rajasthan,Kota,Electricity,4000000,3291200,78,74,13-06-2026,16-06-2027,In Progress,Health Department,2026
+MPLADS-2026-1236,Construction of Public Toilet Complex - Demo Site 121,Rajasthan,Kota,Water & Sanitation,2000000,1849700,57,58,15-03-2026,05-02-2027,In Progress,Panchayati Raj Department,2026
+MPLADS-2026-1015,Installation of Solar Street Lights - Demo Site 161,Rajasthan,Udaipur,Public Facilities,1250000,967600,47,47,23-03-2026,13-05-2027,In Progress,PWD,2026
+MPLADS-2026-1304,Improvement of Primary Health Centre - Demo Site 440,Rajasthan,Udaipur,Water & Sanitation,2500000,2007300,86,80,24-09-2026,18-05-2027,In Progress,Education Department,2026
+MPLADS-DUP-002,Improvement of Primary Health Centre - Alternate Demo Site 2103,Rajasthan,Udaipur,Public Facilities,1280000,978815,57,43,23-03-2026,13-05-2027,In Progress,Municipal Corporation,2026
+MPLADS-2026-1005,Construction of Small Bridge - Demo Site 127,Tamil Nadu,Chennai,Community Development,2500000,2258100,74,78,24-10-2026,30-07-2027,In Progress,Health Department,2026
+MPLADS-2026-1035,Construction of Rural Road - Demo Site 217,Tamil Nadu,Chennai,Education,500000,419600,75,69,06-03-2026,10-02-2027,In Progress,Education Department,2026
+MPLADS-2026-1086,Construction of Drainage System - Demo Site 760,Tamil Nadu,Chennai,Electricity,6000000,8500000,100,100,05-08-2026,04-04-2027,Completed,Panchayati Raj Department,2026
+MPLADS-2026-1211,Improvement of Primary Health Centre - Demo Site 318,Tamil Nadu,Chennai,Water & Sanitation,750000,637900,68,63,11-09-2026,03-05-2027,In Progress,Education Department,2026
+MPLADS-2026-D018,Renovation of Community Centre - Alternate Demo Site 1288,Tamil Nadu,Chennai,Healthcare,770000,709100,97,96,06-07-2026,06-07-2027,Completed,Rural Works Department,2026
+MPLADS-2026-1041,Construction of Drainage System - Demo Site 628,Tamil Nadu,Coimbatore,Electricity,1250000,1081500,89,98,19-10-2026,01-08-2027,In Progress,District Administration,2026
+MPLADS-2026-1116,Upgradation of Government School - Demo Site 406,Tamil Nadu,Coimbatore,Water & Sanitation,1000000,950100,89,85,09-01-2026,29-01-2027,In Progress,Health Department,2026
+MPLADS-2026-1130,Upgradation of Local Market Facility - Demo Site 836,Tamil Nadu,Coimbatore,Education,2000000,1918700,56,63,04-09-2026,09-08-2027,In Progress,Health Department,2026
+MPLADS-2026-1146,Construction of Rural Road - Demo Site 344,Tamil Nadu,Coimbatore,Road Infrastructure,2000000,1846600,83,89,21-04-2026,28-10-2026,In Progress,Panchayati Raj Department,2026
+MPLADS-DUP-004,Installation of Solar Street Lights - Alternate Demo Site 2108,Tamil Nadu,Coimbatore,Road Infrastructure,2015000,1548902,83,79,21-04-2026,28-10-2026,In Progress,Health Department,2026
+MPLADS-2026-1002,Construction of Rural Road - Demo Site 93,Tamil Nadu,Madurai,Community Development,1000000,772500,95,96,16-04-2026,24-05-2027,Completed,District Administration,2026
+MPLADS-2026-1178,Improvement of Primary Health Centre - Demo Site 879,Tamil Nadu,Madurai,Electricity,1500000,1430000,83,75,05-04-2026,13-05-2027,In Progress,Panchayati Raj Department,2026
+MPLADS-2026-1329,Development of Public Park - Demo Site 228,Tamil Nadu,Madurai,Electricity,1800000,1661000,91,90,01-03-2026,19-09-2026,In Progress,Rural Works Department,2026
+MPLADS-2026-1016,Renovation of Community Centre - Demo Site 731,Tamil Nadu,Salem,Education,2500000,2379700,66,62,07-01-2026,02-08-2026,Delayed,District Administration,2026
+MPLADS-2026-1083,Development of Public Park - Demo Site 659,Tamil Nadu,Salem,Electricity,4000000,3928600,45,53,02-06-2026,17-05-2027,In Progress,Health Department,2026
+MPLADS-2026-1181,Improvement of Primary Health Centre - Demo Site 549,Tamil Nadu,Salem,Water & Sanitation,2500000,2118600,43,52,20-06-2026,28-05-2027,Delayed,Panchayati Raj Department,2026
+MPLADS-2026-1194,Development of Public Park - Demo Site 15,Tamil Nadu,Salem,Public Facilities,1800000,1582100,90,83,09-09-2026,02-09-2027,In Progress,Health Department,2026
+MPLADS-2026-1199,Improvement of Primary Health Centre - Demo Site 773,Tamil Nadu,Salem,Community Development,1000000,792200,90,87,07-03-2026,15-03-2027,In Progress,Municipal Corporation,2026
+MPLADS-2026-1359,Construction of Rural Road - Demo Site 840,Tamil Nadu,Salem,Public Facilities,500000,383400,47,48,01-08-2026,17-08-2027,In Progress,Education Department,2026
+MPLADS-DUP-021,Construction of Rural Road - Alternate Demo Site 7139,Tamil Nadu,Salem,Public Facilities,1825000,1758847,85,79,09-09-2026,02-09-2027,In Progress,Rural Works Department,2026
+MPLADS-2026-1012,Upgradation of Government School - Demo Site 685,Uttar Pradesh,Kanpur Nagar,Healthcare,500000,431400,44,54,19-07-2026,23-08-2027,In Progress,Panchayati Raj Department,2026
+MPLADS-2026-1068,Upgradation of Government School - Demo Site 774,Uttar Pradesh,Kanpur Nagar,Public Facilities,1500000,1128400,60,70,18-09-2026,01-09-2027,In Progress,PWD,2026
+MPLADS-DUP-006,Development of Public Park - Alternate Demo Site 6689,Uttar Pradesh,Kanpur Nagar,Healthcare,510000,389243,56,43,19-07-2026,23-08-2027,In Progress,District Administration,2026
+MPLADS-2026-1023,Development of Public Park - Demo Site 564,Uttar Pradesh,Lucknow,Water & Sanitation,2500000,2286100,77,74,25-02-2026,01-04-2027,In Progress,Health Department,2026
+MPLADS-2026-1049,Installation of Drinking Water Facility - Demo Site 539,Uttar Pradesh,Lucknow,Healthcare,2000000,1767000,84,90,20-01-2026,08-02-2027,In Progress,Panchayati Raj Department,2026
+MPLADS-2026-D015,Upgradation of Government School - Alternate Demo Site 1765,Uttar Pradesh,Lucknow,Public Facilities,1505000,1157500,95,92,22-04-2026,18-03-2027,Completed,Health Department,2026
+MPLADS-2026-1290,Upgradation of Government School - Demo Site 998,Uttar Pradesh,Prayagraj,Public Facilities,750000,687600,85,87,16-02-2026,26-12-2026,In Progress,Municipal Corporation,2026
+MPLADS-2026-1309,Development of Public Park - Demo Site 813,Uttar Pradesh,Prayagraj,Road Infrastructure,3000000,2952300,50,57,21-01-2026,21-02-2027,In Progress,Health Department,2026
+MPLADS-2026-1004,Construction of Drainage System - Demo Site 717,Uttar Pradesh,Varanasi,Water & Sanitation,4000000,3259200,49,45,02-03-2026,19-09-2026,In Progress,Panchayati Raj Department,2026
+MPLADS-2026-1072,Construction of Drainage System - Demo Site 457,Uttar Pradesh,Varanasi,Public Facilities,2500000,2176697,7,93,10-02-2026,15-11-2026,In Progress,District Administration,2026
+MPLADS-2026-1186,Construction of Rural Road - Demo Site 765,Uttar Pradesh,Varanasi,Electricity,4000000,3428100,48,45,12-10-2026,08-09-2027,In Progress,Education Department,2026
+MPLADS-2026-1289,Installation of Drinking Water Facility - Demo Site 46,Uttar Pradesh,Varanasi,Public Facilities,500000,401802,13,89,07-09-2026,12-09-2027,In Progress,Health Department,2026
+MPLADS-DUP-001,Renovation of Community Centre - Alternate Demo Site 7934,Uttar Pradesh,Varanasi,Electricity,4045000,3914779,50,50,12-10-2026,08-09-2027,In Progress,Panchayati Raj Department,2026
+MPLADS-2026-1230,Upgradation of Local Market Facility - Demo Site 260,Uttarakhand,Almora,Community Development,1800000,1435000,82,77,06-09-2026,03-05-2027,In Progress,Rural Works Department,2026
+MPLADS-2026-1261,Installation of Drinking Water Facility - Demo Site 798,Uttarakhand,Almora,Community Development,1000000,865700,39,38,02-10-2026,11-07-2027,In Progress,District Administration,2026
+MPLADS-2026-1268,Construction of Drainage System - Demo Site 76,Uttarakhand,Almora,Education,2500000,2107700,52,50,16-02-2026,22-02-2027,In Progress,Rural Works Department,2026
+MPLADS-2026-1271,Installation of Solar Street Lights - Demo Site 221,Uttarakhand,Almora,Electricity,4000000,3663800,85,90,04-07-2026,08-04-2027,In Progress,Municipal Corporation,2026
+MPLADS-2026-1105,Construction of Small Bridge - Demo Site 981,Uttarakhand,Dehradun,Healthcare,3000000,2302500,37,38,18-04-2026,01-02-2027,In Progress,Panchayati Raj Department,2026
+MPLADS-2026-1142,Installation of Drinking Water Facility - Demo Site 311,Uttarakhand,Dehradun,Healthcare,1000000,955500,67,70,21-11-2026,05-09-2027,In Progress,Panchayati Raj Department,2026
+MPLADS-2026-1347,Improvement of Primary Health Centre - Demo Site 921,Uttarakhand,Dehradun,Public Facilities,1500000,1449100,48,43,19-04-2026,03-06-2027,In Progress,Municipal Corporation,2026
+MPLADS-2026-1348,Installation of Solar Street Lights - Demo Site 788,Uttarakhand,Dehradun,Electricity,1500000,1203500,77,69,05-03-2026,26-04-2027,In Progress,Health Department,2026
+MPLADS-2026-1029,Development of Public Park - Demo Site 30,Uttarakhand,Haridwar,Healthcare,2000000,2049566,20,85,04-10-2026,09-04-2027,In Progress,Rural Works Department,2026
+MPLADS-2026-1073,Improvement of Primary Health Centre - Demo Site 621,Uttarakhand,Haridwar,Electricity,2000000,1720500,44,37,13-03-2026,25-11-2026,In Progress,Panchayati Raj Department,2026
+MPLADS-2026-1262,Construction of Small Bridge - Demo Site 882,Uttarakhand,Haridwar,Education,1000000,801800,98,100,23-04-2026,08-03-2027,Completed,Municipal Corporation,2026
+MPLADS-2026-1168,Improvement of Primary Health Centre - Demo Site 292,Uttarakhand,Nainital,Public Facilities,2500000,2243200,46,46,18-05-2026,21-02-2027,In Progress,Education Department,2026
