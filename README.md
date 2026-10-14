@@ -40,7 +40,6 @@ Ensure you have MySQL running on your local machine.
 ## Demo Credentials
 Use these accounts to test the application:
 - **District Authority**: `district.demo` (Password: `demo123`)
-- **Ministry Official**: `ministry.demo` (Password: `demo123`)
 - **Member of Parliament**: `mp.demo` (Password: `demo123`)
 
 ## Fallback Mode & Prototype Data Filtering
